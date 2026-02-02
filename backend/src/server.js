@@ -85,12 +85,21 @@ if (config.env === 'development') {
 // Static file serving for uploads
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
-// Health check
+// Health check (both at root and API level for Render)
 app.get('/health', (req, res) => {
   res.status(200).json({ 
     status: 'ok', 
     message: 'Server is running',
     timestamp: new Date().toISOString()
+  });
+});
+
+app.get('/api/v1/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'ok', 
+    message: 'API is running',
+    timestamp: new Date().toISOString(),
+    version: 'v1'
   });
 });
 
