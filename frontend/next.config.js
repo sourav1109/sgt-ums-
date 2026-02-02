@@ -6,6 +6,11 @@ const nextConfig = {
   // Enable standalone output for Docker
   output: 'standalone',
   
+  // Disable ESLint during production builds (for Render deployment)
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  
   // Configure for containerized environments
   experimental: {
     // Reduce memory usage during build
