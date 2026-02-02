@@ -3,9 +3,6 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   
-  // Enable standalone output for Docker
-  output: 'standalone',
-  
   // Disable ESLint during production builds (for Render deployment)
   eslint: {
     ignoreDuringBuilds: true,

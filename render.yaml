@@ -66,8 +66,9 @@ services:
     env: node
     region: singapore
     plan: starter
-    buildCommand: cd frontend && npm install && npm run build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/
-    startCommand: cd frontend/.next/standalone && node server.js
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: node server.js
     envVars:
       - key: NEXT_PUBLIC_API_URL
         value: https://sgt-ums.onrender.com/api/v1
@@ -75,10 +76,6 @@ services:
         value: SGT UMS
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 3000
-      - key: HOSTNAME
-        value: 0.0.0.0
 
 databases:
   - name: sgt-ums-db
