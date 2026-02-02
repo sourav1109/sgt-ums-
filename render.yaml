@@ -68,7 +68,7 @@ services:
     plan: starter
     rootDir: frontend
     buildCommand: npm install && npm run build
-    startCommand: node server.js
+    startCommand: npm start
     envVars:
       - key: NEXT_PUBLIC_API_URL
         value: https://sgt-ums.onrender.com/api/v1
