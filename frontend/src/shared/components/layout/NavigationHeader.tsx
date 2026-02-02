@@ -311,11 +311,12 @@ export default function NavigationHeader() {
   // Level 2 (under R&D): Submit & Track, Review & Approve
   // ============================================
   const navigationSubItems: SubMenuItem[] = [
-    // Academics - Coming Soon
+    // Academics
     {
       name: '📚 Academics',
-      description: 'Coming Soon',
+      description: 'Academic resources and tools',
       children: [
+        { name: '🎓 LMS', href: 'http://13.235.188.79', description: 'Learning Management System' },
         { name: '📖 Courses', href: '#', description: 'Course management (Coming Soon)' },
         { name: '📅 Timetable', href: '#', description: 'Class schedules (Coming Soon)' },
         { name: '📝 Examinations', href: '#', description: 'Exam management (Coming Soon)' },
@@ -867,6 +868,84 @@ export default function NavigationHeader() {
 
         {/* Right Section - Actions */}
         <div className="flex items-center gap-3 flex-shrink-0">
+          {/* Quick Links Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setActiveDropdown(activeDropdown === 'quicklinks' ? null : 'quicklinks')}
+              onMouseEnter={() => setActiveDropdown('quicklinks')}
+              className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-200 group"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+              </svg>
+              <span className="text-sm font-medium hidden lg:block">Quick Links</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${activeDropdown === 'quicklinks' ? 'rotate-180' : ''}`} />
+            </button>
+
+            {/* Quick Links Dropdown Menu */}
+            {activeDropdown === 'quicklinks' && (
+              <div
+                className="fixed mt-2 w-64 shadow-2xl border-t border-gray-200 z-50"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.92) 100%)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  boxShadow: '0 8px 32px 0 rgba(0, 69, 120, 0.15)',
+                  right: 0,
+                }}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <div className="py-2">
+                  <a
+                    href="http://13.235.188.79"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#005b96]/10 transition-colors"
+                  >
+                    <span className="text-sm font-semibold text-[#005b96]">🎓 LMS</span>
+                  </a>
+                  <Link
+                    href="/research/apply"
+                    className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#005b96]/10 transition-colors"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <span className="text-sm font-semibold text-[#005b96]">📝 File Research</span>
+                  </Link>
+                  <Link
+                    href="/ipr/apply"
+                    className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#005b96]/10 transition-colors"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <span className="text-sm font-semibold text-[#005b96]">💡 File IPR</span>
+                  </Link>
+                  <Link
+                    href="/my-work"
+                    className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#005b96]/10 transition-colors"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <span className="text-sm font-semibold text-[#005b96]">📊 My Submissions</span>
+                  </Link>
+                  <a
+                    href="https://sgtuniversity.ac.in"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#005b96]/10 transition-colors"
+                  >
+                    <span className="text-sm font-semibold text-[#005b96]">🌐 University Website</span>
+                  </a>
+                  <a
+                    href="https://sgttimes.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#005b96]/10 transition-colors"
+                  >
+                    <span className="text-sm font-semibold text-[#005b96]">📰 SGT Times</span>
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
+
           {/* Search */}
           <button className="p-2.5 text-white/80 hover:text-white hover:bg-white/15 rounded-lg transition-all duration-200">
             <Search className="w-5 h-5" />
