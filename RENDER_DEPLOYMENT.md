@@ -40,9 +40,9 @@ This guide will walk you through deploying the SGT University Management System 
    - Wait 5-10 minutes for initial deployment
 
 4. **Update Frontend URL**
-   - After backend deploys, note the backend URL (e.g., `https://sgt-ums-backend.onrender.com`)
+   - Backend URL: `https://sgt-ums.onrender.com`
    - Go to frontend service settings
-   - Update `NEXT_PUBLIC_API_URL` to: `https://sgt-ums-backend.onrender.com/api/v1`
+   - Update `NEXT_PUBLIC_API_URL` to: `https://sgt-ums.onrender.com/api/v1`
    - Trigger a manual redeploy of the frontend
 
 ### Option 2: Manual Setup
@@ -94,6 +94,7 @@ This guide will walk you through deploying the SGT University Management System 
    RATE_LIMIT_WINDOW=15
    RATE_LIMIT_MAX_REQUESTS=100
    FRONTEND_URL=https://sgt-ums-frontend.onrender.com
+   # Note: Backend is deployed at https://sgt-ums.onrender.com
    EMAIL_USER=sourav11092002@gmail.com
    EMAIL_PASS=<your Gmail app-specific password>
    SMTP_HOST=smtp.gmail.com
@@ -127,11 +128,10 @@ This guide will walk you through deploying the SGT University Management System 
 
 4. Add Environment Variables:
    ```env
-   NEXT_PUBLIC_API_URL=https://sgt-ums-backend.onrender.com/api/v1
+   NEXT_PUBLIC_API_URL=https://sgt-ums.onrender.com/api/v1
    NEXT_PUBLIC_APP_NAME=SGT UMS
    NODE_ENV=production
    ```
-   ⚠️ Replace `sgt-ums-backend` with your actual backend service name
 
 5. Click "Create Web Service"
 
@@ -139,7 +139,7 @@ This guide will walk you through deploying the SGT University Management System 
 
 ### 1. Verify Deployment
 
-- **Backend Health Check**: Visit `https://sgt-ums-backend.onrender.com/api/v1/health`
+- **Backend Health Check**: Visit `https://sgt-ums.onrender.com/api/v1/health`
   - Should return: `{"status":"ok","message":"API is running",...}`
 
 - **Frontend**: Visit `https://sgt-ums-frontend.onrender.com`
