@@ -281,7 +281,8 @@ exports.login = async (req, res) => {
 exports.logout = async (req, res) => {
   try {
     // Clear cookie with same options as login
-    const cookieOptions = {\n      expires: new Date(Date.now() + 1000),
+    const cookieOptions = {
+      expires: new Date(Date.now() + 1000),
       httpOnly: true,
       sameSite: config.env === 'production' ? 'none' : 'lax',
       secure: config.env === 'production' ? true : false,
