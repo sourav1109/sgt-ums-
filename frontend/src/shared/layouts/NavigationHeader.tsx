@@ -387,42 +387,26 @@ export default function NavigationHeader() {
     });
   }
 
+  // Add Noting approval with Event Management
+  navigationSubItems.push({
+    name: '📝 Noting approval',
+    description: 'Event management and approvals',
+    children: [
+      { name: '📅 Event Management', href: 'https://sgt-event.vercel.app/student', description: 'Campus event management' },
+    ],
+  });
+
+  // Add RFID
+  navigationSubItems.push({
+    name: '🔐 RFID',
+    href: 'http://192.168.7.20:3000',
+    description: 'RFID access system',
+  });
+
   // Add Navigation menu
   menuItems.push({
     name: 'UMS Navigation',
     subItems: navigationSubItems,
-  });
-
-  // Event Management
-  menuItems.push({
-    name: 'Event Management',
-    subItems: [
-      { name: '📅 Events', href: 'https://sgt-event.vercel.app/student', description: 'Campus event management' },
-    ],
-  });
-
-  // RFID
-  menuItems.push({
-    name: 'RFID',
-    subItems: [
-      { name: '🔐 RFID System', href: 'http://192.168.7.20:3000', description: 'RFID access system' },
-    ],
-  });
-
-  // Event Management
-  menuItems.push({
-    name: 'Event Management',
-    subItems: [
-      { name: '📅 Events', href: 'https://sgt-event.vercel.app/student', description: 'Campus event management' },
-    ],
-  });
-
-  // RFID
-  menuItems.push({
-    name: 'RFID',
-    subItems: [
-      { name: '🔐 RFID System', href: 'http://192.168.7.20:3000', description: 'RFID access system' },
-    ],
   });
 
   // ============================================
