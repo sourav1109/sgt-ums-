@@ -50,8 +50,8 @@ app.use('/api/*/auth/login', loginLimiter);
 app.use('/api/', apiLimiter);
 
 // Body parsing middleware with size limits for security
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cookieParser());
 
 // Compression for responses (reduces bandwidth for 25k users)
