@@ -232,14 +232,14 @@ export default function TourGuide({ steps, isOpen, onClose, onComplete }: TourGu
             zIndex: 9999,
           }}
         >
-          {/* Animated glow ring */}
-          <div className="absolute inset-0 rounded-xl border-3 border-blue-400 animate-pulse" style={{ boxShadow: '0 0 20px rgba(59, 130, 246, 0.8)' }} />
+          {/* Glow ring - no animation for cleaner look */}
+          <div className="absolute inset-0 rounded-xl border-3 border-blue-400" style={{ boxShadow: '0 0 20px rgba(59, 130, 246, 0.8)' }} />
         </div>
       </div>
 
       {/* Tooltip - Always on top */}
       <div
-        className={`fixed z-[99999] w-[400px] transition-all duration-300 ease-out ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}
+        className="fixed z-[99999] w-[400px] opacity-100 scale-100"
         style={{
           top: tooltipPosition.top,
           left: tooltipPosition.left,

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useAuthStore } from '@/shared/auth/authStore';
 import { 
   FileText,
@@ -29,7 +29,10 @@ import {
   Shield,
   Home,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Gift,
+  Sparkles,
+  ArrowRight
 } from 'lucide-react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
@@ -694,7 +697,7 @@ const yourAuthorities = [
     role: 'Your Mentor',
     department: 'SGT University',
     image: 'https://sgtuniversity.ac.in/assets/images/about-sgt/university/Prateek-Agrawal.jpg',
-    email: 'dean.academics@sgtuniversity.ac.in',
+    email: 'prateek.agrawal@sgtuniversity.org',
     phone: '1800 102 5661',
     type: 'mentor',
     profileUrl: 'https://sgtuniversity.ac.in/about/our-officers/dean-academics.html'
@@ -707,7 +710,7 @@ const yourAuthorities = [
     role: 'Head of Department',
     department: 'SGT University',
     image: 'https://sgtuniversity.ac.in/assets/images/about-sgt/university/Prateek-Agrawal.jpg',
-    email: 'dean.academics@sgtuniversity.ac.in',
+    email: 'prateek.agrawal@sgtuniversity.org',
     phone: '1800 102 5661',
     type: 'hod',
     profileUrl: 'https://sgtuniversity.ac.in/about/our-officers/dean-academics.html'
@@ -720,7 +723,7 @@ const yourAuthorities = [
     role: 'Dean',
     department: 'SGT University',
     image: 'https://sgtuniversity.ac.in/assets/images/about-sgt/university/Prateek-Agrawal.jpg',
-    email: 'dean.academics@sgtuniversity.ac.in',
+    email: 'prateek.agrawal@sgtuniversity.org',
     phone: '1800 102 5661',
     type: 'dean',
     profileUrl: 'https://sgtuniversity.ac.in/about/our-officers/dean-academics.html'
@@ -736,18 +739,6 @@ const yourAuthorities = [
     email: 'info@sgtuniversity.org',
     phone: '1800 102 5661',
     profileUrl: 'https://sgtuniversity.ac.in/about/our-officers/dr-atul-kumar-nasa.html',
-    type: 'provc'
-  },
-  {
-    id: 'pvc2',
-    name: 'Prof. (Dr.) Abha Singh',
-    position: 'Pro Vice-Chancellor',
-    role: 'Academic Leadership',
-    department: 'SGT University',
-    image: 'https://sgtuniversity.ac.in/assets/images/about-sgt/university/abha.webp',
-    email: 'info@sgtuniversity.org',
-    phone: '1800 102 5661',
-    profileUrl: 'https://sgtuniversity.ac.in/about/our-officers/dr-abha-singh.html',
     type: 'provc'
   },
   // Vice-Chancellor
@@ -989,6 +980,245 @@ const announcementCategories = [
   { name: 'Placement', count: 4 }
 ];
 
+// Placement Drives Data with Full JD Details
+const placementDrives = [
+  {
+    id: 1,
+    company: 'Tata Consultancy Services',
+    shortName: 'TCS',
+    logo: null,
+    role: 'Software Developer',
+    eligibility: 'B.Tech CSE, IT',
+    package: '7-12 LPA',
+    timing: '9:00 AM - 5:00 PM',
+    status: 'ongoing' as const,
+    statusText: 'Ongoing',
+    venue: 'Block D, Auditorium',
+    date: '2026-02-03',
+    colorScheme: 'blue',
+    jobDescription: {
+      aboutCompany: 'Tata Consultancy Services (TCS) is an IT services, consulting, and business solutions organization that has been partnering with many of the world\'s largest businesses for over 50 years. TCS offers a consulting-led, cognitive powered, integrated portfolio of business, technology, and engineering services and solutions.',
+      roleDescription: 'As a Software Developer at TCS, you will be responsible for designing, developing, and maintaining software applications. You will work with cross-functional teams to define, design, and ship new features.',
+      responsibilities: [
+        'Design, develop, and maintain high-quality software solutions',
+        'Write clean, scalable, and efficient code following coding standards',
+        'Collaborate with product managers and designers to define software requirements',
+        'Troubleshoot, debug, and upgrade existing software applications',
+        'Participate in code reviews and contribute to team knowledge sharing',
+        'Stay updated with emerging technologies and industry trends'
+      ],
+      requirements: [
+        'B.Tech/B.E. in Computer Science, IT, or related field',
+        'Strong understanding of data structures and algorithms',
+        'Proficiency in at least one programming language (Java, Python, C++)',
+        'Knowledge of database management systems (SQL/NoSQL)',
+        'Excellent problem-solving and analytical skills',
+        'Good communication and teamwork abilities'
+      ],
+      skills: ['Java', 'Python', 'SQL', 'Data Structures', 'Problem Solving', 'Agile'],
+      selectionProcess: ['Online Assessment', 'Technical Interview', 'HR Interview'],
+      perks: ['Health Insurance', 'Life Insurance', 'Paid Time Off', 'Learning & Development Programs', 'Employee Stock Options']
+    }
+  },
+  {
+    id: 2,
+    company: 'Infosys Limited',
+    shortName: 'Infosys',
+    logo: null,
+    role: 'Systems Engineer',
+    eligibility: 'B.Tech All Branches',
+    package: '6-9 LPA',
+    timing: '10:00 AM - 4:00 PM',
+    status: 'upcoming' as const,
+    statusText: '2:00 PM',
+    venue: 'Block D, Auditorium',
+    date: '2026-02-03',
+    colorScheme: 'purple',
+    jobDescription: {
+      aboutCompany: 'Infosys Limited is a global leader in next-generation digital services and consulting. We enable clients in more than 50 countries to navigate their digital transformation. With over 4 decades of experience, we expertly steer clients through their digital journey.',
+      roleDescription: 'As a Systems Engineer at Infosys, you will be working on cutting-edge technologies and will be involved in all phases of the software development lifecycle.',
+      responsibilities: [
+        'Analyze system requirements and develop technical specifications',
+        'Design and implement software solutions based on client requirements',
+        'Perform system testing and quality assurance activities',
+        'Provide technical support and troubleshooting',
+        'Document system configurations and procedures',
+        'Collaborate with global teams on project deliverables'
+      ],
+      requirements: [
+        'B.Tech/B.E. in any branch with 60%+ aggregate',
+        'Strong logical and analytical thinking',
+        'Basic programming knowledge in any language',
+        'Good communication skills in English',
+        'Flexibility to work in shifts and relocate',
+        'No active backlogs at the time of joining'
+      ],
+      skills: ['Programming Fundamentals', 'Problem Solving', 'Communication', 'Teamwork', 'Adaptability'],
+      selectionProcess: ['Online Test', 'Technical Interview', 'HR Interview'],
+      perks: ['Competitive Salary', 'Global Exposure', 'Training Programs', 'Health Benefits', 'Career Growth']
+    }
+  },
+  {
+    id: 3,
+    company: 'Wipro Technologies',
+    shortName: 'Wipro',
+    logo: null,
+    role: 'Project Engineer',
+    eligibility: 'B.Tech CSE, ECE',
+    package: '5-8 LPA',
+    timing: '11:00 AM - 6:00 PM',
+    status: 'upcoming' as const,
+    statusText: '3:30 PM',
+    venue: 'Block D, Auditorium',
+    date: '2026-02-03',
+    colorScheme: 'teal',
+    jobDescription: {
+      aboutCompany: 'Wipro Limited is a leading global information technology, consulting, and business process services company. We harness the power of cognitive computing, hyper-automation, robotics, cloud, analytics, and emerging technologies.',
+      roleDescription: 'As a Project Engineer at Wipro, you will work on diverse technology projects for global clients, contributing to solution design and implementation.',
+      responsibilities: [
+        'Develop and maintain software applications as per project requirements',
+        'Participate in requirement gathering and analysis sessions',
+        'Write unit tests and ensure code quality',
+        'Collaborate with team members and stakeholders',
+        'Follow Agile/Scrum methodologies for project delivery',
+        'Continuously learn and adapt to new technologies'
+      ],
+      requirements: [
+        'B.Tech/B.E. in CSE, ECE, or related fields',
+        'Minimum 60% throughout academics',
+        'Strong foundation in programming concepts',
+        'Good analytical and problem-solving skills',
+        'Willingness to work in any Wipro location',
+        'Excellent verbal and written communication'
+      ],
+      skills: ['Java', 'C++', 'Python', 'SQL', 'Linux', 'Agile Methodology'],
+      selectionProcess: ['Aptitude Test', 'Technical Round', 'HR Discussion'],
+      perks: ['Insurance Coverage', 'Flexible Work Hours', 'Learning Platforms', 'Employee Wellness Programs']
+    }
+  },
+  {
+    id: 4,
+    company: 'Capgemini India',
+    shortName: 'Capgemini',
+    logo: null,
+    role: 'Analyst',
+    eligibility: 'B.Tech, BCA, MCA',
+    package: '4-7 LPA',
+    timing: '9:30 AM - 5:30 PM',
+    status: 'completed' as const,
+    statusText: 'Completed',
+    venue: 'Block D, Auditorium',
+    date: '2026-02-03',
+    colorScheme: 'amber',
+    jobDescription: {
+      aboutCompany: 'Capgemini is a global leader in partnering with companies to transform and manage their business by harnessing the power of technology. We are guided every day by our purpose of unleashing human energy through technology for an inclusive and sustainable future.',
+      roleDescription: 'As an Analyst at Capgemini, you will support project teams in delivering solutions to clients across various industries.',
+      responsibilities: [
+        'Analyze business requirements and translate into technical solutions',
+        'Develop and test software components',
+        'Prepare documentation and reports',
+        'Support senior team members in project activities',
+        'Participate in client meetings and presentations',
+        'Maintain quality standards in all deliverables'
+      ],
+      requirements: [
+        'B.Tech, BCA, MCA with 55%+ aggregate',
+        'Basic understanding of software development',
+        'Strong analytical and logical reasoning',
+        'Good presentation and communication skills',
+        'Team player with positive attitude',
+        'Ready to travel and relocate as needed'
+      ],
+      skills: ['Analytical Skills', 'MS Office', 'Basic Programming', 'Communication', 'Problem Solving'],
+      selectionProcess: ['Written Test', 'Group Discussion', 'Personal Interview'],
+      perks: ['Competitive Package', 'Global Opportunities', 'Skill Development', 'Work-Life Balance']
+    }
+  }
+];
+
+// Academic Calendar Events Data - Official Gazetted Holidays from India.gov.in
+const academicCalendarEvents = [
+  // January 2026 - Indian National Gazetted Holidays
+  { date: '2026-01-01', title: 'New Year\'s Day', type: 'holiday' as const, description: 'Celebration of the first day of the year - Gazetted Holiday' },
+  { date: '2026-01-14', title: 'Makar Sankranti / Pongal', type: 'holiday' as const, description: 'Harvest festival celebrated across India - Restricted Holiday' },
+  { date: '2026-01-23', title: 'Netaji Subhas Chandra Bose Jayanti', type: 'holiday' as const, description: 'Birth anniversary of Netaji Subhas Chandra Bose - Restricted Holiday (Parakram Diwas)' },
+  { date: '2026-01-26', title: 'Republic Day', type: 'holiday' as const, description: 'National holiday - Celebration of Indian Constitution adoption - Gazetted Holiday' },
+  
+  // February 2026 - Official Holidays
+  { date: '2026-02-01', title: 'Guru Ravi Das Jayanti', type: 'holiday' as const, description: 'Birth anniversary of Sant Guru Ravi Das - Restricted Holiday' },
+  { date: '2026-02-02', title: 'Data Structures & Algorithms Exam', type: 'exam' as const, description: 'End-term examination', courseCode: 'CS301', room: 'Room 201', building: 'Block A', time: '10:00 AM - 1:00 PM', examType: 'End Semester', maxMarks: 100, duration: '3 hours', instructions: ['Carry your admit card and ID card', 'Report 30 minutes before exam', 'No electronic devices allowed', 'Use only blue/black pen'] },
+  { date: '2026-02-05', title: 'Mid-Semester Exam Begins', type: 'exam' as const, description: 'Mid-term examinations start for all departments', courseCode: 'ALL', room: 'As per datesheet', building: 'All Blocks', time: '9:00 AM onwards', examType: 'Mid Semester', maxMarks: 50, duration: '2 hours', instructions: ['Check datesheet for subject-wise schedule', 'Carry hall ticket', 'No electronic devices allowed', 'Use only blue/black pen'] },
+  { date: '2026-02-06', title: 'Operating Systems Exam', type: 'exam' as const, description: 'Mid-term examination', courseCode: 'CS302', room: 'Room 105', building: 'Block B', time: '10:00 AM - 12:00 PM', examType: 'Mid Semester', maxMarks: 50, duration: '2 hours', instructions: ['Carry your admit card and ID card', 'Report 30 minutes before exam', 'No electronic devices allowed', 'Use only blue/black pen'] },
+  { date: '2026-02-12', title: 'Swami Dayananda Saraswati Jayanti', type: 'holiday' as const, description: 'Birthday of Swami Dayananda Saraswati - Restricted Holiday' },
+  { date: '2026-02-14', title: 'Valentine\'s Day Celebration', type: 'event' as const, description: 'Campus cultural event organized by Student Council' },
+  { date: '2026-02-15', title: 'Maha Shivaratri', type: 'holiday' as const, description: 'Hindu festival dedicated to Lord Shiva - Gazetted Holiday' },
+  { date: '2026-02-16', title: 'Database Management Systems Exam', type: 'exam' as const, description: 'Mid-term examination', courseCode: 'CS303', room: 'Room 302', building: 'Block A', time: '2:00 PM - 4:00 PM', examType: 'Mid Semester', maxMarks: 50, duration: '2 hours', instructions: ['Carry your admit card and ID card', 'Report 30 minutes before exam', 'No electronic devices allowed', 'Use only blue/black pen'] },
+  { date: '2026-02-19', title: 'Shivaji Jayanti', type: 'holiday' as const, description: 'Birth anniversary of Chhatrapati Shivaji Maharaj - Restricted Holiday' },
+  { date: '2026-02-20', title: 'Computer Networks Exam', type: 'exam' as const, description: 'Mid-term examination', courseCode: 'CS304', room: 'Room 401', building: 'Block C', time: '10:00 AM - 12:00 PM', examType: 'Mid Semester', maxMarks: 50, duration: '2 hours', instructions: ['Carry your admit card and ID card', 'Report 30 minutes before exam', 'No electronic devices allowed', 'Use only blue/black pen'] },
+  { date: '2026-02-26', title: 'Mid-Semester Results', type: 'crucial' as const, description: 'Mid-term exam results announcement' },
+  { date: '2026-02-27', title: 'Software Engineering Exam', type: 'exam' as const, description: 'Mid-term examination', courseCode: 'CS305', room: 'Room 201', building: 'Block A', time: '10:00 AM - 12:00 PM', examType: 'Mid Semester', maxMarks: 50, duration: '2 hours', instructions: ['Carry your admit card and ID card', 'Report 30 minutes before exam', 'No electronic devices allowed', 'Use only blue/black pen'] },
+  
+  // February 2026 - SGT University Events
+  { date: '2026-02-05', title: 'Interview & Counseling Sessions', type: 'event' as const, description: 'Admissions & Student Interaction - SGT University Event' },
+  
+  // March 2026 - Official Holidays & SGT Events
+  { date: '2026-03-01', title: 'Basant Utsav 2026', type: 'event' as const, description: 'Spring Festival / Agriculture Celebration - SGT University Event' },
+  { date: '2026-03-03', title: 'Holi', type: 'holiday' as const, description: 'Festival of colors - Gazetted Holiday' },
+  { date: '2026-03-08', title: 'International Women\'s Day', type: 'event' as const, description: 'Special celebration and seminar' },
+  { date: '2026-03-15', title: 'Agri Job Fair', type: 'event' as const, description: 'Career Placement in Agriculture - SGT University Event' },
+  { date: '2026-03-25', title: 'Sports Week Begins', type: 'event' as const, description: 'Inter-department sports competitions' },
+  
+  // April 2026 - Official Holidays & SGT Events
+  { date: '2026-04-03', title: 'Good Friday', type: 'holiday' as const, description: 'Christian holy day - Gazetted Holiday' },
+  { date: '2026-04-06', title: 'End-Semester Exam Registration', type: 'crucial' as const, description: 'Last date for exam form submission' },
+  { date: '2026-04-14', title: 'Dr. Ambedkar Jayanti', type: 'holiday' as const, description: 'Birth anniversary of Dr. B.R. Ambedkar - Gazetted Holiday' },
+  { date: '2026-04-14', title: 'Baisakhi Festival', type: 'event' as const, description: 'Regional Cultural Celebration - SGT University Event' },
+  { date: '2026-04-21', title: 'Mahavir Jayanti', type: 'holiday' as const, description: 'Birth anniversary of Lord Mahavir - Gazetted Holiday' },
+  { date: '2026-04-22', title: 'Ram Navami', type: 'holiday' as const, description: 'Birth of Lord Rama - Restricted Holiday' },
+  
+  // May 2026 - Official Holidays & SGT Events
+  { date: '2026-05-01', title: 'May Day', type: 'holiday' as const, description: 'International Workers\' Day - Gazetted Holiday' },
+  { date: '2026-05-04', title: 'End-Semester Exams Begin', type: 'exam' as const, description: 'Final examinations start for all programs', courseCode: 'ALL', room: 'As per datesheet', building: 'All Blocks', time: '9:00 AM onwards', examType: 'End Semester', maxMarks: 100, duration: '3 hours', instructions: ['Check datesheet for subject-wise schedule', 'Carry hall ticket and ID card', 'No electronic devices allowed', 'Use only blue/black pen'] },
+  { date: '2026-05-10', title: 'International Nanoscience Conference', type: 'event' as const, description: 'Research & Applied Sciences - SGT University Event' },
+  { date: '2026-05-12', title: 'Buddha Purnima', type: 'holiday' as const, description: 'Birth anniversary of Gautama Buddha - Gazetted Holiday' },
+  
+  // June 2026 - SGT Events
+  { date: '2026-06-05', title: 'Summer Vacation Begins', type: 'crucial' as const, description: 'Semester break starts' },
+  { date: '2026-06-15', title: 'Annual Convocation 2026', type: 'crucial' as const, description: 'Graduation Ceremony - SGT University Event' },
+  { date: '2026-06-15', title: 'Result Declaration', type: 'crucial' as const, description: 'End-semester results published' },
+  { date: '2026-06-17', title: 'Eid ul-Adha (Bakrid)', type: 'holiday' as const, description: 'Islamic festival of sacrifice - Gazetted Holiday' },
+  
+  // July 2026 - Official Holidays
+  { date: '2026-07-15', title: 'New Session Begins', type: 'crucial' as const, description: 'Next academic year starts' },
+  { date: '2026-07-17', title: 'Muharram', type: 'holiday' as const, description: 'Islamic New Year - Gazetted Holiday' },
+  
+  // August 2026 - Official Holidays
+  { date: '2026-08-08', title: 'Janmashtami', type: 'holiday' as const, description: 'Birth anniversary of Lord Krishna - Gazetted Holiday' },
+  { date: '2026-08-15', title: 'Independence Day', type: 'holiday' as const, description: 'National holiday - Flag hoisting ceremony - Gazetted Holiday' },
+  { date: '2026-08-26', title: 'Freshers\' Week', type: 'event' as const, description: 'Welcome program for new students' },
+  
+  // September 2026 - Official Holidays
+  { date: '2026-09-05', title: 'Teachers\' Day', type: 'event' as const, description: 'Birth anniversary of Dr. Sarvepalli Radhakrishnan - Celebration for teachers' },
+  { date: '2026-09-16', title: 'Milad-un-Nabi', type: 'holiday' as const, description: 'Prophet Muhammad\'s Birthday - Gazetted Holiday' },
+  
+  // October 2026 - Official Holidays
+  { date: '2026-10-02', title: 'Mahatma Gandhi Jayanti', type: 'holiday' as const, description: 'Birth anniversary of Mahatma Gandhi - Gazetted Holiday' },
+  { date: '2026-10-20', title: 'Dussehra (Vijaya Dashami)', type: 'holiday' as const, description: 'Victory of good over evil - Gazetted Holiday' },
+  { date: '2026-10-31', title: 'Sardar Patel Jayanti', type: 'event' as const, description: 'National Unity Day - Birth anniversary of Sardar Vallabhbhai Patel' },
+  
+  // November 2026 - Official Holidays
+  { date: '2026-11-08', title: 'Diwali (Deepavali)', type: 'holiday' as const, description: 'Festival of lights - Gazetted Holiday' },
+  { date: '2026-11-09', title: 'Govardhan Puja', type: 'holiday' as const, description: 'Day after Diwali - Restricted Holiday' },
+  { date: '2026-11-10', title: 'Bhai Dooj', type: 'holiday' as const, description: 'Festival celebrating brother-sister bond - Restricted Holiday' },
+  { date: '2026-11-14', title: 'Children\'s Day', type: 'event' as const, description: 'Birth anniversary of Jawaharlal Nehru - Special activities for children' },
+  { date: '2026-11-23', title: 'Guru Nanak Jayanti', type: 'holiday' as const, description: 'Birth anniversary of Guru Nanak Dev - Gazetted Holiday' },
+  { date: '2026-11-26', title: 'Constitution Day', type: 'event' as const, description: 'Commemoration of adoption of Indian Constitution' },
+  
+  // December 2026 - Official Holidays
+  { date: '2026-12-25', title: 'Christmas', type: 'holiday' as const, description: 'Birth of Jesus Christ - Gazetted Holiday' },
+  { date: '2026-12-31', title: 'New Year\'s Eve', type: 'event' as const, description: 'End of year celebration' }
+];
+
 export default function StudentDashboard() {
   console.log('✅ =========================================');
   console.log('✅ StudentDashboard component RENDERING');
@@ -1019,6 +1249,15 @@ export default function StudentDashboard() {
   const [selectedMarksTerm, setSelectedMarksTerm] = useState(1);
   const [selectedGradesTerm, setSelectedGradesTerm] = useState(1);
 
+  // Academic Calendar State
+  const [selectedMonth, setSelectedMonth] = useState(new Date(2026, 1, 1)); // February 2026
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [calendarFilter, setCalendarFilter] = useState<'all' | 'holiday' | 'exam' | 'event' | 'crucial'>('all');
+
+  // Placement Drives State
+  const [selectedPlacementDrive, setSelectedPlacementDrive] = useState<typeof placementDrives[0] | null>(null);
+  const [showAllPlacementDrives, setShowAllPlacementDrives] = useState(false);
+
   // Virtual Tour State
   const [showTour, setShowTour] = useState(false);
   const [showTourButton, setShowTourButton] = useState(true);
@@ -1043,99 +1282,106 @@ export default function StudentDashboard() {
     {
       id: 'happening-card',
       target: 'happening-card',
-      title: 'Happening Events',
-      description: 'Click this card to see all current happenings and important announcements. Stay updated with what\'s going on around campus.',
+      title: 'Happening Now',
+      description: 'See real-time happenings on campus. Click to view all current activities, ongoing events, and live updates.',
       position: 'bottom'
     },
     {
       id: 'messages-card',
       target: 'messages-card',
       title: 'Messages',
-      description: 'View your unread messages from faculty, administration, and peers. Click to see all your communications in one place.',
+      description: 'Check your unread messages from faculty, administration, and peers. Stay connected with important communications.',
       position: 'bottom'
     },
     {
       id: 'assignments-card',
       target: 'assignments-card',
       title: 'Assignments',
-      description: 'See pending assignments across all your courses. Click to view details, submit work, and track deadlines.',
+      description: 'Track pending assignments across all your courses. Click to view details, submit work, and manage deadlines.',
       position: 'bottom'
     },
     {
       id: 'events-card',
       target: 'events-card',
       title: 'Upcoming Events',
-      description: 'Check upcoming university events, workshops, seminars, and activities. Never miss an important event!',
+      description: 'Stay informed about upcoming university events, workshops, seminars, and campus activities.',
+      position: 'bottom'
+    },
+    {
+      id: 'fees-card',
+      target: 'fees-card',
+      title: 'Fees Status',
+      description: 'Check your fee payment status. View pending dues, payment history, and access online payment options.',
       position: 'bottom'
     },
     {
       id: 'cgpa-card',
       target: 'cgpa-card',
-      title: 'CGPA Performance',
-      description: 'Your cumulative grade point average is displayed here. Click to view detailed analytics including term-wise marks, grades distribution, and TGPA trajectory.',
+      title: 'Academic Performance (CGPA)',
+      description: 'Your cumulative grade point average is displayed here. Click to view detailed analytics including term-wise marks, grades distribution, and semester-wise TGPA trends.',
       position: 'right'
     },
     {
       id: 'attendance-card',
       target: 'attendance-card',
       title: 'Attendance Tracker',
-      description: 'Monitor your attendance percentage including today\'s status, weekly and monthly statistics. Click for detailed subject-wise attendance breakdown.',
+      description: 'Monitor your attendance percentage including today\'s status (Present/Absent), weekly and monthly statistics. Click for detailed subject-wise attendance breakdown.',
+      position: 'left'
+    },
+    {
+      id: 'academic-calendar',
+      target: 'academic-calendar',
+      title: 'Academic Activities Calendar',
+      description: 'Interactive calendar showing holidays, exams, events, and important dates. Click on any colored date to see event details. Use filter buttons to view specific event types.',
       position: 'left'
     },
     {
       id: 'todays-timetable',
       target: 'todays-timetable',
       title: 'Today\'s Timetable',
-      description: 'View your class schedule for today including lecture timings, room numbers, faculty names, and class types (Lecture/Lab/Tutorial).',
-      position: 'right'
+      description: 'View your class schedule for today including lecture timings, room numbers, building location, faculty names, and class types (Lecture/Lab/Tutorial).',
+      position: 'top'
     },
     {
       id: 'recently-placed',
       target: 'recently-placed',
       title: 'Recently Placed Students',
-      description: 'See recent placement success stories from your university. View companies, roles, and packages offered to placed students.',
-      position: 'left'
-    },
-    {
-      id: 'exam-calendar',
-      target: 'exam-calendar',
-      title: 'Exam Datesheet',
-      description: 'Interactive calendar showing your upcoming exams. Dates with exams are highlighted in blue. Click on any highlighted date to see exam details including time, venue, and instructions.',
-      position: 'left'
-    },
-    {
-      id: 'research-excellence',
-      target: 'research-excellence',
-      title: 'Research Excellence at SGT University',
-      description: 'Stay informed about university\'s research achievements, publications, and academic excellence. See featured research papers and impactful projects.',
+      description: 'View recent placement success stories from SGT University. See company names, job roles, and packages offered to successfully placed students.',
       position: 'top'
     },
     {
-      id: 'guidelines-news',
-      target: 'guidelines-news',
-      title: 'Guidelines & News',
-      description: 'Access important university guidelines including scholarship policies, academic regulations, exam guidelines, and placement procedures. Stay updated with latest university news.',
-      position: 'top'
-    },
-    {
-      id: 'authorities',
-      target: 'authorities-section',
-      title: 'University Authorities',
-      description: 'View your assigned mentors, HODs, and other university authorities. You can see their contact details and book appointments directly from here.',
+      id: 'placement-drives',
+      target: 'placement-drives',
+      title: 'Today\'s Placement Drives',
+      description: 'Check ongoing and upcoming placement drives happening today. Click on any company to view the complete Job Description, eligibility criteria, and apply.',
       position: 'top'
     },
     {
       id: 'announcements',
-      target: 'announcements-section',
+      target: 'research-excellence',
       title: 'University Announcements',
       description: 'Stay updated with important announcements from the university. Filter by category - Academic, Administrative, Co-Curricular, Examination, or Placement.',
       position: 'top'
     },
     {
+      id: 'authorities',
+      target: 'authorities-section',
+      title: 'Know Your Authorities',
+      description: 'Meet the university leadership team including Chancellor, Vice-Chancellor, Pro Vice-Chancellors, Registrar, and other key officials. View their profiles and contact details.',
+      position: 'top'
+    },
+    {
+      id: 'guidelines-news',
+      target: 'guidelines-news',
+      title: 'Guidelines & Policies',
+      description: 'Access important university guidelines including Scholarship Policy, Academic Regulations, Exam Guidelines, Placement Policy, and more. Download policy documents directly.',
+      position: 'top'
+    },
+    {
       id: 'social-footprints',
       target: 'social-footprints',
-      title: 'Social Footprints',
-      description: 'Connect with the university\'s official social media channels. Stay connected with campus life through Instagram, LinkedIn, YouTube and more.',
+      title: 'Social Media Connect',
+      description: 'Connect with SGT University on social media. Follow on Instagram, LinkedIn, YouTube, Facebook, and Twitter. Also access SGT Times for latest news.',
       position: 'top'
     }
   ];
@@ -1533,7 +1779,7 @@ export default function StudentDashboard() {
 
     // Week day headers
     const headers = weekDays.map(day => (
-      <div key={day} className="text-center text-sm font-bold text-gray-600 dark:text-gray-400 py-2">
+      <div key={day} className="text-center text-base font-bold text-gray-600 dark:text-gray-400 py-2">
         {day}
       </div>
     ));
@@ -1553,7 +1799,7 @@ export default function StudentDashboard() {
           key={day}
           onClick={() => exam && setSelectedExam(exam)}
           className={`
-            p-2 text-center text-base font-semibold rounded-lg cursor-pointer transition-all
+            p-2 text-center text-lg font-semibold rounded-lg cursor-pointer transition-all
             ${exam 
               ? 'bg-blue-500 text-white font-bold hover:bg-blue-600 shadow-md transform hover:scale-110' 
               : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
@@ -1591,8 +1837,8 @@ export default function StudentDashboard() {
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 relative">
               <div className="flex justify-between items-start">
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-white">📚 CGPA - Academic Performance</h3>
-                  <p className="text-white/90 mt-1 text-sm">Cumulative Grade Point Average: <span className="font-bold text-lg">{studentData?.cgpa}</span></p>
+                  <h3 className="text-3xl font-bold text-white">📚 CGPA - Academic Performance</h3>
+                  <p className="text-white/90 mt-1 text-base">Cumulative Grade Point Average: <span className="font-bold text-xl">{studentData?.cgpa}</span></p>
                 </div>
                 <button
                   onClick={() => setShowCGPAModal(false)}
@@ -1645,8 +1891,8 @@ export default function StudentDashboard() {
                   {/* Grades Distribution Chart - Professional Recharts */}
                   <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
                     <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-lg font-bold text-gray-800 dark:text-white">📊 Grades Distribution Analysis</h4>
-                      <div className="px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-sm font-semibold text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+                      <h4 className="text-xl font-bold text-gray-800 dark:text-white">📊 Grades Distribution Analysis</h4>
+                      <div className="px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-base font-semibold text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
                         24 Total Subjects
                       </div>
                     </div>
@@ -1689,7 +1935,7 @@ export default function StudentDashboard() {
                     {/* Legend */}
                     <div className="mt-4 flex flex-wrap gap-2 justify-center">
                       {gradesChartData.map((item) => (
-                        <div key={item.grade} className="flex items-center gap-1.5 px-2 py-1 bg-gray-50 dark:bg-gray-700 rounded text-xs">
+                        <div key={item.grade} className="flex items-center gap-1.5 px-2 py-1 bg-gray-50 dark:bg-gray-700 rounded text-sm">
                           <span className="font-bold text-gray-700 dark:text-gray-300">{item.grade}:</span>
                           <span className="text-gray-600 dark:text-gray-400">{item.count} ({item.fullForm})</span>
                         </div>
@@ -1775,8 +2021,8 @@ export default function StudentDashboard() {
                   {/* Component-wise Performance - Professional Recharts */}
                   <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
                     <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-lg font-bold text-gray-800 dark:text-white">🎯 Component-wise Performance Analysis</h4>
-                      <div className="px-3 py-1.5 bg-purple-50 dark:bg-purple-900/30 rounded-lg text-sm font-semibold text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800">
+                      <h4 className="text-xl font-bold text-gray-800 dark:text-white">🎯 Component-wise Performance Analysis</h4>
+                      <div className="px-3 py-1.5 bg-purple-50 dark:bg-purple-900/30 rounded-lg text-base font-semibold text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-800">
                         Multi-metric View
                       </div>
                     </div>
@@ -1894,7 +2140,7 @@ export default function StudentDashboard() {
                 <div className="space-y-6">
                   {/* Grade Summary Chart */}
                   <div className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
-                    <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">Overall Grade Distribution</h4>
+                    <h4 className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-4">Overall Grade Distribution</h4>
                     <div className="h-48">
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={gradesChartData} layout="vertical" margin={{ top: 5, right: 30, left: 40, bottom: 5 }}>
@@ -1982,8 +2228,8 @@ export default function StudentDashboard() {
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 relative">
               <div className="flex justify-between items-start">
                 <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-white">📊 Attendance Analytics</h3>
-                  <p className="text-white/90 mt-1 text-sm">Overall Attendance: <span className="font-bold text-lg">{studentData?.attendance?.overall}%</span></p>
+                  <h3 className="text-3xl font-bold text-white">📊 Attendance Analytics</h3>
+                  <p className="text-white/90 mt-1 text-base">Overall Attendance: <span className="font-bold text-xl">{studentData?.attendance?.overall}%</span></p>
                 </div>
                 <button
                   onClick={() => setShowAttendanceModal(false)}
@@ -2026,8 +2272,8 @@ export default function StudentDashboard() {
                   {/* Term-wise Attendance Chart */}
                   <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
                     <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-lg font-bold text-gray-800 dark:text-white">📊 Term-wise Attendance</h4>
-                      <div className="px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-sm font-semibold text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+                      <h4 className="text-xl font-bold text-gray-800 dark:text-white">📊 Term-wise Attendance</h4>
+                      <div className="px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 rounded-lg text-base font-semibold text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
                         7 Terms
                       </div>
                     </div>
@@ -2069,7 +2315,7 @@ export default function StudentDashboard() {
 
                   {/* Subject-wise Attendance */}
                   <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <h4 className="text-lg font-bold text-gray-800 dark:text-white mb-4">📚 Current Term Subject-wise Attendance</h4>
+                    <h4 className="text-xl font-bold text-gray-800 dark:text-white mb-4">📚 Current Term Subject-wise Attendance</h4>
                     <div className="space-y-3">
                       {subjectAttendanceData.map((subject, idx) => (
                         <div key={idx} className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
@@ -2113,8 +2359,8 @@ export default function StudentDashboard() {
                         <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${item.color} opacity-10 rounded-bl-full`}></div>
                         <div className="relative">
                           <div className="text-3xl mb-2">{item.icon}</div>
-                          <div className="text-sm font-semibold text-gray-600 dark:text-gray-400">{item.label}</div>
-                          <div className={`text-2xl font-bold bg-gradient-to-r ${item.color} bg-clip-text text-transparent mt-1`}>{item.value}</div>
+                          <div className="text-base font-semibold text-gray-600 dark:text-gray-400">{item.label}</div>
+                          <div className={`text-3xl font-bold bg-gradient-to-r ${item.color} bg-clip-text text-transparent mt-1`}>{item.value}</div>
                         </div>
                       </div>
                     ))}
@@ -2258,7 +2504,7 @@ export default function StudentDashboard() {
             <div className="bg-gradient-to-r from-orange-400 to-orange-500 p-6 rounded-t-2xl">
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="text-2xl font-bold text-white">What&apos;s Happening</h3>
+                  <h3 className="text-3xl font-bold text-white">What&apos;s Happening</h3>
                   <p className="text-orange-100 mt-1">Latest updates and announcements</p>
                 </div>
                 <button
@@ -2311,7 +2557,7 @@ export default function StudentDashboard() {
                         <Calendar className="w-4 h-4" />
                         {item.date}
                       </span>
-                      <span className="px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-full text-xs">
+                      <span className="px-2 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-full text-sm">
                         {item.category}
                       </span>
                     </div>
@@ -2330,7 +2576,7 @@ export default function StudentDashboard() {
             <div className="bg-gradient-to-r from-orange-400 via-orange-500 to-yellow-500 p-6 rounded-t-2xl">
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="text-2xl font-bold text-white">Messages</h3>
+                  <h3 className="text-3xl font-bold text-white">Messages</h3>
                   <p className="text-orange-100 mt-1">Your inbox and notifications</p>
                 </div>
                 <button
@@ -2388,7 +2634,7 @@ export default function StudentDashboard() {
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 rounded-t-2xl">
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="text-2xl font-bold text-white">Assignments</h3>
+                  <h3 className="text-3xl font-bold text-white">Assignments</h3>
                   <p className="text-blue-100 mt-1">Pending and submitted assignments</p>
                 </div>
                 <button
@@ -2433,7 +2679,7 @@ export default function StudentDashboard() {
                     </div>
                     
                     <div className="flex items-center gap-2">
-                      <button onClick={() => alert('Coming Soon: Assignment submission portal will be available soon!')} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm font-semibold transition-colors">
+                      <button onClick={() => alert('Coming Soon: Assignment submission portal will be available soon!')} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-base font-semibold transition-colors">
                         Submit
                       </button>
                       <button onClick={() => alert('Coming Soon: View assignment details feature will be available soon!')} className="px-3 py-2 border-2 border-blue-600 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
@@ -2455,7 +2701,7 @@ export default function StudentDashboard() {
             <div className="bg-gradient-to-r from-cyan-400 to-blue-500 p-6 rounded-t-2xl">
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="text-2xl font-bold text-white">Upcoming Events</h3>
+                  <h3 className="text-3xl font-bold text-white">Upcoming Events</h3>
                   <p className="text-cyan-100 mt-1">Campus events and activities</p>
                 </div>
                 <button
@@ -2510,8 +2756,8 @@ export default function StudentDashboard() {
                       <div className="flex-1">
                         <div className="flex items-start justify-between mb-2">
                           <div>
-                            <h4 className="text-xl font-bold text-gray-900 dark:text-white">{event.title}</h4>
-                            <span className="inline-block mt-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full text-xs font-semibold">
+                            <h4 className="text-2xl font-bold text-gray-900 dark:text-white">{event.title}</h4>
+                            <span className="inline-block mt-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full text-sm font-semibold">
                               {event.category}
                             </span>
                           </div>
@@ -2578,7 +2824,7 @@ export default function StudentDashboard() {
             <div className="bg-gradient-to-r from-purple-600 to-purple-700 p-6 rounded-t-2xl sticky top-0 z-10">
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="text-2xl font-bold text-white">Complete Exam Timetable</h3>
+                  <h3 className="text-3xl font-bold text-white">Complete Exam Timetable</h3>
                   <p className="text-purple-100 mt-1">Academic Year 2026 - All Exams</p>
                 </div>
                 <button
@@ -2596,10 +2842,10 @@ export default function StudentDashboard() {
                   <div key={exam.id} className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-gray-700 dark:to-gray-700 rounded-xl p-4 border-2 border-purple-200 dark:border-purple-900 hover:shadow-lg transition-shadow">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
-                        <h4 className="text-lg font-bold text-gray-900 dark:text-white">{exam.subject}</h4>
-                        <p className="text-sm text-purple-600 dark:text-purple-400 font-semibold">{exam.subjectCode}</p>
+                        <h4 className="text-xl font-bold text-gray-900 dark:text-white">{exam.subject}</h4>
+                        <p className="text-base text-purple-600 dark:text-purple-400 font-semibold">{exam.subjectCode}</p>
                       </div>
-                      <span className="px-3 py-1 bg-purple-600 text-white text-xs font-bold rounded-full">
+                      <span className="px-3 py-1 bg-purple-600 text-white text-sm font-bold rounded-full">
                         {exam.examType}
                       </span>
                     </div>
@@ -2640,7 +2886,7 @@ export default function StudentDashboard() {
                     
                     <div className="flex items-center gap-2">
                       <Award className="w-4 h-4 text-yellow-600" />
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Max Marks: <span className="font-bold">{exam.maxMarks}</span></p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">Max Marks: <span className="font-bold">{exam.maxMarks}</span></p>
                     </div>
                   </div>
                 ))}
@@ -2666,7 +2912,7 @@ export default function StudentDashboard() {
             <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-6 rounded-t-2xl">
               <div className="flex justify-between items-start">
                 <div>
-                  <h3 className="text-2xl font-bold text-white">{selectedExam.subject}</h3>
+                  <h3 className="text-3xl font-bold text-white">{selectedExam.subject}</h3>
                   <p className="text-blue-100 mt-1">{selectedExam.subjectCode}</p>
                 </div>
                 <button
@@ -2763,7 +3009,298 @@ export default function StudentDashboard() {
         </div>
       )}
 
-      <div className="space-y-6">
+      {/* Placement Drive JD Modal */}
+      {selectedPlacementDrive && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-in zoom-in-95 duration-200">
+            {/* Header */}
+            <div className={`bg-gradient-to-r ${
+              selectedPlacementDrive.colorScheme === 'blue' ? 'from-blue-500 to-indigo-600' :
+              selectedPlacementDrive.colorScheme === 'purple' ? 'from-purple-500 to-pink-600' :
+              selectedPlacementDrive.colorScheme === 'teal' ? 'from-teal-500 to-cyan-600' :
+              'from-amber-500 to-orange-600'
+            } p-6 rounded-t-2xl`}>
+              <div className="flex justify-between items-start">
+                <div className="flex items-center gap-4">
+                  <div className="w-16 h-16 bg-white rounded-xl flex items-center justify-center shadow-lg">
+                    <span className={`text-xl font-bold ${
+                      selectedPlacementDrive.colorScheme === 'blue' ? 'text-blue-600' :
+                      selectedPlacementDrive.colorScheme === 'purple' ? 'text-purple-600' :
+                      selectedPlacementDrive.colorScheme === 'teal' ? 'text-teal-600' :
+                      'text-amber-600'
+                    }`}>{selectedPlacementDrive.shortName}</span>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">{selectedPlacementDrive.company}</h3>
+                    <p className="text-white/80 mt-1">{selectedPlacementDrive.role}</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setSelectedPlacementDrive(null)}
+                  className="text-white/80 hover:text-white transition-colors p-1 hover:bg-white/20 rounded-lg"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              
+              {/* Quick Info */}
+              <div className="flex flex-wrap gap-3 mt-4">
+                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-sm flex items-center gap-1">
+                  <DollarSign className="w-4 h-4" /> {selectedPlacementDrive.package}
+                </span>
+                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-sm flex items-center gap-1">
+                  <MapPin className="w-4 h-4" /> {selectedPlacementDrive.venue}
+                </span>
+                <span className="px-3 py-1 bg-white/20 text-white rounded-full text-sm flex items-center gap-1">
+                  <Clock className="w-4 h-4" /> {selectedPlacementDrive.timing}
+                </span>
+                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                  selectedPlacementDrive.status === 'ongoing' ? 'bg-green-500 text-white' :
+                  selectedPlacementDrive.status === 'completed' ? 'bg-gray-500 text-white' :
+                  'bg-orange-500 text-white'
+                }`}>
+                  {selectedPlacementDrive.statusText}
+                </span>
+              </div>
+            </div>
+            
+            {/* Content */}
+            <div className="p-6 space-y-6">
+              {/* About Company */}
+              <div>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+                  <Building2 className="w-5 h-5 text-blue-600" />
+                  About {selectedPlacementDrive.company}
+                </h4>
+                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                  {selectedPlacementDrive.jobDescription.aboutCompany}
+                </p>
+              </div>
+              
+              {/* Role Description */}
+              <div>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+                  <Briefcase className="w-5 h-5 text-purple-600" />
+                  Role Description
+                </h4>
+                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                  {selectedPlacementDrive.jobDescription.roleDescription}
+                </p>
+              </div>
+              
+              {/* Eligibility */}
+              <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
+                <h4 className="font-bold text-green-700 dark:text-green-400 mb-1 flex items-center gap-2">
+                  <GraduationCap className="w-5 h-5" />
+                  Eligibility
+                </h4>
+                <p className="text-sm text-green-600 dark:text-green-300">{selectedPlacementDrive.eligibility}</p>
+              </div>
+              
+              {/* Responsibilities */}
+              <div>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                  <ClipboardList className="w-5 h-5 text-orange-600" />
+                  Key Responsibilities
+                </h4>
+                <ul className="space-y-2">
+                  {selectedPlacementDrive.jobDescription.responsibilities.map((resp, index) => (
+                    <li key={index} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300">
+                      <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      {resp}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              {/* Requirements */}
+              <div>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-red-600" />
+                  Requirements
+                </h4>
+                <ul className="space-y-2">
+                  {selectedPlacementDrive.jobDescription.requirements.map((req, index) => (
+                    <li key={index} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300">
+                      <CheckCircle className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                      {req}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              {/* Skills */}
+              <div>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-yellow-600" />
+                  Required Skills
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {selectedPlacementDrive.jobDescription.skills.map((skill, index) => (
+                    <span key={index} className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Selection Process */}
+              <div>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                  <ArrowRight className="w-5 h-5 text-indigo-600" />
+                  Selection Process
+                </h4>
+                <div className="flex flex-wrap items-center gap-2">
+                  {selectedPlacementDrive.jobDescription.selectionProcess.map((step, index) => (
+                    <React.Fragment key={index}>
+                      <span className="px-3 py-2 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 rounded-lg text-sm font-medium">
+                        {index + 1}. {step}
+                      </span>
+                      {index < selectedPlacementDrive.jobDescription.selectionProcess.length - 1 && (
+                        <ArrowRight className="w-4 h-4 text-gray-400" />
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Perks */}
+              <div>
+                <h4 className="font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                  <Gift className="w-5 h-5 text-pink-600" />
+                  Perks & Benefits
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {selectedPlacementDrive.jobDescription.perks.map((perk, index) => (
+                    <span key={index} className="px-3 py-1 bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 rounded-full text-sm font-medium flex items-center gap-1">
+                      <CheckCircle className="w-3 h-3" /> {perk}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Action Buttons */}
+              <div className="flex gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <button
+                  onClick={() => setSelectedPlacementDrive(null)}
+                  className="flex-1 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 py-3 rounded-xl font-semibold transition-colors"
+                >
+                  Close
+                </button>
+                <button
+                  className={`flex-1 bg-gradient-to-r ${
+                    selectedPlacementDrive.colorScheme === 'blue' ? 'from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700' :
+                    selectedPlacementDrive.colorScheme === 'purple' ? 'from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700' :
+                    selectedPlacementDrive.colorScheme === 'teal' ? 'from-teal-500 to-cyan-600 hover:from-teal-600 hover:to-cyan-700' :
+                    'from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700'
+                  } text-white py-3 rounded-xl font-semibold transition-colors flex items-center justify-center gap-2`}
+                >
+                  Apply Now <ExternalLink className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* All Placement Drives Modal */}
+      {showAllPlacementDrives && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden animate-in zoom-in-95 duration-200">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-6">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h3 className="text-2xl font-bold text-white flex items-center gap-2">
+                    <Briefcase className="w-6 h-6" />
+                    All Placement Drives
+                  </h3>
+                  <p className="text-purple-100 mt-1">Campus Recruitment 2026</p>
+                </div>
+                <button
+                  onClick={() => setShowAllPlacementDrives(false)}
+                  className="text-white/80 hover:text-white transition-colors p-2 hover:bg-white/20 rounded-lg"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+            
+            {/* Content */}
+            <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+              <div className="grid md:grid-cols-2 gap-4">
+                {placementDrives.map((drive) => (
+                  <div
+                    key={drive.id}
+                    onClick={() => {
+                      setShowAllPlacementDrives(false);
+                      setSelectedPlacementDrive(drive);
+                    }}
+                    className={`p-4 rounded-xl border-2 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-1 ${
+                      drive.colorScheme === 'blue' ? 'border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 dark:border-blue-800' :
+                      drive.colorScheme === 'purple' ? 'border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 dark:border-purple-800' :
+                      drive.colorScheme === 'teal' ? 'border-teal-200 bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 dark:border-teal-800' :
+                      'border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 dark:border-amber-800'
+                    }`}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="w-14 h-14 bg-white dark:bg-gray-700 rounded-xl flex items-center justify-center shadow-sm border border-gray-100 dark:border-gray-600">
+                        <span className={`text-lg font-bold ${
+                          drive.colorScheme === 'blue' ? 'text-blue-600' :
+                          drive.colorScheme === 'purple' ? 'text-purple-600' :
+                          drive.colorScheme === 'teal' ? 'text-teal-600' :
+                          'text-amber-600'
+                        }`}>{drive.shortName}</span>
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <h4 className="font-bold text-gray-900 dark:text-white">{drive.company}</h4>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">{drive.role}</p>
+                          </div>
+                          <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                            drive.status === 'ongoing' ? 'bg-green-500 text-white' :
+                            drive.status === 'completed' ? 'bg-gray-400 text-white' :
+                            'bg-orange-500 text-white'
+                          }`}>
+                            {drive.statusText}
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-3 mt-3">
+                          <span className="text-sm text-green-600 dark:text-green-400 font-semibold flex items-center gap-1">
+                            <DollarSign className="w-4 h-4" /> {drive.package}
+                          </span>
+                          <span className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                            <Clock className="w-4 h-4" /> {drive.timing}
+                          </span>
+                        </div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                          Eligibility: {drive.eligibility}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Info Footer */}
+              <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-600 dark:text-gray-300">
+                    <span className="font-semibold text-purple-600">{placementDrives.length}</span> drives scheduled • 
+                    <span className="font-semibold text-green-600 ml-1">150+</span> positions available
+                  </span>
+                  <span className="text-blue-600 dark:text-blue-400 font-medium">
+                    Venue: Block D, Auditorium
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="space-y-6" style={{ fontSize: '1.15em' }}>
         {/* Welcome Section */}
         <FadeInUp delay={0.1}>
           <div data-tour-id="welcome-section" className="bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 dark:from-gray-800 dark:via-gray-800 dark:to-gray-800 rounded-2xl shadow-lg border border-blue-100 dark:border-gray-700 p-8 backdrop-blur-sm">
@@ -2810,18 +3347,18 @@ export default function StudentDashboard() {
 
                   {/* Greeting and Info */}
                   <div className="flex-1">
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 flex items-center gap-2">
+                    <p className="text-base text-gray-600 dark:text-gray-400 mb-2 flex items-center gap-2">
                       <Clock className="w-4 h-4" />
                       {getCurrentDate()}
                     </p>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-1 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+                    <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-1 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
                       {getGreeting()},
                     </h1>
-                    <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
+                    <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
                       {getUserName()}
                     </h2>
                     
-                    <div className="space-y-1 text-sm">
+                    <div className="space-y-1 text-base">
                       <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300 bg-white/60 dark:bg-gray-700/60 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-600 w-fit">
                         <GraduationCap className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                         <span><span className="font-semibold">Registration Number: </span> {studentData?.uid} | <span className="font-semibold">Section:</span> {studentData?.section} | <span className="font-semibold">Batch:</span> {studentData?.batch}</span>
@@ -2831,7 +3368,7 @@ export default function StudentDashboard() {
                       </div>
                     </div>
 
-                    <p className="mt-3 text-gray-600 dark:text-gray-400 text-xs leading-relaxed">
+                    <p className="mt-3 text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                       Welcome to your Student dashboard. Track your progress, manage your work, and stay connected.
                     </p>
                   </div>
@@ -2849,12 +3386,12 @@ export default function StudentDashboard() {
                     {/* Animated Background Elements */}
                     <div className="absolute inset-0 overflow-hidden">
                       {/* Floating circles */}
-                      <div className="absolute -top-4 -right-4 w-16 h-16 bg-white/10 rounded-full animate-pulse" style={{ animationDuration: '3s' }}></div>
-                      <div className="absolute bottom-2 -left-3 w-10 h-10 bg-white/10 rounded-full animate-pulse" style={{ animationDuration: '4s', animationDelay: '1s' }}></div>
+                      <div className="absolute -top-4 -right-4 w-16 h-16 bg-white/10 rounded-full" style={{ animationDuration: '3s' }}></div>
+                      <div className="absolute bottom-2 -left-3 w-10 h-10 bg-white/10 rounded-full" style={{ animationDuration: '4s', animationDelay: '1s' }}></div>
                       {/* Moving wave */}
                       <div className="absolute bottom-0 left-0 right-0 h-8 opacity-20">
                         <svg className="w-full h-full" viewBox="0 0 100 20" preserveAspectRatio="none">
-                          <path d="M0,10 Q25,0 50,10 T100,10 V20 H0 Z" fill="white" className="animate-pulse" style={{ animationDuration: '2s' }}/>
+                          <path d="M0,10 Q25,0 50,10 T100,10 V20 H0 Z" fill="white" style={{ animationDuration: '2s' }}/>
                         </svg>
                       </div>
                       {/* Shimmer effect */}
@@ -2866,8 +3403,8 @@ export default function StudentDashboard() {
                         <FileText className="w-5 h-5 drop-shadow-sm" />
                         <div className="w-2 h-2 bg-white/60 rounded-full animate-ping" style={{ animationDuration: '2s' }}></div>
                       </div>
-                      <p className="text-2xl font-bold drop-shadow-sm">{studentData?.happening}</p>
-                      <p className="text-[10px] font-medium opacity-90">Happening Now</p>
+                      <p className="text-4xl font-bold drop-shadow-sm">{studentData?.happening}</p>
+                      <p className="text-sm font-medium opacity-90">Happening Now</p>
                     </div>
                   </div>
 
@@ -2885,7 +3422,7 @@ export default function StudentDashboard() {
                       <div className="absolute top-6 right-5 w-2 h-2 bg-white/10 rounded-full" style={{ animation: 'bounce 2.5s infinite', animationDelay: '0.5s' }}></div>
                       <div className="absolute bottom-4 left-2 w-4 h-4 bg-white/10 rounded-full" style={{ animation: 'bounce 3s infinite', animationDelay: '1s' }}></div>
                       {/* Gradient orb */}
-                      <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-gradient-to-br from-pink-400/20 to-transparent rounded-full animate-pulse" style={{ animationDuration: '4s' }}></div>
+                      <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-gradient-to-br from-pink-400/20 to-transparent rounded-full" style={{ animationDuration: '4s' }}></div>
                       {/* Shimmer */}
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                     </div>
@@ -2895,8 +3432,8 @@ export default function StudentDashboard() {
                         <MessageSquare className="w-5 h-5 drop-shadow-sm" />
                         <span className="text-[8px] bg-white/25 px-1.5 py-0.5 rounded-full font-semibold">New</span>
                       </div>
-                      <p className="text-2xl font-bold drop-shadow-sm">{studentData?.messages}</p>
-                      <p className="text-[10px] font-medium opacity-90">Messages</p>
+                      <p className="text-4xl font-bold drop-shadow-sm">{studentData?.messages}</p>
+                      <p className="text-sm font-medium opacity-90">Messages</p>
                     </div>
                   </div>
 
@@ -2927,8 +3464,8 @@ export default function StudentDashboard() {
                           <div className="w-1.5 h-2.5 bg-white/35 rounded-full mt-0.5"></div>
                         </div>
                       </div>
-                      <p className="text-2xl font-bold drop-shadow-sm">{studentData?.assignments}</p>
-                      <p className="text-[10px] font-medium opacity-90">Assignments</p>
+                      <p className="text-4xl font-bold drop-shadow-sm">{studentData?.assignments}</p>
+                      <p className="text-sm font-medium opacity-90">Assignments</p>
                     </div>
                   </div>
 
@@ -2948,7 +3485,7 @@ export default function StudentDashboard() {
                         ))}
                       </div>
                       {/* Glowing orb */}
-                      <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-tr from-emerald-300/20 to-transparent rounded-full animate-pulse" style={{ animationDuration: '3s' }}></div>
+                      <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-tr from-emerald-300/20 to-transparent rounded-full" style={{ animationDuration: '3s' }}></div>
                       {/* Shimmer */}
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                     </div>
@@ -2960,8 +3497,8 @@ export default function StudentDashboard() {
                           <div className="w-1.5 h-1.5 bg-white/60 rounded-full animate-ping" style={{ animationDuration: '1.5s' }}></div>
                         </div>
                       </div>
-                      <p className="text-2xl font-bold drop-shadow-sm">{studentData?.events}</p>
-                      <p className="text-[10px] font-medium opacity-90">Upcoming Events</p>
+                      <p className="text-4xl font-bold drop-shadow-sm">{studentData?.events}</p>
+                      <p className="text-sm font-medium opacity-90">Upcoming Events</p>
                     </div>
                   </div>
 
@@ -2994,8 +3531,8 @@ export default function StudentDashboard() {
                           </svg>
                         </div>
                       </div>
-                      <p className="text-2xl font-bold drop-shadow-sm">₹0</p>
-                      <p className="text-[10px] font-medium opacity-90">Fees Cleared</p>
+                      <p className="text-4xl font-bold drop-shadow-sm">₹0</p>
+                      <p className="text-sm font-medium opacity-90">Fees Cleared</p>
                     </div>
                   </div>
                 </div>
@@ -3006,11 +3543,22 @@ export default function StudentDashboard() {
                   <div 
                     data-tour-id="cgpa-card"
                     onClick={() => setShowCGPAModal(true)}
-                    className="relative overflow-hidden rounded-xl p-4 text-white shadow-lg cursor-pointer hover:shadow-xl transition-shadow group"
-                    style={{ background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%)' }}
+                    className="relative overflow-hidden rounded-xl p-4 bg-white dark:bg-gray-800 shadow-lg cursor-pointer transition-all duration-500 group border border-gray-200 dark:border-gray-700"
+                    style={{
+                      transition: 'all 0.5s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%)';
+                      e.currentTarget.style.color = 'white';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = '';
+                      e.currentTarget.style.color = '';
+                      e.currentTarget.className = 'relative overflow-hidden rounded-xl p-4 bg-white dark:bg-gray-800 shadow-lg cursor-pointer transition-all duration-500 group border border-gray-200 dark:border-gray-700';
+                    }}
                   >
                     {/* Animated Background Elements */}
-                    <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       {/* Floating academic elements */}
                       <div className="absolute top-3 right-3 w-16 h-16 border border-white/10 rounded-full" style={{ animation: 'spin 10s linear infinite' }}></div>
                       <div className="absolute top-5 right-5 w-12 h-12 border border-white/5 rounded-full" style={{ animation: 'spin 8s linear infinite reverse' }}></div>
@@ -3027,25 +3575,25 @@ export default function StudentDashboard() {
                     <div className="relative z-10">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex-1">
-                          <p className="text-[11px] font-medium opacity-90 mb-1">Academic Performance</p>
-                          <p className="text-3xl font-bold drop-shadow-sm">{studentData?.cgpa}</p>
+                          <p className="text-[11px] font-medium mb-1 text-gray-600 dark:text-gray-400 group-hover:text-white/90">Academic Performance</p>
+                          <p className="text-3xl font-bold drop-shadow-sm text-gray-900 dark:text-white group-hover:text-white">{studentData?.cgpa}</p>
                         </div>
                         <div className="relative">
-                          <div className="absolute inset-0 bg-white/10 rounded-full animate-ping" style={{ animationDuration: '3s' }}></div>
-                          <GraduationCap className="w-10 h-10 drop-shadow-sm relative" />
+                          <div className="absolute inset-0 bg-blue-500/10 group-hover:bg-white/10 rounded-full animate-ping" style={{ animationDuration: '3s' }}></div>
+                          <GraduationCap className="w-10 h-10 drop-shadow-sm relative text-blue-600 group-hover:text-white" />
                         </div>
                       </div>
                       <div className="grid grid-cols-2 gap-2 mb-3">
-                        <div className="bg-white/15 backdrop-blur-sm rounded-lg p-2 border border-white/10">
-                          <p className="text-[9px] font-medium opacity-90">Current Sem</p>
-                          <p className="text-base font-bold drop-shadow-sm">7.85</p>
+                        <div className="bg-gray-100 dark:bg-gray-700 group-hover:bg-white/15 backdrop-blur-sm rounded-lg p-2 border border-gray-200 dark:border-gray-600 group-hover:border-white/10 transition-all duration-500">
+                          <p className="text-[9px] font-medium text-gray-600 dark:text-gray-400 group-hover:text-white/90">Current Sem</p>
+                          <p className="text-base font-bold drop-shadow-sm text-gray-900 dark:text-white group-hover:text-white">7.85</p>
                         </div>
-                        <div className="bg-white/15 backdrop-blur-sm rounded-lg p-2 border border-white/10">
-                          <p className="text-[9px] font-medium opacity-90">Credits</p>
-                          <p className="text-base font-bold drop-shadow-sm">120</p>
+                        <div className="bg-gray-100 dark:bg-gray-700 group-hover:bg-white/15 backdrop-blur-sm rounded-lg p-2 border border-gray-200 dark:border-gray-600 group-hover:border-white/10 transition-all duration-500">
+                          <p className="text-[9px] font-medium text-gray-600 dark:text-gray-400 group-hover:text-white/90">Credits</p>
+                          <p className="text-base font-bold drop-shadow-sm text-gray-900 dark:text-white group-hover:text-white">120</p>
                         </div>
                       </div>
-                      <p className="text-[10px] font-medium opacity-80 flex items-center gap-1">
+                      <p className="text-[10px] font-medium flex items-center gap-1 text-gray-500 dark:text-gray-400 group-hover:text-white/80">
                         <ExternalLink className="w-3 h-3" />
                         Click for details
                       </p>
@@ -3056,11 +3604,22 @@ export default function StudentDashboard() {
                   <div 
                     data-tour-id="attendance-card"
                     onClick={() => setShowAttendanceModal(true)}
-                    className="relative overflow-hidden rounded-xl p-4 text-white shadow-lg cursor-pointer hover:shadow-xl transition-shadow group"
-                    style={{ background: 'linear-gradient(135deg, #0891b2 0%, #0e7490 50%, #155e75 100%)' }}
+                    className="relative overflow-hidden rounded-xl p-4 bg-white dark:bg-gray-800 shadow-lg cursor-pointer transition-all duration-500 group border border-gray-200 dark:border-gray-700"
+                    style={{
+                      transition: 'all 0.5s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'linear-gradient(135deg, #0891b2 0%, #0e7490 50%, #155e75 100%)';
+                      e.currentTarget.style.color = 'white';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = '';
+                      e.currentTarget.style.color = '';
+                      e.currentTarget.className = 'relative overflow-hidden rounded-xl p-4 bg-white dark:bg-gray-800 shadow-lg cursor-pointer transition-all duration-500 group border border-gray-200 dark:border-gray-700';
+                    }}
                   >
                     {/* Animated Background Elements */}
-                    <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute inset-0 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                       {/* Calendar grid animation */}
                       <div className="absolute top-3 right-3 grid grid-cols-4 gap-1 opacity-10">
                         {[...Array(12)].map((_, i) => (
@@ -3080,33 +3639,33 @@ export default function StudentDashboard() {
                     <div className="relative z-10">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex-1">
-                          <p className="text-[11px] font-medium opacity-90 mb-1">Attendance Tracker</p>
-                          <p className="text-3xl font-bold drop-shadow-sm">{studentData?.attendance.overall}%</p>
+                          <p className="text-[11px] font-medium mb-1 text-gray-600 dark:text-gray-400 group-hover:text-white/90">Attendance Tracker</p>
+                          <p className="text-3xl font-bold drop-shadow-sm text-gray-900 dark:text-white group-hover:text-white">{studentData?.attendance.overall}%</p>
                         </div>
                         <div className="relative">
-                          <div className="absolute inset-0 bg-white/10 rounded-full animate-ping" style={{ animationDuration: '3s' }}></div>
-                          <Calendar className="w-10 h-10 drop-shadow-sm relative" />
+                          <div className="absolute inset-0 bg-teal-500/10 group-hover:bg-white/10 rounded-full animate-ping" style={{ animationDuration: '3s' }}></div>
+                          <Calendar className="w-10 h-10 drop-shadow-sm relative text-teal-600 group-hover:text-white" />
                         </div>
                       </div>
                       <div className="space-y-2 mb-3">
-                        <div className="flex items-center justify-between bg-white/10 backdrop-blur-sm rounded-lg px-2 py-1.5 border border-white/10">
-                          <p className="opacity-90 text-[10px] font-medium">Today</p>
+                        <div className="flex items-center justify-between bg-gray-100 dark:bg-gray-700 group-hover:bg-white/10 backdrop-blur-sm rounded-lg px-2 py-1.5 border border-gray-200 dark:border-gray-600 group-hover:border-white/10 transition-all duration-500">
+                          <p className="text-[10px] font-medium text-gray-600 dark:text-gray-400 group-hover:text-white/90">Today</p>
                           <span className={`px-2 py-0.5 rounded-full text-[9px] font-semibold ${
-                            studentData?.attendance.today === 'Present' ? 'bg-white/30' : 'bg-red-400/50'
+                            studentData?.attendance.today === 'Present' ? 'bg-gray-200 dark:bg-gray-600 group-hover:bg-white/30 text-gray-700 dark:text-gray-200 group-hover:text-white' : 'bg-red-100 dark:bg-red-900 group-hover:bg-red-400/50 text-red-700 dark:text-red-200 group-hover:text-white'
                           }`}>
                             {studentData?.attendance.today}
                           </span>
                         </div>
-                        <div className="flex items-center justify-between bg-white/10 backdrop-blur-sm rounded-lg px-2 py-1.5 border border-white/10">
-                          <p className="opacity-90 text-[10px] font-medium">Week</p>
-                          <p className="text-sm font-bold drop-shadow-sm">{studentData?.attendance.thisWeek}%</p>
+                        <div className="flex items-center justify-between bg-gray-100 dark:bg-gray-700 group-hover:bg-white/10 backdrop-blur-sm rounded-lg px-2 py-1.5 border border-gray-200 dark:border-gray-600 group-hover:border-white/10 transition-all duration-500">
+                          <p className="text-[10px] font-medium text-gray-600 dark:text-gray-400 group-hover:text-white/90">Week</p>
+                          <p className="text-sm font-bold drop-shadow-sm text-gray-900 dark:text-white group-hover:text-white">{studentData?.attendance.thisWeek}%</p>
                         </div>
-                        <div className="flex items-center justify-between bg-white/10 backdrop-blur-sm rounded-lg px-2 py-1.5 border border-white/10">
-                          <p className="opacity-90 text-[10px] font-medium">Month</p>
-                          <p className="text-sm font-bold drop-shadow-sm">{studentData?.attendance.thisMonth}%</p>
+                        <div className="flex items-center justify-between bg-gray-100 dark:bg-gray-700 group-hover:bg-white/10 backdrop-blur-sm rounded-lg px-2 py-1.5 border border-gray-200 dark:border-gray-600 group-hover:border-white/10 transition-all duration-500">
+                          <p className="text-[10px] font-medium text-gray-600 dark:text-gray-400 group-hover:text-white/90">Month</p>
+                          <p className="text-sm font-bold drop-shadow-sm text-gray-900 dark:text-white group-hover:text-white">{studentData?.attendance.thisMonth}%</p>
                         </div>
                       </div>
-                      <p className="text-[10px] font-medium opacity-80 flex items-center gap-1">
+                      <p className="text-[10px] font-medium flex items-center gap-1 text-gray-500 dark:text-gray-400 group-hover:text-white/80">
                         <ExternalLink className="w-3 h-3" />
                         Click for analytics
                       </p>
@@ -3115,59 +3674,415 @@ export default function StudentDashboard() {
                 </div>
               </div>
 
-              {/* Right Side: SGT University Events Slideshow */}
-              <div className="lg:col-span-5 relative overflow-hidden rounded-2xl shadow-2xl bg-gray-900 group" style={{ minHeight: '450px' }}>
-                {/* Slides Container */}
-                <div className="absolute inset-0">
-                  {sgtEventSlides.map((slide, index) => (
-                    <div
-                      key={slide.id}
-                      className={`absolute inset-0 transition-opacity duration-1000 ${
-                        index === currentSlide ? 'opacity-100' : 'opacity-0'
-                      }`}
-                    >
-                      <img 
-                        src={slide.image}
-                        alt={slide.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-                      
-                      {/* Content */}
-                      <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                        <span className="inline-block px-3 py-1 bg-blue-600/80 backdrop-blur-sm rounded-full text-xs font-semibold mb-3">
-                          {slide.category}
-                        </span>
-                        <h3 className="text-2xl font-bold mb-2">{slide.title}</h3>
-                        <p className="text-sm opacity-90">{slide.description}</p>
-                      </div>
-                    </div>
-                  ))}
+              {/* Right Side: Glass Calendar UI - Modern Design */}
+              <div data-tour-id="academic-calendar" className="lg:col-span-5 flex flex-col p-4" style={{ perspective: '1000px' }}>
+                {/* Calendar Heading - Centered */}
+                <div className="mb-4 text-center">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center justify-center gap-2">
+                    <Calendar className="w-6 h-6 text-blue-600" />
+                    Academic Activities Calendar
+                  </h2>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Stay updated with university events & schedules</p>
                 </div>
+                <div className="relative w-full max-w-lg mx-auto flex-1" style={{ height: '540px' }}>
+                  {/* Large animated gradient blobs - SGT theme colors with enhanced floating animations */}
+                  <div 
+                    className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full opacity-30" 
+                    style={{ 
+                      animation: 'floatDiagonal 10s ease-in-out infinite, pulseGlow 6s ease-in-out infinite',
+                      animationDelay: '0s',
+                      filter: 'blur(50px)'
+                    }}
+                  ></div>
+                  <div 
+                    className="absolute bottom-0 left-0 w-56 h-56 bg-gradient-to-tr from-cyan-400 via-blue-400 to-purple-400 rounded-full opacity-30" 
+                    style={{ 
+                      animation: 'floatCircular 12s ease-in-out infinite, pulseGlow 7s ease-in-out infinite',
+                      animationDelay: '1s',
+                      filter: 'blur(45px)'
+                    }}
+                  ></div>
+                  <div 
+                    className="absolute top-1/3 left-1/4 w-48 h-48 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-full opacity-20" 
+                    style={{ 
+                      animation: 'floatWave 14s ease-in-out infinite, rotate 25s linear infinite, pulseGlow 8s ease-in-out infinite',
+                      animationDelay: '2s',
+                      filter: 'blur(40px)'
+                    }}
+                  ></div>
+                  <div 
+                    className="absolute top-10 left-10 w-40 h-40 bg-gradient-to-br from-pink-400 to-rose-500 rounded-full opacity-25" 
+                    style={{ 
+                      animation: 'bounce 11s ease-in-out infinite, scale 8s ease-in-out infinite',
+                      animationDelay: '0.5s',
+                      filter: 'blur(42px)'
+                    }}
+                  ></div>
+                  <div 
+                    className="absolute bottom-20 right-20 w-52 h-52 bg-gradient-to-tr from-indigo-400 via-purple-500 to-pink-400 rounded-full opacity-25" 
+                    style={{ 
+                      animation: 'floatCircular 13s ease-in-out infinite reverse, rotate 30s linear infinite reverse',
+                      animationDelay: '1.5s',
+                      filter: 'blur(48px)'
+                    }}
+                  ></div>
+                  <div 
+                    className="absolute top-1/2 right-10 w-44 h-44 bg-gradient-to-br from-blue-400 via-cyan-400 to-teal-400 rounded-full opacity-20" 
+                    style={{ 
+                      animation: 'floatDiagonal 15s ease-in-out infinite reverse, pulseGlow 9s ease-in-out infinite',
+                      animationDelay: '3s',
+                      filter: 'blur(45px)'
+                    }}
+                  ></div>
+                  <div 
+                    className="absolute bottom-1/3 left-1/3 w-36 h-36 bg-gradient-to-tr from-violet-400 to-purple-500 rounded-full opacity-22" 
+                    style={{ 
+                      animation: 'floatWave 16s ease-in-out infinite reverse, scale 10s ease-in-out infinite',
+                      animationDelay: '2.5s',
+                      filter: 'blur(38px)'
+                    }}
+                  ></div>
+                  
+                  {/* Main Glass Calendar Card */}
+                  <div 
+                    className="absolute inset-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden flex flex-col"
+                    style={{
+                      border: '2px solid rgba(15, 37, 115, 0.5)',
+                      animation: 'borderGlow 3s ease-in-out infinite'
+                    }}
+                  >
+                    {/* Header with month navigation */}
+                    <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200/50 dark:border-gray-700/50 bg-gradient-to-r from-white/50 to-blue-50/50 dark:from-gray-800/50 dark:to-blue-900/20">
+                      <button
+                        onClick={() => setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() - 1))}
+                        className="p-2 hover:bg-blue-100/50 dark:hover:bg-blue-900/30 rounded-lg transition-all duration-200 hover:scale-110"
+                      >
+                        <ChevronLeft className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                      </button>
+                      <div className="text-center flex-1">
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                          {selectedMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                        </h3>
+                      </div>
+                      <button
+                        onClick={() => setSelectedMonth(new Date(selectedMonth.getFullYear(), selectedMonth.getMonth() + 1))}
+                        className="p-2 hover:bg-blue-100/50 dark:hover:bg-blue-900/30 rounded-lg transition-all duration-200 hover:scale-110"
+                      >
+                        <ChevronRight className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                      </button>
+                    </div>
 
-                {/* Navigation Arrows */}
-                <button
-                  onClick={() => setCurrentSlide((prev) => (prev - 1 + sgtEventSlides.length) % sgtEventSlides.length)}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white backdrop-blur-sm rounded-full flex items-center justify-center text-gray-900 opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-lg"
-                  aria-label="Previous slide"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-                <button
-                  onClick={() => setCurrentSlide((prev) => (prev + 1) % sgtEventSlides.length)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white backdrop-blur-sm rounded-full flex items-center justify-center text-gray-900 opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow-lg"
-                  aria-label="Next slide"
-                >
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
+                    {/* Calendar Content - No Scrolling */}
+                    <div className="flex-1 px-5 py-4 flex flex-col">
+                      {/* Day Headers */}
+                      <div className="grid grid-cols-7 gap-1.5 mb-2">
+                        {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((day, idx) => (
+                          <div key={idx} className="text-center">
+                            <span className="text-xs font-bold text-gray-500 dark:text-gray-400">{day}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Calendar Days Grid */}
+                      <div className="grid grid-cols-7 gap-1.5 flex-1">
+                        {(() => {
+                          const year = selectedMonth.getFullYear();
+                          const month = selectedMonth.getMonth();
+                          const firstDay = new Date(year, month, 1).getDay();
+                          const daysInMonth = new Date(year, month + 1, 0).getDate();
+                          const prevMonthDays = new Date(year, month, 0).getDate();
+                          const days = [];
+
+                          // Previous month's trailing days
+                          for (let i = firstDay - 1; i >= 0; i--) {
+                            const day = prevMonthDays - i;
+                            days.push(
+                              <div key={`prev-${day}`} className="aspect-square flex items-center justify-center">
+                                <span className="text-xs text-gray-300 dark:text-gray-600">{day}</span>
+                              </div>
+                            );
+                          }
+
+                          // Current month days
+                          for (let day = 1; day <= daysInMonth; day++) {
+                            const currentDate = new Date(year, month, day);
+                            // Use local date formatting to avoid timezone issues
+                            const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                            const dayEvents = academicCalendarEvents.filter(e => e.date === dateString);
+                            const filteredEvents = calendarFilter === 'all' 
+                              ? dayEvents 
+                              : dayEvents.filter(e => e.type === calendarFilter);
+
+                            const hasEvents = filteredEvents.length > 0;
+                            const eventType = hasEvents ? filteredEvents[0].type : null;
+                            
+                            let bgColor = '';
+                            let bgGradient = '';
+                            let ringColor = '';
+                            
+                            if (eventType === 'holiday') {
+                              bgGradient = 'from-red-400 to-pink-500';
+                              ringColor = 'ring-red-400/50';
+                            } else if (eventType === 'exam') {
+                              bgGradient = 'from-orange-400 to-amber-500';
+                              ringColor = 'ring-orange-400/50';
+                            } else if (eventType === 'event') {
+                              bgGradient = 'from-purple-400 to-violet-500';
+                              ringColor = 'ring-purple-400/50';
+                            } else if (eventType === 'crucial') {
+                              bgGradient = 'from-blue-400 to-cyan-500';
+                              ringColor = 'ring-blue-400/50';
+                            }
+
+                            days.push(
+                              <button
+                                key={day}
+                                onClick={() => hasEvents ? setSelectedDate(currentDate) : null}
+                                className={`w-9 h-9 flex items-center justify-center rounded-full text-sm font-semibold transition-all duration-300 mx-auto ${
+                                  hasEvents
+                                    ? `bg-gradient-to-br ${bgGradient} text-white shadow-lg hover:shadow-xl hover:scale-110 cursor-pointer ring-2 ${ringColor}`
+                                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200/50 dark:hover:bg-gray-700/50 hover:scale-105'
+                                }`}
+                              >
+                                {day}
+                              </button>
+                            );
+                          }
+
+                          // Next month's leading days
+                          const totalCells = days.length;
+                          const remainingCells = 35 - totalCells;
+                          for (let day = 1; day <= remainingCells; day++) {
+                            days.push(
+                              <div key={`next-${day}`} className="aspect-square flex items-center justify-center">
+                                <span className="text-xs text-gray-300 dark:text-gray-600">{day}</span>
+                              </div>
+                            );
+                          }
+
+                          return days;
+                        })()}
+                      </div>
+
+                      {/* Filter Pills */}
+                      <div className="flex gap-2 mt-3 flex-wrap justify-center">
+                        {[
+                          { key: 'all', label: 'All', color: 'from-gray-500 to-gray-600', bgColor: 'bg-gray-100 dark:bg-gray-700', textColor: 'text-gray-700 dark:text-gray-300' },
+                          { key: 'holiday', label: 'Holidays', color: 'from-red-400 to-pink-500', bgColor: 'bg-red-50 dark:bg-red-900/30', textColor: 'text-red-600 dark:text-red-400' },
+                          { key: 'exam', label: 'Exams', color: 'from-orange-400 to-amber-500', bgColor: 'bg-orange-50 dark:bg-orange-900/30', textColor: 'text-orange-600 dark:text-orange-400' },
+                          { key: 'event', label: 'Events', color: 'from-purple-400 to-violet-500', bgColor: 'bg-purple-50 dark:bg-purple-900/30', textColor: 'text-purple-600 dark:text-purple-400' },
+                          { key: 'crucial', label: 'Important', color: 'from-blue-400 to-cyan-500', bgColor: 'bg-blue-50 dark:bg-blue-900/30', textColor: 'text-blue-600 dark:text-blue-400' }
+                        ].map((filter) => (
+                          <button
+                            key={filter.key}
+                            onClick={() => setCalendarFilter(filter.key as any)}
+                            className={`px-3 py-1 rounded-full text-[10px] font-semibold transition-all duration-200 ${
+                              calendarFilter === filter.key
+                                ? `bg-gradient-to-r ${filter.color} text-white shadow-lg scale-105 ring-2 ring-white/50`
+                                : `${filter.bgColor} ${filter.textColor} hover:scale-105 border border-current/20`
+                            }`}
+                          >
+                            {filter.label}
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* View Timetable Button */}
+                      {calendarFilter === 'exam' && (
+                        <div className="mt-2 text-center">
+                          <button
+                            onClick={() => setShowFullTimetable(true)}
+                            className="px-4 py-1.5 bg-gradient-to-r from-orange-400 to-amber-500 hover:from-orange-500 hover:to-amber-600 text-white rounded-full text-xs font-semibold shadow-lg hover:shadow-xl transition-all duration-200 inline-flex items-center gap-2 hover:scale-105"
+                          >
+                            <CalendarDays className="w-3.5 h-3.5" />
+                            View Exam Timetable
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </FadeInUp>
+
+        {/* Event Details Modal */}
+        {selectedDate && (() => {
+          // Use local date formatting to avoid timezone issues
+          const year = selectedDate!.getFullYear();
+          const month = selectedDate!.getMonth() + 1;
+          const day = selectedDate!.getDate();
+          const dateString = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          const dayEvents = academicCalendarEvents.filter(e => e.date === dateString);
+          const filteredEvents = calendarFilter === 'all' 
+            ? dayEvents 
+            : dayEvents.filter(e => e.type === calendarFilter);
+
+          return filteredEvents.length > 0 ? (
+            <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fadeIn" onClick={() => setSelectedDate(null)}>
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-slideUp" onClick={(e) => e.stopPropagation()}>
+                {filteredEvents.map((event, idx) => {
+                  const headerColors = {
+                    holiday: 'from-red-400 to-pink-500',
+                    exam: 'from-orange-400 to-yellow-500',
+                    event: 'from-purple-400 to-indigo-500',
+                    crucial: 'from-blue-400 to-cyan-500'
+                  };
+                  
+                  const badgeColors = {
+                    holiday: 'bg-red-400',
+                    exam: 'bg-orange-400',
+                    event: 'bg-purple-400',
+                    crucial: 'bg-blue-400'
+                  };
+
+                  // Check if this is an exam with detailed info
+                  const isExamWithDetails = event.type === 'exam' && (event as any).courseCode;
+                  const examDetails = event as any;
+
+                  return (
+                    <div key={idx} className={idx > 0 ? 'border-t-4 border-gray-200 dark:border-gray-700' : ''}>
+                      <div className={`bg-gradient-to-r ${headerColors[event.type]} p-5 text-white relative overflow-hidden`}>
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
+                        <div className="absolute bottom-0 left-0 w-24 h-24 bg-black/10 rounded-full -ml-12 -mb-12"></div>
+                        <div className="relative flex justify-between items-start">
+                          <div className="flex-1">
+                            <h4 className="font-bold text-xl leading-tight">{event.title}</h4>
+                            {isExamWithDetails && (
+                              <p className="text-white/80 text-sm mt-1">{examDetails.courseCode}</p>
+                            )}
+                          </div>
+                          {idx === 0 && (
+                            <button
+                              onClick={() => setSelectedDate(null)}
+                              className="text-white hover:bg-white/20 rounded-lg p-1.5 transition-all ml-2"
+                            >
+                              <X className="w-5 h-5" />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="p-5 space-y-4">
+                        {/* Date and Time Row */}
+                        <div className="grid grid-cols-2 gap-3">
+                          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-3 border border-blue-100 dark:border-blue-800">
+                            <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 mb-1">
+                              <Calendar className="w-4 h-4" />
+                              <span className="text-xs font-medium">Date</span>
+                            </div>
+                            <p className="text-sm font-bold text-gray-900 dark:text-white">
+                              {selectedDate!.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
+                            </p>
+                          </div>
+
+                          <div className="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-3 border border-purple-100 dark:border-purple-800">
+                            <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400 mb-1">
+                              <Clock className="w-4 h-4" />
+                              <span className="text-xs font-medium">Time</span>
+                            </div>
+                            <p className="text-sm font-bold text-gray-900 dark:text-white">
+                              {isExamWithDetails ? examDetails.time : 'All Day'}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Room and Building for Exams */}
+                        {isExamWithDetails && (
+                          <div className="grid grid-cols-2 gap-3">
+                            <div className="bg-pink-50 dark:bg-pink-900/20 rounded-xl p-3 border border-pink-100 dark:border-pink-800">
+                              <div className="flex items-center gap-2 text-pink-600 dark:text-pink-400 mb-1">
+                                <MapPin className="w-4 h-4" />
+                                <span className="text-xs font-medium">Room</span>
+                              </div>
+                              <p className="text-sm font-bold text-gray-900 dark:text-white">{examDetails.room}</p>
+                            </div>
+
+                            <div className="bg-teal-50 dark:bg-teal-900/20 rounded-xl p-3 border border-teal-100 dark:border-teal-800">
+                              <div className="flex items-center gap-2 text-teal-600 dark:text-teal-400 mb-1">
+                                <Building2 className="w-4 h-4" />
+                                <span className="text-xs font-medium">Building</span>
+                              </div>
+                              <p className="text-sm font-bold text-gray-900 dark:text-white">{examDetails.building}</p>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Exam Details */}
+                        {isExamWithDetails && (
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 rounded-xl px-4 py-3">
+                              <div className="flex items-center gap-2">
+                                <FileText className="w-4 h-4 text-gray-500" />
+                                <span className="text-sm text-gray-600 dark:text-gray-400">Exam Type</span>
+                              </div>
+                              <span className="text-sm font-bold text-gray-900 dark:text-white">{examDetails.examType}</span>
+                            </div>
+                            <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 rounded-xl px-4 py-3">
+                              <div className="flex items-center gap-2">
+                                <Award className="w-4 h-4 text-gray-500" />
+                                <span className="text-sm text-gray-600 dark:text-gray-400">Maximum Marks</span>
+                              </div>
+                              <span className="text-sm font-bold text-gray-900 dark:text-white">{examDetails.maxMarks}</span>
+                            </div>
+                            <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-700/50 rounded-xl px-4 py-3">
+                              <div className="flex items-center gap-2">
+                                <Clock className="w-4 h-4 text-gray-500" />
+                                <span className="text-sm text-gray-600 dark:text-gray-400">Duration</span>
+                              </div>
+                              <span className="text-sm font-bold text-gray-900 dark:text-white">{examDetails.duration}</span>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Instructions for Exams */}
+                        {isExamWithDetails && examDetails.instructions && (
+                          <div className="bg-amber-50 dark:bg-amber-900/20 rounded-xl p-4 border border-amber-100 dark:border-amber-800">
+                            <div className="flex items-center gap-2 mb-3">
+                              <FileText className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                              <span className="text-sm font-semibold text-amber-700 dark:text-amber-300">Instructions</span>
+                            </div>
+                            <ul className="space-y-2">
+                              {examDetails.instructions.map((instruction: string, i: number) => (
+                                <li key={i} className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300">
+                                  <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                                  <span>{instruction}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* Description for non-exam events */}
+                        {!isExamWithDetails && event.description && (
+                          <div className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-xl p-4">
+                            <div className="flex items-center gap-2 mb-2">
+                              {event.type === 'holiday' && <span className="text-2xl">🏖️</span>}
+                              {event.type === 'event' && <span className="text-2xl">🎉</span>}
+                              {event.type === 'crucial' && <span className="text-2xl">⭐</span>}
+                              <span className="text-sm font-medium text-gray-500 dark:text-gray-400 capitalize">{event.type}</span>
+                            </div>
+                            <p className="text-sm text-gray-700 dark:text-gray-300">{event.description}</p>
+                          </div>
+                        )}
+
+                        {idx === filteredEvents.length - 1 && (
+                          <button
+                            onClick={() => setSelectedDate(null)}
+                            className={`w-full bg-gradient-to-r ${headerColors[event.type]} text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all`}
+                          >
+                            Close
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null;
+        })()}
 
         {/* Quick Access Section - White with Blue Border */}
         <FadeInUp delay={0.3}>
@@ -3184,8 +4099,8 @@ export default function StudentDashboard() {
                     <Clock className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-gray-900 dark:text-white">Today&apos;s Timetable</h3>
-                    <p className="text-[10px] text-gray-500">{getTodayName()}, {new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">Today&apos;s Timetable</h3>
+                    <p className="text-xs text-gray-500">{getTodayName()}, {new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
                   </div>
                 </div>
                 
@@ -3197,8 +4112,8 @@ export default function StudentDashboard() {
                     getTodayTimetable().map((classItem) => (
                       <div key={classItem.id} className="p-2 bg-gray-50 dark:bg-gray-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
                         <div className="flex items-center justify-between mb-1">
-                          <p className="font-semibold text-xs text-gray-900 dark:text-white">{classItem.subject}</p>
-                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${
+                          <p className="font-semibold text-sm text-gray-900 dark:text-white">{classItem.subject}</p>
+                          <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
                             classItem.type === 'Lab' 
                               ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400' 
                               : classItem.type === 'Tutorial'
@@ -3208,8 +4123,8 @@ export default function StudentDashboard() {
                             {classItem.type}
                           </span>
                         </div>
-                        <p className="text-[10px] text-gray-500">{classItem.subjectCode} • {classItem.faculty}</p>
-                        <div className="flex items-center gap-2 mt-1 text-[10px] text-gray-400">
+                        <p className="text-xs text-gray-500">{classItem.subjectCode} • {classItem.faculty}</p>
+                        <div className="flex items-center gap-2 mt-1 text-xs text-gray-400">
                           <Clock className="w-3 h-3" /> {classItem.time}
                           <MapPin className="w-3 h-3 ml-2" /> {classItem.roomNo}, {classItem.building}
                         </div>
@@ -3240,8 +4155,8 @@ export default function StudentDashboard() {
                     <Award className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-gray-900 dark:text-white">Recently Placed</h3>
-                    <p className="text-[10px] text-gray-500">Top Recruiters</p>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">Recently Placed</h3>
+                    <p className="text-xs text-gray-500">Top Recruiters</p>
                   </div>
                 </div>
                 
@@ -3255,15 +4170,15 @@ export default function StudentDashboard() {
                         {placement.studentName.charAt(0)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-bold text-sm text-gray-900 dark:text-white truncate mb-0.5">{placement.studentName}</p>
-                        <p className="text-xs text-gray-600 dark:text-gray-400 truncate mb-1">
+                        <p className="font-bold text-base text-gray-900 dark:text-white truncate mb-0.5">{placement.studentName}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 truncate mb-1">
                           <span className="font-semibold text-green-600 dark:text-green-400">{placement.company}</span>
                         </p>
-                        <p className="text-[10px] text-gray-500 dark:text-gray-400 truncate">{placement.role}</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{placement.role}</p>
                       </div>
                       <div className="flex-shrink-0 text-right">
                         <div className="bg-green-600 text-white px-2 py-1 rounded-lg shadow-sm">
-                          <p className="font-bold text-xs whitespace-nowrap">{placement.package}</p>
+                          <p className="font-bold text-sm whitespace-nowrap">{placement.package}</p>
                         </div>
                       </div>
                     </div>
@@ -3275,59 +4190,93 @@ export default function StudentDashboard() {
                 </button>
               </div>
 
-              {/* Exam Timetable - Single Month Calendar View */}
-              <div data-tour-id="exam-calendar" className="bg-white dark:bg-gray-800 rounded-xl p-4 border-2 border-purple-400 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 flex flex-col h-[420px]"
+              {/* Today's Placement Drives */}
+              <div data-tour-id="placement-drives" className="bg-white dark:bg-gray-800 rounded-xl p-4 border-2 border-purple-400 shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 flex flex-col h-[420px]"
                 style={{ boxShadow: '0 4px 20px rgba(147, 51, 234, 0.15)' }}
               >
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
-                    <CalendarDays className="w-5 h-5 text-purple-600" />
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-lg">
+                    <Briefcase className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-base font-bold text-gray-900 dark:text-white">Exam Timetable</h3>
-                    <p className="text-[10px] text-gray-500">
-                      {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">Today's Placement Drives</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Tuesday, 3 Feb 2026
                     </p>
                   </div>
-                  
-                  {/* Month Navigation Buttons */}
-                  <div className="flex gap-1">
-                    <button
-                      onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1))}
-                      className="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 hover:bg-purple-200 dark:hover:bg-purple-900/50 rounded-lg flex items-center justify-center text-purple-600 transition-colors"
-                      title="Previous Month"
+                  <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold rounded-full animate-pulse">
+                    LIVE
+                  </span>
+                </div>
+
+                {/* Placement Drives List */}
+                <div className="flex-1 overflow-y-auto space-y-3 pr-1" style={{ scrollbarWidth: 'thin' }}>
+                  {placementDrives.map((drive) => (
+                    <div 
+                      key={drive.id}
+                      onClick={() => setSelectedPlacementDrive(drive)}
+                      className={`rounded-xl p-3 border hover:shadow-md transition-all cursor-pointer group ${
+                        drive.colorScheme === 'blue' ? 'bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200 dark:border-blue-800' :
+                        drive.colorScheme === 'purple' ? 'bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-purple-200 dark:border-purple-800' :
+                        drive.colorScheme === 'teal' ? 'bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 border-teal-200 dark:border-teal-800' :
+                        'bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border-amber-200 dark:border-amber-800'
+                      }`}
                     >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                      </svg>
-                    </button>
-                    <button
-                      onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1))}
-                      className="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 hover:bg-purple-200 dark:hover:bg-purple-900/50 rounded-lg flex items-center justify-center text-purple-600 transition-colors"
-                      title="Next Month"
-                    >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
+                      <div className="flex items-start gap-3">
+                        <div className="w-12 h-12 bg-white dark:bg-gray-700 rounded-lg flex items-center justify-center shadow-sm border border-gray-100 dark:border-gray-600">
+                          <span className={`font-bold ${
+                            drive.shortName.length > 5 ? 'text-[10px]' : drive.shortName.length > 3 ? 'text-sm' : 'text-lg'
+                          } ${
+                            drive.colorScheme === 'blue' ? 'text-blue-600' :
+                            drive.colorScheme === 'purple' ? 'text-purple-600' :
+                            drive.colorScheme === 'teal' ? 'text-teal-600' :
+                            'text-amber-600'
+                          }`}>{drive.shortName}</span>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className={`text-base font-bold text-gray-900 dark:text-white transition-colors ${
+                            drive.colorScheme === 'blue' ? 'group-hover:text-blue-600' :
+                            drive.colorScheme === 'purple' ? 'group-hover:text-purple-600' :
+                            drive.colorScheme === 'teal' ? 'group-hover:text-teal-600' :
+                            'group-hover:text-amber-600'
+                          }`}>{drive.company}</h4>
+                          <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">{drive.role} | {drive.eligibility}</p>
+                          <div className="flex items-center gap-3 mt-2">
+                            <span className="flex items-center gap-1 text-xs text-green-600 dark:text-green-400 font-semibold">
+                              <DollarSign className="w-3 h-3" /> {drive.package}
+                            </span>
+                            <span className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                              <Clock className="w-3 h-3" /> {drive.timing}
+                            </span>
+                          </div>
+                        </div>
+                        <span className={`px-2 py-0.5 text-white text-[9px] font-bold rounded-full ${
+                          drive.status === 'ongoing' ? 'bg-blue-500' :
+                          drive.status === 'completed' ? 'bg-green-500' :
+                          'bg-orange-500'
+                        }`}>{drive.statusText}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Footer */}
+                <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] text-gray-500 dark:text-gray-400">
+                      <span className="font-semibold text-purple-600">{placementDrives.length}</span> drives today • <span className="font-semibold text-green-600">150+</span> positions
+                    </span>
+                    <span className="text-[10px] text-blue-600 dark:text-blue-400 font-medium">
+                      Venue: Block D, Auditorium
+                    </span>
                   </div>
+                  <button 
+                    onClick={() => setShowAllPlacementDrives(true)}
+                    className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1 transition-all shadow-lg hover:shadow-xl"
+                  >
+                    View All Placement Drives <ExternalLink className="w-3 h-3" />
+                  </button>
                 </div>
-                
-                {/* Single Month Calendar */}
-                <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-2">
-                  {renderCalendar()}
-                </div>
-                
-                <p className="text-[10px] text-purple-600 font-medium text-center mt-2 mb-2">
-                  Click on highlighted dates to view exam details
-                </p>
-                
-                <button 
-                  onClick={() => setShowFullTimetable(true)}
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1 transition-colors shadow-sm"
-                >
-                  View Full Timetable <ExternalLink className="w-3 h-3" />
-                </button>
               </div>
             </div>
           </div>
@@ -3339,11 +4288,11 @@ export default function StudentDashboard() {
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">University Announcements</h2>
-                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Latest updates and notifications</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Latest updates and notifications</p>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-gray-400" />
-                <span className="text-xs text-gray-500 dark:text-gray-400">Updated Daily</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">Updated Daily</span>
               </div>
             </div>
 
@@ -3357,7 +4306,7 @@ export default function StudentDashboard() {
                     setExpandedAnnouncement(null);
                   }}
                   className={`
-                    px-4 py-2 rounded-lg text-sm font-medium transition-all
+                    px-4 py-2 rounded-lg text-base font-medium transition-all
                     ${activeAnnouncementTab === category.name
                       ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/30'
                       : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
@@ -3366,7 +4315,7 @@ export default function StudentDashboard() {
                 >
                   {category.name}
                   <span className={`
-                    ml-2 px-2 py-0.5 rounded-full text-xs font-bold
+                    ml-2 px-2 py-0.5 rounded-full text-sm font-bold
                     ${activeAnnouncementTab === category.name
                       ? 'bg-white/20 text-white'
                       : 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
@@ -3462,17 +4411,18 @@ export default function StudentDashboard() {
         {/* Know Your Authorities Section - Exact SGT University Style */}
         <FadeInUp delay={0.6}>
           <div 
-            className="py-8 overflow-hidden relative bg-white"
+            data-tour-id="authorities-section"
+            className="py-8 overflow-hidden relative bg-white dark:bg-gray-900 rounded-2xl"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
             {/* Header */}
             <div className="max-w-7xl mx-auto px-4 mb-8 relative z-10">
               <div className="text-center">
-                <h2 className="text-3xl md:text-5xl font-bold italic mb-3 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                <h2 className="text-3xl md:text-5xl font-extrabold mb-3 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>
                   Know Your Authorities
                 </h2>
-                <p className="text-base text-gray-600">
+                <p className="text-base text-gray-600 dark:text-gray-400">
                   Connect with university leadership for guidance and support
                 </p>
               </div>
@@ -3485,7 +4435,7 @@ export default function StudentDashboard() {
                 onClick={() => {
                   setActiveAuthorityIndex((prev) => (prev - 1 + yourAuthorities.length) % yourAuthorities.length);
                 }}
-                className="absolute left-4 md:left-16 top-1/2 -translate-y-1/2 z-40 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center text-white transition-all border border-white/30"
+                className="absolute left-4 md:left-16 top-1/2 -translate-y-1/2 z-40 w-12 h-12 rounded-full bg-gray-200/50 dark:bg-white/20 backdrop-blur-sm hover:bg-gray-300/60 dark:hover:bg-white/30 flex items-center justify-center text-gray-700 dark:text-white transition-all border border-gray-300 dark:border-white/30"
                 aria-label="Previous"
               >
                 <ChevronLeft className="w-6 h-6" />
@@ -3496,7 +4446,7 @@ export default function StudentDashboard() {
                 onClick={() => {
                   setActiveAuthorityIndex((prev) => (prev + 1) % yourAuthorities.length);
                 }}
-                className="absolute right-4 md:right-16 top-1/2 -translate-y-1/2 z-40 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 flex items-center justify-center text-white transition-all border border-white/30"
+                className="absolute right-4 md:right-16 top-1/2 -translate-y-1/2 z-40 w-12 h-12 rounded-full bg-gray-200/50 dark:bg-white/20 backdrop-blur-sm hover:bg-gray-300/60 dark:hover:bg-white/30 flex items-center justify-center text-gray-700 dark:text-white transition-all border border-gray-300 dark:border-white/30"
                 aria-label="Next"
               >
                 <ChevronRight className="w-6 h-6" />
@@ -3577,27 +4527,27 @@ export default function StudentDashboard() {
                         
                         {/* Center Card Extra Info */}
                         {isCenter && (
-                          <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl p-4 pt-5 transform transition-all duration-300" style={{ height: '200px' }}>
-                            <h3 className="font-bold text-base text-gray-900 text-center mb-1">
+                          <div className="absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-800 rounded-t-2xl p-4 pt-5 transform transition-all duration-300" style={{ height: '200px' }}>
+                            <h3 className="font-bold text-base text-gray-900 dark:text-white text-center mb-1">
                               {authority.name}
                             </h3>
-                            <p className="text-sm text-blue-600 text-center font-medium mb-1">
+                            <p className="text-sm text-blue-600 dark:text-blue-400 text-center font-medium mb-1">
                               {authority.position}
                             </p>
-                            <p className="text-xs text-gray-500 text-center mb-3">
+                            <p className="text-xs text-gray-500 dark:text-gray-400 text-center mb-3">
                               SGT University
                             </p>
                             
                             {/* Contact Info */}
                             <div className="space-y-1.5 mb-3">
-                              <div className="flex items-center gap-2 text-xs text-gray-600">
-                                <svg className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300">
+                                <svg className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                 </svg>
                                 <span className="truncate">{authority.email}</span>
                               </div>
-                              <div className="flex items-center gap-2 text-xs text-gray-600">
-                                <svg className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300">
+                                <svg className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                 </svg>
                                 <span>{authority.phone}</span>
@@ -3648,12 +4598,12 @@ export default function StudentDashboard() {
                         {/* Animated Background Elements */}
                         <div className="absolute inset-0 opacity-20">
                           {/* Floating circles */}
-                          <div className="absolute top-2 right-2 w-8 h-8 bg-white rounded-full animate-pulse"></div>
+                          <div className="absolute top-2 right-2 w-8 h-8 bg-white rounded-full opacity-20"></div>
                           <div className="absolute bottom-2 left-2 w-6 h-6 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
                           <div className="absolute top-1/2 left-1/2 w-4 h-4 bg-white rounded-full animate-ping" style={{ animationDelay: '0.6s' }}></div>
                           {/* Wave pattern */}
                           <svg className="absolute bottom-0 left-0 w-full h-16" viewBox="0 0 200 80" preserveAspectRatio="none">
-                            <path d="M0,40 Q50,20 100,40 T200,40 L200,80 L0,80 Z" fill="white" opacity="0.15" className="animate-pulse" />
+                            <path d="M0,40 Q50,20 100,40 T200,40 L200,80 L0,80 Z" fill="white" opacity="0.15" />
                           </svg>
                         </div>
                         
@@ -3664,12 +4614,12 @@ export default function StudentDashboard() {
                           </div>
                           
                           {/* Title */}
-                          <h3 className="font-bold text-xs text-white mb-1.5 line-clamp-2">
+                          <h3 className="font-bold text-sm text-white mb-1.5 line-clamp-2">
                             {guideline.title}
                           </h3>
                           
                           {/* View Button */}
-                          <div className="mt-auto flex items-center gap-1 text-[10px] text-white/90 font-semibold">
+                          <div className="mt-auto flex items-center gap-1 text-xs text-white/90 font-semibold">
                             <FileText className="w-2.5 h-2.5" />
                             <span>View</span>
                             <ExternalLink className="w-2.5 h-2.5 group-hover:translate-x-0.5 transition-transform" />
@@ -3823,7 +4773,7 @@ export default function StudentDashboard() {
             onClose={() => setShowTour(false)}
             onComplete={() => {
               setShowTour(false);
-              setShowTourButton(false);
+              // Keep tour button visible so users can retake the tour anytime
             }}
           />
 
