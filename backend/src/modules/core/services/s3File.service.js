@@ -5,7 +5,7 @@
 
 const multer = require('multer');
 const path = require('path');
-const { uploadToS3, downloadFromS3, deleteFromS3, getS3FileMetadata } = require('../../shared/utils/s3');
+const { uploadToS3, downloadFromS3, deleteFromS3, getS3FileMetadata } = require('../../../shared/utils/s3');
 
 /**
  * File filter for multer - allow common document types including ZIP
