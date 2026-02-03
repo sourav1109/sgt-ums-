@@ -230,12 +230,12 @@ exports.login = async (req, res) => {
     // Generate token
     const token = generateToken(user.id);
 
-    // Set cookie
+    // Set cookie with appropriate sameSite setting for cross-origin
     res.cookie('token', token, {
       expires: new Date(Date.now() + config.jwt.cookieExpire * 24 * 60 * 60 * 1000),
       httpOnly: true,
       secure: config.env === 'production',
-      sameSite: 'strict'
+      sameSite: config.env === 'production' ? 'none' : 'lax' // 'none' for cross-origin in production
     });
 
     // Audit log with full details
@@ -279,7 +279,9 @@ exports.logout = async (req, res) => {
   try {
     res.cookie('token', 'none', {
       expires: new Date(Date.now() + 1000),
-      httpOnly: true
+      httpOnly: true,
+      secure: config.env === 'production',
+      sameSite: config.env === 'production' ? 'none' : 'lax'
     });
 
     // Audit log with full details
