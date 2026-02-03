@@ -1859,13 +1859,16 @@ export default function ResearchContributionForm({ publicationType, contribution
     try {
       setLoading(true);
       const response = await api.get(`/research-progress/${trackerId}`);
+      logger.debug('[fetchTrackerData] Response:', response.data);
       if (response.data?.data) {
         const tracker = response.data.data;
         const typeData = tracker.researchPaperData || tracker.bookData || tracker.bookChapterData || tracker.conferencePaperData;
         
+        logger.debug('[fetchTrackerData] Tracker:', tracker);
+        logger.debug('[fetchTrackerData] TypeData:', typeData);
+        
         if (!typeData) {
-          setError('Tracker data not found');
-          return;
+          logger.warn('[fetchTrackerData] No type data found, will use status history data only');
         }
 
         // Get merged status data from ALL history entries (newest values take precedence)
@@ -1882,6 +1885,11 @@ export default function ResearchContributionForm({ publicationType, contribution
             }
           });
         }
+        
+        logger.debug('[fetchTrackerData] Merged status data:', mergedStatusData);
+        
+        // Use typeData or empty object if not available
+        const safeTypeData = typeData || {};
 
         // Map tracker data to form data based on publication type
         setFormData(prev => ({
@@ -1890,50 +1898,87 @@ export default function ResearchContributionForm({ publicationType, contribution
           schoolId: tracker.schoolId || '',
           departmentId: tracker.departmentId || '',
           // Research paper specific
-          journalName: typeData.targetJournal || (mergedStatusData.journalName as string) || '',
-          quartile: typeData.targetQuartile || (mergedStatusData.quartile as string) || '',
-          targetedResearchType: typeData.targetIndexing || (mergedStatusData.targetedResearchType as string) || 'scopus',
+          journalName: safeTypeData.targetJournal || (mergedStatusData.journalName as string) || (mergedStatusData.journalDetails as string) || '',
+          quartile: safeTypeData.targetQuartile || (mergedStatusData.quartile as string) || '',
+          targetedResearchType: safeTypeData.targetIndexing || (mergedStatusData.targetedResearchType as string) || 'scopus',
+          // Indexing Categories (multi-select)
+          indexingCategories: (mergedStatusData.indexingCategories as string[]) || safeTypeData.indexingCategories || [],
+          // Metrics
+          sjr: (mergedStatusData.sjr as number) || safeTypeData.sjr || '',
+          impactFactor: (mergedStatusData.impactFactor as number) || safeTypeData.impactFactor || '',
+          naasRating: (mergedStatusData.naasRating as number) || safeTypeData.naasRating || '',
+          // Publication Details (Volume, Issue, DOI, ISSN)
+          volume: (mergedStatusData.volume as string) || safeTypeData.volume || '',
+          issue: (mergedStatusData.issue as string) || safeTypeData.issue || '',
+          doi: (mergedStatusData.doi as string) || safeTypeData.doi || '',
+          issn: (mergedStatusData.issn as string) || safeTypeData.issn || '',
+          // Publication URL / Weblink
+          weblink: (mergedStatusData.publicationUrl as string) || (mergedStatusData.publicationWeblink as string) || (mergedStatusData.weblink as string) || safeTypeData.publicationUrl || safeTypeData.publicationWeblink || safeTypeData.weblink || '',
+          paperweblink: (mergedStatusData.paperweblink as string) || (mergedStatusData.publicationUrl as string) || safeTypeData.paperweblink || '',
           // Conference specific
-          conferenceName: typeData.targetConference || typeData.conferenceName || (mergedStatusData.conferenceName as string) || '',
-          conferenceSubType: typeData.conferenceSubType || (mergedStatusData.conferenceSubType as string) || '',
-          conferenceType: typeData.conferenceType || (mergedStatusData.conferenceType as string) || '',
-          proceedingsQuartile: typeData.proceedingsQuartile || (mergedStatusData.proceedingsQuartile as string) || '',
-          priorityFundingArea: typeData.priorityFundingArea || (mergedStatusData.priorityFundingArea as string) || '',
-          proceedingsTitle: typeData.proceedingsTitle || (mergedStatusData.proceedingsTitle as string) || '',
-          totalPresenters: typeData.totalPresenters || (mergedStatusData.totalPresenters as number) || 1,
-          isPresenter: typeData.isPresenter || (mergedStatusData.isPresenter as string) || 'yes',
-          virtualConference: typeData.virtualConference || (mergedStatusData.virtualConference as string) || '',
-          conferenceHeldAtSgt: typeData.conferenceHeldAtSgt || (mergedStatusData.conferenceHeldAtSgt as string) || '',
-          conferenceBestPaperAward: typeData.conferenceBestPaperAward || (mergedStatusData.conferenceBestPaperAward as string) || '',
+          conferenceName: safeTypeData.targetConference || safeTypeData.conferenceName || (mergedStatusData.conferenceName as string) || '',
+          conferenceSubType: safeTypeData.conferenceSubType || (mergedStatusData.conferenceSubType as string) || '',
+          conferenceType: safeTypeData.conferenceType || (mergedStatusData.conferenceType as string) || '',
+          proceedingsQuartile: safeTypeData.proceedingsQuartile || (mergedStatusData.proceedingsQuartile as string) || '',
+          priorityFundingArea: safeTypeData.priorityFundingArea || (mergedStatusData.priorityFundingArea as string) || '',
+          proceedingsTitle: safeTypeData.proceedingsTitle || (mergedStatusData.proceedingsTitle as string) || '',
+          totalPresenters: safeTypeData.totalPresenters || (mergedStatusData.totalPresenters as number) || 1,
+          isPresenter: safeTypeData.isPresenter || (mergedStatusData.isPresenter as string) || 'yes',
+          virtualConference: safeTypeData.virtualConference || (mergedStatusData.virtualConference as string) || '',
+          conferenceHeldAtSgt: safeTypeData.conferenceHeldAtSgt || (mergedStatusData.conferenceHeldAtSgt as string) || '',
+          conferenceBestPaperAward: safeTypeData.conferenceBestPaperAward || (mergedStatusData.conferenceBestPaperAward as string) || '',
           // Book specific
-          bookTitle: typeData.bookTitle || typeData.title || (mergedStatusData.bookTitle as string) || '',
-          bookPublicationType: typeData.bookType || typeData.bookPublicationType || (mergedStatusData.bookPublicationType as string) || 'authored',
-          chapterTitle: typeData.chapterTitle || (mergedStatusData.chapterTitle as string) || '',
-          chapterNumber: typeData.chapterNumber || (mergedStatusData.chapterNumber as string) || '',
-          pageNumbers: typeData.pageNumbers || (mergedStatusData.pageNumbers as string) || '',
-          editors: typeData.editors || (mergedStatusData.editors as string) || '',
-          bookIndexingType: typeData.indexingType || typeData.bookIndexingType || (mergedStatusData.bookIndexingType as string) || '',
-          bookLetter: typeData.bookLetter || (mergedStatusData.bookLetter as string) || '',
+          bookTitle: safeTypeData.bookTitle || safeTypeData.title || (mergedStatusData.bookTitle as string) || '',
+          bookPublicationType: safeTypeData.bookType || safeTypeData.bookPublicationType || (mergedStatusData.bookPublicationType as string) || 'authored',
+          chapterTitle: safeTypeData.chapterTitle || (mergedStatusData.chapterTitle as string) || '',
+          chapterNumber: safeTypeData.chapterNumber || (mergedStatusData.chapterNumber as string) || '',
+          pageNumbers: safeTypeData.pageNumbers || (mergedStatusData.pageNumbers as string) || '',
+          editors: safeTypeData.editors || (mergedStatusData.editors as string) || '',
+          bookIndexingType: safeTypeData.indexingType || safeTypeData.bookIndexingType || (mergedStatusData.bookIndexingType as string) || '',
+          bookLetter: safeTypeData.bookLetter || (mergedStatusData.bookLetter as string) || '',
           // Publisher details
-          publisherName: typeData.publisherName || (mergedStatusData.publisherName as string) || '',
-          isbn: typeData.isbn || (mergedStatusData.isbn as string) || '',
-          publicationDate: typeData.publicationDate || (mergedStatusData.publicationDate as string) || '',
+          publisherName: safeTypeData.publisherName || (mergedStatusData.publisherName as string) || '',
+          isbn: safeTypeData.isbn || (mergedStatusData.isbn as string) || '',
+          publicationDate: safeTypeData.publicationDate || (mergedStatusData.publicationDate as string) || (mergedStatusData.communicationDate as string) || '',
           // Common fields
           publicationStatus: 'published', // Tracker is marked published
-          nationalInternational: typeData.nationalInternational || typeData.hasInternationalCollaboration ? 'international' : 'national',
-          hasLpuStudents: typeData.hasLpuStudents || typeData.hasStudentInvolvement ? 'yes' : 'no',
-          isInterdisciplinary: typeData.isInterdisciplinary === true || typeData.isInterdisciplinary === 'yes' ? 'yes' : 'no',
-          industryCollaboration: typeData.industryCollaboration || (mergedStatusData.industryCollaboration as string) || '',
-          communicatedWithOfficialId: typeData.communicatedWithOfficialId || (mergedStatusData.communicatedWithOfficialId as string) || '',
-          centralFacilityUsed: typeData.centralFacilityUsed || (mergedStatusData.centralFacilityUsed as string) || '',
-          // SDG Goals
-          sdgGoals: typeData.sdgGoals || (mergedStatusData.sdgGoals as string[]) || [],
+          nationalInternational: safeTypeData.nationalInternational || (mergedStatusData.hasInternationalAuthor === 'yes' ? 'international' : 'national') || (safeTypeData.hasInternationalCollaboration ? 'international' : 'national'),
+          hasLpuStudents: safeTypeData.hasLpuStudents || (mergedStatusData.hasLpuStudents as string) || (safeTypeData.hasStudentInvolvement ? 'yes' : 'no'),
+          isInterdisciplinary: (mergedStatusData.interdisciplinary as string) || (safeTypeData.isInterdisciplinary === true || safeTypeData.isInterdisciplinary === 'yes' ? 'yes' : 'no'),
+          industryCollaboration: safeTypeData.industryCollaboration || (mergedStatusData.industryCollaboration as string) || '',
+          communicatedWithOfficialId: safeTypeData.communicatedWithOfficialId || (mergedStatusData.communicatedWithOfficialId as string) || '',
+          centralFacilityUsed: safeTypeData.centralFacilityUsed || (mergedStatusData.centralFacilityUsed as string) || '',
+          // SDG Goals - convert from "1","2","3" format to "sdg1","sdg2","sdg3" format if needed
+          sdgGoals: (() => {
+            const sdgs = (mergedStatusData.sdgs as string[]) || safeTypeData.sdgGoals || (mergedStatusData.sdgGoals as string[]) || [];
+            // Convert numeric SDG values to sdg1, sdg2 format if needed
+            return sdgs.map((s: string) => s.startsWith('sdg') ? s : `sdg${s}`);
+          })(),
           // Faculty Remarks
-          facultyRemarks: typeData.facultyRemarks || (mergedStatusData.facultyRemarks as string) || '',
+          facultyRemarks: safeTypeData?.facultyRemarks || (mergedStatusData.facultyRemarks as string) || (mergedStatusData.progressNotes as string) || '',
         }));
+        
+        logger.debug('[fetchTrackerData] Form data mapping complete');
+
+        // Map user role from tracker data
+        const userRole = (mergedStatusData.userRole as string) || safeTypeData?.userRole || '';
+        logger.debug('[fetchTrackerData] User role from tracker:', userRole);
+        if (userRole) {
+          // Convert tracker userRole format to contribution form format
+          const roleMapping: Record<string, string> = {
+            'first_and_corresponding': 'first_and_corresponding',
+            'first': 'first',
+            'corresponding': 'corresponding',
+            'co_author': 'co_author',
+          };
+          const mappedRole = roleMapping[userRole] || userRole;
+          logger.debug('[fetchTrackerData] Setting userAuthorType to:', mappedRole);
+          setUserAuthorType(mappedRole);
+        }
 
         // Map co-authors if they exist and are in array format
-        const coAuthorsData = typeData.coAuthors || (mergedStatusData.coAuthors as any[]);
+        const coAuthorsData = safeTypeData?.coAuthors || (mergedStatusData.coAuthors as any[]);
+        logger.debug('[fetchTrackerData] Co-authors data:', coAuthorsData);
         if (coAuthorsData && Array.isArray(coAuthorsData)) {
           const mappedAuthors = coAuthorsData.map((author: any) => ({
             uid: author.uid || '',
