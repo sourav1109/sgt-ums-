@@ -82,8 +82,8 @@ if (config.env === 'development') {
   });
 }
 
-// Static file serving for uploads
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+// NOTE: Static file serving for uploads is removed as files are now stored in S3
+// Files are downloaded via /api/v1/file-upload/download/* which retrieves from S3
 
 // Health check (both at root and API level for Render)
 app.get('/health', (req, res) => {

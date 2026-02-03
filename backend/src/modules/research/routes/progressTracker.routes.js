@@ -7,25 +7,12 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
 const prisma = require('../../../shared/config/database');
 const researchProgressTrackerController = require('../controllers/progressTracker.controller');
 const { protect } = require('../../../shared/middleware/auth');
 
-// Configure multer for document uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadDir = path.join(__dirname, '../../../../uploads/research/tracker');
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, 'tracker-' + uniqueSuffix + path.extname(file.originalname));
-  }
-});
+// Configure multer with memory storage for S3 uploads
+const memoryStorage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
   const allowedMimeTypes = [
@@ -49,7 +36,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 const upload = multer({
-  storage,
+  storage: memoryStorage,
   fileFilter,
   limits: {
     fileSize: 50 * 1024 * 1024 // 50MB limit for ZIP files

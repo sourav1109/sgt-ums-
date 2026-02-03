@@ -6,6 +6,7 @@
 
 const prisma = require('../../../shared/config/database');
 const { logResearchFiling, logResearchUpdate, logResearchStatusChange, logFileUpload, getIp } = require('../../../shared/utils/auditLogger');
+const { uploadToS3 } = require('../../../shared/utils/s3');
 
 // Helper function to normalize quartile values from frontend to Prisma enum names
 const normalizeQuartileValue = (quartile) => {
@@ -3940,27 +3941,45 @@ exports.uploadDocuments = async (req, res) => {
     };
 
     if (req.files) {
-      // Handle research document
+      // Handle research document - upload to S3
       if (req.files.researchDocument && req.files.researchDocument[0]) {
         const file = req.files.researchDocument[0];
+        const s3Result = await uploadToS3(
+          file.buffer,
+          'research',
+          userId.toString(),
+          file.originalname,
+          file.mimetype
+        );
         uploadedFiles.researchDocument = {
-          filename: file.filename,
+          filename: file.originalname,
           originalName: file.originalname,
-          path: `/uploads/research/${file.filename}`,
+          path: s3Result.key,
+          s3Key: s3Result.key,
           size: file.size,
           mimetype: file.mimetype
         };
       }
 
-      // Handle supporting documents
+      // Handle supporting documents - upload to S3
       if (req.files.supportingDocuments) {
-        uploadedFiles.supportingDocuments = req.files.supportingDocuments.map(file => ({
-          filename: file.filename,
-          originalName: file.originalname,
-          path: `/uploads/research/${file.filename}`,
-          size: file.size,
-          mimetype: file.mimetype
-        }));
+        for (const file of req.files.supportingDocuments) {
+          const s3Result = await uploadToS3(
+            file.buffer,
+            'research/supporting',
+            userId.toString(),
+            file.originalname,
+            file.mimetype
+          );
+          uploadedFiles.supportingDocuments.push({
+            filename: file.originalname,
+            originalName: file.originalname,
+            path: s3Result.key,
+            s3Key: s3Result.key,
+            size: file.size,
+            mimetype: file.mimetype
+          });
+        }
       }
     }
 
@@ -3978,6 +3997,7 @@ exports.uploadDocuments = async (req, res) => {
         ...(existingSupportingDocs.files || []),
         ...uploadedFiles.supportingDocuments.map(doc => ({
           path: doc.path,
+          s3Key: doc.s3Key,
           name: doc.originalName,
           size: doc.size,
           mimetype: doc.mimetype,
