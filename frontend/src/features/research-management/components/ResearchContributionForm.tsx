@@ -1943,11 +1943,11 @@ export default function ResearchContributionForm({ publicationType, contribution
           // Common fields
           publicationStatus: 'published', // Tracker is marked published
           nationalInternational: safeTypeData.nationalInternational || (mergedStatusData.hasInternationalAuthor === 'yes' ? 'international' : 'national') || (safeTypeData.hasInternationalCollaboration ? 'international' : 'national'),
-          hasLpuStudents: safeTypeData.hasLpuStudents || (mergedStatusData.hasLpuStudents as string) || (safeTypeData.hasStudentInvolvement ? 'yes' : 'no'),
-          isInterdisciplinary: (mergedStatusData.interdisciplinary as string) || (safeTypeData.isInterdisciplinary === true || safeTypeData.isInterdisciplinary === 'yes' ? 'yes' : 'no'),
-          industryCollaboration: safeTypeData.industryCollaboration || (mergedStatusData.industryCollaboration as string) || '',
-          communicatedWithOfficialId: safeTypeData.communicatedWithOfficialId || (mergedStatusData.communicatedWithOfficialId as string) || '',
-          centralFacilityUsed: safeTypeData.centralFacilityUsed || (mergedStatusData.centralFacilityUsed as string) || '',
+          hasLpuStudents: (safeTypeData.hasLpuStudents || (mergedStatusData.hasLpuStudents as string) || (safeTypeData.hasStudentInvolvement ? 'yes' : 'no')) as 'yes' | 'no',
+          isInterdisciplinary: ((mergedStatusData.interdisciplinary as string) === 'yes' || safeTypeData.isInterdisciplinary === true || safeTypeData.isInterdisciplinary === 'yes' ? 'yes' : 'no') as 'yes' | 'no',
+          industryCollaboration: (safeTypeData.industryCollaboration || (mergedStatusData.industryCollaboration as string) || 'no') as 'yes' | 'no',
+          communicatedWithOfficialId: (safeTypeData.communicatedWithOfficialId || (mergedStatusData.communicatedWithOfficialId as string) || 'yes') as 'yes' | 'no',
+          centralFacilityUsed: (safeTypeData.centralFacilityUsed || (mergedStatusData.centralFacilityUsed as string) || 'no') as 'yes' | 'no',
           // SDG Goals - convert from "1","2","3" format to "sdg1","sdg2","sdg3" format if needed
           sdgGoals: (() => {
             const sdgs = (mergedStatusData.sdgs as string[]) || safeTypeData.sdgGoals || (mergedStatusData.sdgGoals as string[]) || [];
