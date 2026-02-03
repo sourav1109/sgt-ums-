@@ -3987,7 +3987,14 @@ exports.uploadDocuments = async (req, res) => {
     const updateData = {};
     
     if (uploadedFiles.researchDocument) {
-      updateData.manuscriptFilePath = uploadedFiles.researchDocument.path;
+      // Store as JSON object with all file info for proper download handling
+      updateData.manuscriptFilePath = {
+        s3Key: uploadedFiles.researchDocument.s3Key,
+        name: uploadedFiles.researchDocument.originalName,
+        size: uploadedFiles.researchDocument.size,
+        mimetype: uploadedFiles.researchDocument.mimetype,
+        uploadedAt: new Date().toISOString()
+      };
     }
 
     if (uploadedFiles.supportingDocuments.length > 0) {
@@ -4085,11 +4092,22 @@ exports.downloadDocument = async (req, res) => {
 
     // Get S3 key based on document type
     if (type === 'manuscript' && contribution.manuscriptFilePath) {
-      const manuscript = typeof contribution.manuscriptFilePath === 'string' 
-        ? JSON.parse(contribution.manuscriptFilePath)
-        : contribution.manuscriptFilePath;
-      s3Key = manuscript.s3Key;
-      originalFilename = manuscript.name || filename;
+      // Handle both old format (plain string key) and new format (JSON object)
+      let manuscript = contribution.manuscriptFilePath;
+      if (typeof manuscript === 'string') {
+        try {
+          manuscript = JSON.parse(manuscript);
+        } catch (e) {
+          // Old format: just the S3 key string
+          s3Key = manuscript;
+          originalFilename = filename;
+        }
+      }
+      // New format: object with s3Key property
+      if (manuscript && typeof manuscript === 'object') {
+        s3Key = manuscript.s3Key;
+        originalFilename = manuscript.name || filename;
+      }
     } else if (type === 'supporting' && contribution.supportingDocsFilePaths) {
       const supportingDocs = typeof contribution.supportingDocsFilePaths === 'string'
         ? JSON.parse(contribution.supportingDocsFilePaths)
