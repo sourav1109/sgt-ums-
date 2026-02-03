@@ -227,6 +227,13 @@ router.post(
   researchContributionController.uploadDocuments
 );
 
+// Download research document or supporting document
+router.get(
+  '/:id/documents/:type/:filename',
+  protect,
+  researchContributionController.downloadDocument
+);
+
 // ============================================
 // Author Management Routes
 // ============================================

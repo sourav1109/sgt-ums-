@@ -4038,6 +4038,102 @@ exports.uploadDocuments = async (req, res) => {
   }
 };
 
+/**
+ * Download research document or supporting document
+ * @route GET /api/v1/research/:id/documents/:type/:filename
+ */
+exports.downloadDocument = async (req, res) => {
+  try {
+    const { id, type, filename } = req.params;
+    const userId = req.user.id;
+
+    // Get contribution with file paths
+    const contribution = await prisma.researchContribution.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        userId: true,
+        manuscriptFilePath: true,
+        supportingDocsFilePaths: true,
+        status: true
+      }
+    });
+
+    if (!contribution) {
+      return res.status(404).json({
+        success: false,
+        message: 'Research contribution not found'
+      });
+    }
+
+    // Check permissions - user must be owner or have review permissions
+    const canAccess = 
+      contribution.userId === userId ||
+      req.user.role === 'admin' ||
+      req.user.role === 'central_admin' ||
+      req.user.role === 'reviewer';
+
+    if (!canAccess) {
+      return res.status(403).json({
+        success: false,
+        message: 'You do not have permission to access this file'
+      });
+    }
+
+    let s3Key = null;
+    let originalFilename = filename;
+
+    // Get S3 key based on document type
+    if (type === 'manuscript' && contribution.manuscriptFilePath) {
+      const manuscript = typeof contribution.manuscriptFilePath === 'string' 
+        ? JSON.parse(contribution.manuscriptFilePath)
+        : contribution.manuscriptFilePath;
+      s3Key = manuscript.s3Key;
+      originalFilename = manuscript.name || filename;
+    } else if (type === 'supporting' && contribution.supportingDocsFilePaths) {
+      const supportingDocs = typeof contribution.supportingDocsFilePaths === 'string'
+        ? JSON.parse(contribution.supportingDocsFilePaths)
+        : contribution.supportingDocsFilePaths;
+      
+      const doc = supportingDocs.files?.find(f => 
+        f.name === filename || f.s3Key?.includes(filename)
+      );
+      
+      if (doc) {
+        s3Key = doc.s3Key;
+        originalFilename = doc.name || filename;
+      }
+    }
+
+    if (!s3Key) {
+      return res.status(404).json({
+        success: false,
+        message: 'Document not found'
+      });
+    }
+
+    // Download from S3
+    const { downloadFromS3 } = require('../../../shared/utils/s3');
+    const fileData = await downloadFromS3(s3Key);
+
+    // Set response headers for file download
+    res.setHeader('Content-Type', fileData.contentType || 'application/octet-stream');
+    res.setHeader('Content-Disposition', `attachment; filename="${originalFilename}"`);
+    res.setHeader('Content-Length', fileData.contentLength);
+
+    // Pipe the stream to response
+    fileData.stream.pipe(res);
+
+  } catch (error) {
+    console.error('Download document error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to download document',
+      error: error.message
+    });
+  }
+};
+
 // Export the calculateIncentives function for use in other controllers
 exports.calculateIncentives = calculateIncentives;
 
