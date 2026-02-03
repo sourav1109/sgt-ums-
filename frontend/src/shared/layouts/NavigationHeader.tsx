@@ -1039,13 +1039,12 @@ export default function NavigationHeader() {
             {/* Quick Links Dropdown Menu */}
             {activeDropdown === 'quicklinks' && (
               <div
-                className="fixed mt-2 w-64 shadow-2xl border-t border-gray-200 z-50"
+                className="absolute top-full right-0 mt-2 w-64 shadow-2xl border-t border-gray-200 z-50 rounded-lg overflow-hidden"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.92) 100%)',
                   backdropFilter: 'blur(12px)',
                   WebkitBackdropFilter: 'blur(12px)',
                   boxShadow: '0 8px 32px 0 rgba(0, 69, 120, 0.15)',
-                  right: 0,
                 }}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
