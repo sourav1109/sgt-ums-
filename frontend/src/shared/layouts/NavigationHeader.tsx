@@ -367,7 +367,9 @@ export default function NavigationHeader() {
       description: 'Academic resources and tools',
       children: [
         { name: '🎓 LMS', href: 'http://13.235.188.79', description: 'Learning Management System' },
-        { name: '📖 Courses', href: '#', description: 'Course management (Coming Soon)' },
+        { name: '� Event Management', href: 'https://sgt-event.vercel.app/student', description: 'Campus event management' },
+        { name: '🔐 RFID', href: 'http://192.168.7.20:3000', description: 'RFID access system' },
+        { name: '�📖 Courses', href: '#', description: 'Course management (Coming Soon)' },
         { name: '📅 Timetable', href: '#', description: 'Class schedules (Coming Soon)' },
         { name: '📝 Examinations', href: '#', description: 'Exam management (Coming Soon)' },
         { name: '🏆 Results', href: '#', description: 'Academic results (Coming Soon)' },
