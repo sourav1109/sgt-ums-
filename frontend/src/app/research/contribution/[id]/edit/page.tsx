@@ -45,7 +45,7 @@ const PUBLICATION_TYPE_CONFIG: Record<ResearchPublicationType, { label: string; 
   book: { label: 'Book', icon: BookOpen },
   book_chapter: { label: 'Book Chapter', icon: BookOpen },
   conference_paper: { label: 'Conference Paper', icon: Presentation },
-  grant: { label: 'Grant Proposal', icon: DollarSign },
+  grant_proposal: { label: 'Grant Proposal', icon: DollarSign },
 };
 
 export default function EditContributionPage() {

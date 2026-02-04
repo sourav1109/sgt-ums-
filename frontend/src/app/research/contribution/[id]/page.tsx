@@ -65,7 +65,7 @@ const PUBLICATION_TYPE_CONFIG: Record<ResearchPublicationType, { label: string; 
   book: { label: 'Book', icon: BookOpen, gradientFrom: 'from-green-500', gradientTo: 'to-green-600' },
   book_chapter: { label: 'Book Chapter', icon: BookOpen, gradientFrom: 'from-emerald-500', gradientTo: 'to-emerald-600' },
   conference_paper: { label: 'Conference Paper', icon: Presentation, gradientFrom: 'from-purple-500', gradientTo: 'to-purple-600' },
-  grant: { label: 'Grant Proposal', icon: DollarSign, gradientFrom: 'from-orange-500', gradientTo: 'to-orange-600' },
+  grant_proposal: { label: 'Grant Proposal', icon: DollarSign, gradientFrom: 'from-orange-500', gradientTo: 'to-orange-600' },
 };
 
 const TARGETED_RESEARCH_LABELS: Record<string, string> = {
