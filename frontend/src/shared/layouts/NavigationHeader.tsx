@@ -405,7 +405,7 @@ export default function NavigationHeader() {
   // Add RFID
   navigationSubItems.push({
     name: '🔐 RFID',
-    href: 'http://192.168.7.20:3000',
+    href: 'https://192.168.7.20:3000',
     description: 'RFID access system',
   });
 
