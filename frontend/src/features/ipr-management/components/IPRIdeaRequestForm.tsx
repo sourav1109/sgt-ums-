@@ -516,12 +516,14 @@ export default function IPRIdeaRequestForm({ initialType = 'patent' }: IPRIdeaRe
     }
     
     // Count eligible contributors for INCENTIVE (all internal - staff, faculty, students)
+    // Note: Applicant is NOT included in the count - only added contributors are counted
     const eligibleForIncentive = contributors.filter(c => c.employeeCategory === 'internal').length;
-    const totalEligibleForIncentive = eligibleForIncentive + (formData.employeeCategory === 'internal' ? 1 : 0);
+    const totalEligibleForIncentive = eligibleForIncentive > 0 ? eligibleForIncentive : 1; // At least 1 to avoid division by zero
     
     // Count eligible contributors for POINTS (only staff/faculty, NO students)
+    // Note: Applicant is NOT included in the count - only added contributors are counted
     const eligibleForPoints = contributors.filter(c => c.employeeCategory === 'internal' && c.employeeType !== 'student').length;
-    const totalEligibleForPoints = eligibleForPoints + (formData.employeeCategory === 'internal' && formData.employeeType !== 'student' ? 1 : 0);
+    const totalEligibleForPoints = eligibleForPoints > 0 ? eligibleForPoints : 1; // At least 1 to avoid division by zero
     
     console.log('[IPR Incentive Calc] Total eligible for incentive:', totalEligibleForIncentive);
     console.log('[IPR Incentive Calc] Total eligible for points:', totalEligibleForPoints);

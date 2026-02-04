@@ -501,7 +501,8 @@ exports.getPendingGrantReviews = async (req, res) => {
     }
 
     const permissions = userDrdPermission?.permissions || {};
-    const assignedSchoolIds = userDrdPermission?.assignedGrantSchoolIds || [];
+    // Filter out null/undefined values from assignedSchoolIds to prevent Prisma errors
+    const assignedSchoolIds = (userDrdPermission?.assignedGrantSchoolIds || []).filter(id => id !== null && id !== undefined);
 
     // Check grant permissions
     const hasGrantApprove = permissions.grant_approve === true;

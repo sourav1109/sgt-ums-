@@ -707,7 +707,16 @@ export default function ResearchPaperStatusForm({ status, data, onChange }: Rese
                     type="number"
                     min="1"
                     value={(data.totalAuthors as number) || ''}
-                    onChange={(e) => handleChange('totalAuthors', parseInt(e.target.value))}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value) || 1;
+                      if (value < 1) return;
+                      handleChange('totalAuthors', value);
+                      // Adjust sgtAuthors if it exceeds new totalAuthors
+                      const currentSgt = (data.sgtAuthors as number) || 1;
+                      if (currentSgt > value) {
+                        handleChange('sgtAuthors', value);
+                      }
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
                     required
                   />
@@ -721,7 +730,18 @@ export default function ResearchPaperStatusForm({ status, data, onChange }: Rese
                     min="1"
                     max={(data.totalAuthors as number) || 1}
                     value={(data.sgtAuthors as number) || ''}
-                    onChange={(e) => handleChange('sgtAuthors', parseInt(e.target.value))}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value) || 1;
+                      const maxAllowed = (data.totalAuthors as number) || 1;
+                      if (value < 1 || value > maxAllowed) return;
+                      handleChange('sgtAuthors', value);
+                      // Adjust internalCoAuthors if it exceeds max allowed
+                      const maxCoAuthors = value - 1;
+                      const currentCoAuthors = (data.internalCoAuthors as number) || 0;
+                      if (currentCoAuthors > maxCoAuthors) {
+                        handleChange('internalCoAuthors', maxCoAuthors);
+                      }
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
                     required
                   />
@@ -729,13 +749,26 @@ export default function ResearchPaperStatusForm({ status, data, onChange }: Rese
                 <div>
                   <label className="block text-xs font-semibold text-gray-600 mb-1.5">
                     Internal Co-Authors <span className="text-red-500">*</span>
+                    <span className="text-gray-400 ml-1 font-normal">(Max: {((data.sgtAuthors as number) || 1) - 1})</span>
                   </label>
                   <input
                     type="number"
                     min="0"
                     max={((data.sgtAuthors as number) || 1) - 1}
-                    value={(data.internalCoAuthors as number) || 0}
-                    onChange={(e) => handleChange('internalCoAuthors', parseInt(e.target.value))}
+                    value={(data.internalCoAuthors as number) ?? 0}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value);
+                      if (isNaN(value) || value < 0) {
+                        handleChange('internalCoAuthors', 0);
+                        return;
+                      }
+                      const maxCoAuthors = ((data.sgtAuthors as number) || 1) - 1;
+                      if (value > maxCoAuthors) {
+                        handleChange('internalCoAuthors', maxCoAuthors);
+                        return;
+                      }
+                      handleChange('internalCoAuthors', value);
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
                     placeholder="0"
                   />
@@ -937,7 +970,16 @@ export default function ResearchPaperStatusForm({ status, data, onChange }: Rese
                     type="number"
                     min="1"
                     value={(data.totalAuthors as number) || ''}
-                    onChange={(e) => handleChange('totalAuthors', parseInt(e.target.value))}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value) || 1;
+                      if (value < 1) return;
+                      handleChange('totalAuthors', value);
+                      // Adjust sgtAuthors if it exceeds new totalAuthors
+                      const currentSgt = (data.sgtAuthors as number) || 1;
+                      if (currentSgt > value) {
+                        handleChange('sgtAuthors', value);
+                      }
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
                     required
                   />
@@ -951,7 +993,18 @@ export default function ResearchPaperStatusForm({ status, data, onChange }: Rese
                     min="1"
                     max={(data.totalAuthors as number) || 1}
                     value={(data.sgtAuthors as number) || ''}
-                    onChange={(e) => handleChange('sgtAuthors', parseInt(e.target.value))}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value) || 1;
+                      const maxAllowed = (data.totalAuthors as number) || 1;
+                      if (value < 1 || value > maxAllowed) return;
+                      handleChange('sgtAuthors', value);
+                      // Adjust internalCoAuthors if it exceeds max allowed
+                      const maxCoAuthors = value - 1;
+                      const currentCoAuthors = (data.internalCoAuthors as number) || 0;
+                      if (currentCoAuthors > maxCoAuthors) {
+                        handleChange('internalCoAuthors', maxCoAuthors);
+                      }
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
                     required
                   />
@@ -959,13 +1012,26 @@ export default function ResearchPaperStatusForm({ status, data, onChange }: Rese
                 <div>
                   <label className="block text-xs font-semibold text-gray-600 mb-1.5">
                     Internal Co-Authors <span className="text-red-500">*</span>
+                    <span className="text-gray-400 ml-1 font-normal">(Max: {((data.sgtAuthors as number) || 1) - 1})</span>
                   </label>
                   <input
                     type="number"
                     min="0"
                     max={((data.sgtAuthors as number) || 1) - 1}
-                    value={(data.internalCoAuthors as number) || 0}
-                    onChange={(e) => handleChange('internalCoAuthors', parseInt(e.target.value))}
+                    value={(data.internalCoAuthors as number) ?? 0}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value);
+                      if (isNaN(value) || value < 0) {
+                        handleChange('internalCoAuthors', 0);
+                        return;
+                      }
+                      const maxCoAuthors = ((data.sgtAuthors as number) || 1) - 1;
+                      if (value > maxCoAuthors) {
+                        handleChange('internalCoAuthors', maxCoAuthors);
+                        return;
+                      }
+                      handleChange('internalCoAuthors', value);
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
                     placeholder="0"
                   />
@@ -1120,7 +1186,16 @@ export default function ResearchPaperStatusForm({ status, data, onChange }: Rese
                     type="number"
                     min="1"
                     value={(data.totalAuthors as number) || ''}
-                    onChange={(e) => handleChange('totalAuthors', parseInt(e.target.value))}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value) || 1;
+                      if (value < 1) return;
+                      handleChange('totalAuthors', value);
+                      // Adjust sgtAuthors if it exceeds new totalAuthors
+                      const currentSgt = (data.sgtAuthors as number) || 1;
+                      if (currentSgt > value) {
+                        handleChange('sgtAuthors', value);
+                      }
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
                     required
                   />
@@ -1134,7 +1209,18 @@ export default function ResearchPaperStatusForm({ status, data, onChange }: Rese
                     min="1"
                     max={(data.totalAuthors as number) || 1}
                     value={(data.sgtAuthors as number) || ''}
-                    onChange={(e) => handleChange('sgtAuthors', parseInt(e.target.value))}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value) || 1;
+                      const maxAllowed = (data.totalAuthors as number) || 1;
+                      if (value < 1 || value > maxAllowed) return;
+                      handleChange('sgtAuthors', value);
+                      // Adjust internalCoAuthors if it exceeds max allowed
+                      const maxCoAuthors = value - 1;
+                      const currentCoAuthors = (data.internalCoAuthors as number) || 0;
+                      if (currentCoAuthors > maxCoAuthors) {
+                        handleChange('internalCoAuthors', maxCoAuthors);
+                      }
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
                     required
                   />
@@ -1142,13 +1228,26 @@ export default function ResearchPaperStatusForm({ status, data, onChange }: Rese
                 <div>
                   <label className="block text-xs font-semibold text-gray-600 mb-1.5">
                     Internal Co-Authors <span className="text-red-500">*</span>
+                    <span className="text-gray-400 ml-1 font-normal">(Max: {((data.sgtAuthors as number) || 1) - 1})</span>
                   </label>
                   <input
                     type="number"
                     min="0"
                     max={((data.sgtAuthors as number) || 1) - 1}
-                    value={(data.internalCoAuthors as number) || 0}
-                    onChange={(e) => handleChange('internalCoAuthors', parseInt(e.target.value))}
+                    value={(data.internalCoAuthors as number) ?? 0}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value);
+                      if (isNaN(value) || value < 0) {
+                        handleChange('internalCoAuthors', 0);
+                        return;
+                      }
+                      const maxCoAuthors = ((data.sgtAuthors as number) || 1) - 1;
+                      if (value > maxCoAuthors) {
+                        handleChange('internalCoAuthors', maxCoAuthors);
+                        return;
+                      }
+                      handleChange('internalCoAuthors', value);
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
                     placeholder="0"
                   />
@@ -1358,7 +1457,16 @@ export default function ResearchPaperStatusForm({ status, data, onChange }: Rese
                     type="number"
                     min="1"
                     value={(data.totalAuthors as number) || ''}
-                    onChange={(e) => handleChange('totalAuthors', parseInt(e.target.value))}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value) || 1;
+                      if (value < 1) return;
+                      handleChange('totalAuthors', value);
+                      // Adjust sgtAuthors if it exceeds new totalAuthors
+                      const currentSgt = (data.sgtAuthors as number) || 1;
+                      if (currentSgt > value) {
+                        handleChange('sgtAuthors', value);
+                      }
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
                     required
                   />
@@ -1372,7 +1480,18 @@ export default function ResearchPaperStatusForm({ status, data, onChange }: Rese
                     min="1"
                     max={(data.totalAuthors as number) || 1}
                     value={(data.sgtAuthors as number) || ''}
-                    onChange={(e) => handleChange('sgtAuthors', parseInt(e.target.value))}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value) || 1;
+                      const maxAllowed = (data.totalAuthors as number) || 1;
+                      if (value < 1 || value > maxAllowed) return;
+                      handleChange('sgtAuthors', value);
+                      // Adjust internalCoAuthors if it exceeds max allowed
+                      const maxCoAuthors = value - 1;
+                      const currentCoAuthors = (data.internalCoAuthors as number) || 0;
+                      if (currentCoAuthors > maxCoAuthors) {
+                        handleChange('internalCoAuthors', maxCoAuthors);
+                      }
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
                     required
                   />
@@ -1380,13 +1499,26 @@ export default function ResearchPaperStatusForm({ status, data, onChange }: Rese
                 <div>
                   <label className="block text-xs font-semibold text-gray-600 mb-1.5">
                     Internal Co-Authors <span className="text-red-500">*</span>
+                    <span className="text-gray-400 ml-1 font-normal">(Max: {((data.sgtAuthors as number) || 1) - 1})</span>
                   </label>
                   <input
                     type="number"
                     min="0"
                     max={((data.sgtAuthors as number) || 1) - 1}
-                    value={(data.internalCoAuthors as number) || 0}
-                    onChange={(e) => handleChange('internalCoAuthors', parseInt(e.target.value))}
+                    value={(data.internalCoAuthors as number) ?? 0}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value);
+                      if (isNaN(value) || value < 0) {
+                        handleChange('internalCoAuthors', 0);
+                        return;
+                      }
+                      const maxCoAuthors = ((data.sgtAuthors as number) || 1) - 1;
+                      if (value > maxCoAuthors) {
+                        handleChange('internalCoAuthors', maxCoAuthors);
+                        return;
+                      }
+                      handleChange('internalCoAuthors', value);
+                    }}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500"
                     placeholder="0"
                   />
