@@ -860,7 +860,7 @@ export default function ResearchReviewPage() {
                contribution.publicationType === 'book' ? 'Book Details' :
                contribution.publicationType === 'book_chapter' ? 'Book Chapter Details' :
                contribution.publicationType === 'conference_paper' ? 'Conference Details' :
-               contribution.publicationType === 'grant' ? 'Grant Details' :
+               contribution.publicationType === 'grant_proposal' ? 'Grant Details' :
                'Publication Details'}
             </h2>
             {isEditMode && (
@@ -1377,7 +1377,7 @@ export default function ResearchReviewPage() {
             )}
             
             {/* Grant specific */}
-            {contribution.publicationType === 'grant' && (
+            {contribution.publicationType === 'grant_proposal' && (
               <>
                 {(contribution.grantTitle || isEditMode) && (
                   <div>

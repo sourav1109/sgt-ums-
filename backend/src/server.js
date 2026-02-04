@@ -83,7 +83,7 @@ if (config.env === 'development') {
 }
 
 // Serve static files from uploads directory
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
 
 // Health check (both at root and API level for Render)
 app.get('/health', (req, res) => {

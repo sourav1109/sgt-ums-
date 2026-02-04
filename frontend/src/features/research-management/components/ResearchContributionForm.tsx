@@ -3094,7 +3094,7 @@ export default function ResearchContributionForm({ publicationType, contribution
       book: 'Book Publication',
       book_chapter: 'Book Chapter',
       conference_paper: 'Conference Paper',
-      grant: 'Grant / Funding',
+      grant_proposal: 'Grant / Funding',
     };
     return labels[publicationType] || publicationType;
   };
@@ -5524,37 +5524,37 @@ export default function ResearchContributionForm({ publicationType, contribution
                         Order
                       </th>
                     )}
-                    <th className="px-2 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r">
+                    <th className="px-1 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r w-20">
                       Category
                     </th>
-                    <th className="px-2 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r">
+                    <th className="px-1 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r w-20">
                       Type
                     </th>
-                    <th className="px-2 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r">
+                    <th className="px-1 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r w-20">
                       Role
                     </th>
-                    <th className="px-2 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r w-56">
+                    <th className="px-1 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r w-32">
                       UID/Name
                     </th>
-                    <th className="px-2 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r w-64">
+                    <th className="px-1 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r w-36">
                       Email
                     </th>
-                    <th className="px-2 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r w-48">
+                    <th className="px-1 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r w-28">
                       Affiliation
                     </th>
-                    <th className="px-2 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r w-24">
+                    <th className="px-1 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r w-20">
                       <div className="flex items-center gap-1">
                         <Coins className="w-3.5 h-3.5 text-green-600" />
                         Incentive
                       </div>
                     </th>
-                    <th className="px-2 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r w-20">
+                    <th className="px-1 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r w-16">
                       <div className="flex items-center gap-1">
                         <Award className="w-3.5 h-3.5 text-blue-600" />
                         Points
                       </div>
                     </th>
-                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r">
+                    <th className="px-1 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider border-r w-20">
                       Action
                     </th>
                     {/* Down Arrow Column - only for role-based */}
@@ -5827,32 +5827,32 @@ export default function ResearchContributionForm({ publicationType, contribution
                               </div>
                             </td>
                           )}
-                          <td className="px-2 py-2 text-sm font-medium text-gray-900 border-r">
+                          <td className="px-1 py-2 text-xs font-medium text-gray-900 border-r">
                             {author.authorCategory}
                           </td>
-                          <td className="px-2 py-2 text-sm font-medium text-gray-900 border-r">
+                          <td className="px-1 py-2 text-xs font-medium text-gray-900 border-r">
                             {author.authorType}
                           </td>
-                          <td className={`px-2 py-2 text-sm font-medium ${author.isUser ? 'text-blue-600' : 'text-gray-700'} border-r`}>
+                          <td className={`px-1 py-2 text-xs font-medium ${author.isUser ? 'text-blue-600' : 'text-gray-700'} border-r`}>
                             {roleLabel}
                           </td>
-                          <td className="px-2 py-2 text-sm font-medium text-gray-900 border-r break-words">
+                          <td className="px-1 py-2 text-xs font-medium text-gray-900 border-r break-words">
                             {author.uid ? `${author.uid} - ${author.name}` : author.name}
                           </td>
-                          <td className="px-2 py-2 text-sm text-gray-900 border-r break-all">
+                          <td className="px-1 py-2 text-xs text-gray-900 border-r break-all">
                             {author.email}
                           </td>
-                          <td className="px-2 py-2 text-sm text-gray-900 border-r break-words">
+                          <td className="px-1 py-2 text-xs text-gray-900 border-r break-words">
                             {author.affiliation}
                           </td>
-                          <td className="px-2 py-2 text-sm border-r text-center">
+                          <td className="px-1 py-2 text-xs border-r text-center">
                             {author.authorCategory === 'Internal' ? (
                               <span className="text-green-600 font-medium">₹{incentive.toLocaleString()}</span>
                             ) : (
                               <span className="text-gray-400">₹0</span>
                             )}
                           </td>
-                          <td className="px-2 py-2 text-sm border-r text-center">
+                          <td className="px-1 py-2 text-xs border-r text-center">
                             {author.authorCategory === 'Internal' && author.authorType !== 'Student' ? (
                               <span className="text-blue-600 font-medium">{points}</span>
                             ) : author.authorCategory === 'Internal' && author.authorType === 'Student' ? (
@@ -5861,7 +5861,7 @@ export default function ResearchContributionForm({ publicationType, contribution
                               <span className="text-gray-400">0</span>
                             )}
                           </td>
-                          <td className="px-2 py-2 text-sm text-gray-900 border-r">
+                          <td className="px-1 py-2 text-xs text-gray-900 border-r">
                             {author.isUser ? (
                               <span className="text-gray-500 italic text-xs">(You)</span>
                             ) : (

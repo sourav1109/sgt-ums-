@@ -1239,6 +1239,7 @@ exports.createResearchContribution = async (req, res) => {
       nationalInternational,
       bookPublicationType,
       bookIndexingType,
+      bookType,
       bookLetter,
       communicatedWithOfficialId,
       personalEmail,
@@ -1437,6 +1438,7 @@ exports.createResearchContribution = async (req, res) => {
         quartile,
         conferenceSubType,
         proceedingsQuartile,
+        bookType, // For book/book_chapter: 'authored' or 'edited'
         // New fields for category-specific calculations
         indexingCategories: indexingCategories || [],
         impactFactor: impactFactor ? Number(impactFactor) : null,
@@ -1586,6 +1588,7 @@ exports.createResearchContribution = async (req, res) => {
         nationalInternational: truncateField(nationalInternational, 32),
         bookPublicationType: truncateField(bookPublicationType, 32),
         bookIndexingType: truncateField(bookIndexingType, 32),
+        bookType: truncateField(bookType, 32), // 'authored' or 'edited'
         bookLetter: truncateField(bookLetter, 8),
         communicatedWithOfficialId: communicatedWithOfficialId === 'yes' || communicatedWithOfficialId === true,
         personalEmail: truncateField(personalEmail, 256),
@@ -1736,6 +1739,7 @@ exports.createResearchContribution = async (req, res) => {
             quartile,
             conferenceSubType,
             proceedingsQuartile,
+            bookType, // For book/book_chapter: 'authored' or 'edited'
             // Include all category-specific fields for proper calculation
             indexingCategories: indexingCategories || [],
             impactFactor: impactFactor ? Number(impactFactor) : null,
@@ -2326,7 +2330,7 @@ exports.getResearchContributionById = async (req, res) => {
         isApplicant,
         isAuthor,
         isGrant,
-        publicationType: isGrant ? 'grant' : contribution.publicationType,
+        publicationType: isGrant ? 'grant_proposal' : contribution.publicationType,
         hasPendingSuggestions: contribution.editSuggestions?.some(s => s.status === 'pending') || false
       }
     });
@@ -2480,13 +2484,14 @@ exports.updateResearchContribution = async (req, res) => {
     );
     
     let incentiveUpdate = {};
-    if (contributionData.sjr || contributionData.quartile || contributionData.authorRole || contributionData.publicationDate || contributionData.conferenceSubType || contributionData.proceedingsQuartile || contributionData.indexingCategories || contributionData.impactFactor || contributionData.naasRating || contributionData.subsidiaryImpactFactor) {
+    if (contributionData.sjr || contributionData.quartile || contributionData.authorRole || contributionData.publicationDate || contributionData.conferenceSubType || contributionData.proceedingsQuartile || contributionData.indexingCategories || contributionData.impactFactor || contributionData.naasRating || contributionData.subsidiaryImpactFactor || contributionData.bookType) {
       const incentiveCalculation = await calculateIncentives(
         {
           publicationDate: contributionData.publicationDate || contribution.publicationDate,
           quartile: quartileValue,
           conferenceSubType: contributionData.conferenceSubType || contribution.conferenceSubType,
           proceedingsQuartile: contributionData.proceedingsQuartile || contribution.proceedingsQuartile,
+          bookType: contributionData.bookType || contribution.bookType, // For book/book_chapter: 'authored' or 'edited'
           // Include indexing categories and category-specific fields
           indexingCategories: contributionData.indexingCategories || contribution.indexingCategories || [],
           impactFactor: contributionData.impactFactor !== undefined ? Number(contributionData.impactFactor) : (contribution.impactFactor ? Number(contribution.impactFactor) : null),
@@ -2629,6 +2634,7 @@ exports.updateResearchContribution = async (req, res) => {
             quartile: quartileValue,
             conferenceSubType: contributionData.conferenceSubType || contribution.conferenceSubType,
             proceedingsQuartile: contributionData.proceedingsQuartile || contribution.proceedingsQuartile,
+            bookType: contributionData.bookType || contribution.bookType, // For book/book_chapter: 'authored' or 'edited'
             // Include all category-specific fields for proper calculation
             indexingCategories: contributionData.indexingCategories || contribution.indexingCategories || [],
             impactFactor: contributionData.impactFactor !== undefined ? Number(contributionData.impactFactor) : (contribution.impactFactor ? Number(contribution.impactFactor) : null),
@@ -2728,6 +2734,7 @@ exports.updateResearchContribution = async (req, res) => {
             quartile: quartileValue,
             conferenceSubType: contributionData.conferenceSubType || contribution.conferenceSubType,
             proceedingsQuartile: contributionData.proceedingsQuartile || contribution.proceedingsQuartile,
+            bookType: contributionData.bookType || contribution.bookType, // For book/book_chapter: 'authored' or 'edited'
             // Include all category-specific fields for proper calculation
             indexingCategories: contributionData.indexingCategories || contribution.indexingCategories || [],
             impactFactor: contributionData.impactFactor !== undefined ? Number(contributionData.impactFactor) : (contribution.impactFactor ? Number(contribution.impactFactor) : null),
@@ -2956,6 +2963,7 @@ exports.submitResearchContribution = async (req, res) => {
               quartile: contribution.quartile,
               conferenceSubType: contribution.conferenceSubType,
               proceedingsQuartile: contribution.proceedingsQuartile,
+              bookType: contribution.bookType, // For book/book_chapter: 'authored' or 'edited'
               indexingCategories: contribution.indexingCategories || [],
               impactFactor: contribution.impactFactor ? Number(contribution.impactFactor) : null,
               sjr: contribution.sjr ? Number(contribution.sjr) : null,
@@ -2998,6 +3006,7 @@ exports.submitResearchContribution = async (req, res) => {
             quartile: contribution.quartile,
             conferenceSubType: contribution.conferenceSubType,
             proceedingsQuartile: contribution.proceedingsQuartile,
+            bookType: contribution.bookType, // For book/book_chapter: 'authored' or 'edited'
             indexingCategories: contribution.indexingCategories || [],
             impactFactor: contribution.impactFactor ? Number(contribution.impactFactor) : null,
             sjr: contribution.sjr ? Number(contribution.sjr) : null,
@@ -3559,6 +3568,7 @@ exports.addAuthor = async (req, res) => {
         quartile: contribution.quartile,
         conferenceSubType: contribution.conferenceSubType,
         proceedingsQuartile: contribution.proceedingsQuartile,
+        bookType: contribution.bookType, // For book/book_chapter: 'authored' or 'edited'
         // Include all category-specific fields for proper calculation
         indexingCategories: contribution.indexingCategories || [],
         impactFactor: contribution.impactFactor ? Number(contribution.impactFactor) : null,
@@ -3987,14 +3997,14 @@ exports.uploadDocuments = async (req, res) => {
     const updateData = {};
     
     if (uploadedFiles.researchDocument) {
-      // Store as JSON object with all file info for proper download handling
-      updateData.manuscriptFilePath = {
+      // Store as JSON string with all file info for proper download handling
+      updateData.manuscriptFilePath = JSON.stringify({
         s3Key: uploadedFiles.researchDocument.s3Key,
         name: uploadedFiles.researchDocument.originalName,
         size: uploadedFiles.researchDocument.size,
         mimetype: uploadedFiles.researchDocument.mimetype,
         uploadedAt: new Date().toISOString()
-      };
+      });
     }
 
     if (uploadedFiles.supportingDocuments.length > 0) {
@@ -4059,7 +4069,7 @@ exports.downloadDocument = async (req, res) => {
       where: { id },
       select: {
         id: true,
-        userId: true,
+        applicantUserId: true,
         manuscriptFilePath: true,
         supportingDocsFilePaths: true,
         status: true
@@ -4075,7 +4085,7 @@ exports.downloadDocument = async (req, res) => {
 
     // Check permissions - user must be owner or have review permissions
     const canAccess = 
-      contribution.userId === userId ||
+      contribution.applicantUserId === userId ||
       req.user.role === 'admin' ||
       req.user.role === 'central_admin' ||
       req.user.role === 'reviewer';

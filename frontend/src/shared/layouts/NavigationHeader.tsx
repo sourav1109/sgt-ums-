@@ -259,7 +259,7 @@ export default function NavigationHeader() {
         ...(canFileIpr ? [{ name: 'Patent / IPR', href: '/ipr/apply', description: 'File new patent or IPR' }] : []),
         { name: 'Book / Chapter', href: '/research/apply?type=book', description: 'Submit book or chapter' },
         { name: 'Conference Paper', href: '/research/apply?type=conference_paper', description: 'Submit conference paper' },
-        { name: 'Grant Proposal', href: '/research/apply?type=grant', description: 'Apply for research grant' },
+        { name: 'Grant Proposal', href: '/research/apply-grant', description: 'Apply for research grant' },
       ],
     },
   ];
@@ -281,7 +281,7 @@ export default function NavigationHeader() {
     reviewApprovalChildren.push({ name: '📊 DRD Dashboard', href: '/drd', description: 'Research & Development overview' });
   }
   if (canReviewIpr || canApproveIpr) {
-    reviewApprovalChildren.push({ name: '💡 Review Patents/IPR', href: '/drd/research?type=ipr', description: 'Pending patent applications' });
+    reviewApprovalChildren.push({ name: '💡 Review Patents/IPR', href: '/drd/review', description: 'Pending patent applications' });
   }
   if (canReviewResearch || canApproveResearch) {
     reviewApprovalChildren.push({ name: '📝 Review Research Papers', href: '/drd/research?type=research', description: 'Pending research papers' });
@@ -293,7 +293,7 @@ export default function NavigationHeader() {
     reviewApprovalChildren.push({ name: '🎤 Review Conference Papers', href: '/drd/research?type=conference', description: 'Pending conference papers' });
   }
   if (canReviewGrant || canApproveGrant) {
-    reviewApprovalChildren.push({ name: '💰 Review Grant Proposals', href: '/drd/research?type=grant', description: 'Pending grant applications' });
+    reviewApprovalChildren.push({ name: '💰 Review Grant Proposals', href: '/drd/research?type=grant_proposal', description: 'Pending grant applications' });
   }
   if (hasFinanceAccess) {
     reviewApprovalChildren.push({ name: '🏦 Finance & Payments', href: '/finance/dashboard', description: 'Manage incentive payments' });

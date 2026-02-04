@@ -465,7 +465,7 @@ export default function DrdResearchDashboard() {
               );
               
               // Determine review page URL based on publication type
-              const isGrant = contribution.publicationType === 'grant';
+              const isGrant = contribution.publicationType === 'grant_proposal';
               const reviewUrl = isGrant 
                 ? `/drd/research/grant-review/${contribution.id}`
                 : `/drd/research/review/${contribution.id}`;
