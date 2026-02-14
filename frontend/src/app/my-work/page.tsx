@@ -207,372 +207,250 @@ export default function MyWorkDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-16 transition-colors duration-200">
-      {/* Header */}
-      <div className="bg-sgt-gradient dark:bg-gradient-to-r dark:from-blue-900 dark:via-blue-800 dark:to-blue-900 text-white shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold">My Research & IPR Work</h1>
-              <p className="mt-2 opacity-90">Manage your intellectual property and research contributions</p>
-            </div>
-            <div className="flex items-center gap-3">
-              {user?.userType === 'faculty' && pendingMentorCount > 0 && (
-                <Link
-                  href="/mentor-approvals"
-                  className="relative bg-white bg-opacity-20 hover:bg-opacity-30 backdrop-blur-sm text-white px-5 py-3 rounded-xl font-medium transition-all flex items-center border border-white border-opacity-30"
-                >
-                  <UserCheck className="w-5 h-5 mr-2" />
-                  Mentor Approvals
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg">
-                    {pendingMentorCount}
-                  </span>
-                </Link>
-              )}
-            </div>
-          </div>
-        </div>
+    <div className="min-h-screen bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white pt-20 pb-12 font-sans overflow-x-hidden selection:bg-indigo-500 selection:text-white transition-colors duration-300">
+      {/* Background Ambience */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-0 left-0 right-0 h-[600px] bg-gradient-to-b from-indigo-50/80 via-purple-50/50 to-transparent dark:from-blue-950/20 dark:via-[#0f172a]/50 dark:to-[#0f172a]"></div>
+        
+        {/* Animated Orbs */}
+        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-blue-400/20 dark:bg-blue-600/20 rounded-full blur-[100px] animate-pulse mix-blend-multiply dark:mix-blend-normal"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-fuchsia-400/20 dark:bg-purple-600/20 rounded-full blur-[100px] animate-pulse delay-1000 mix-blend-multiply dark:mix-blend-normal"></div>
+        <div className="absolute top-[20%] right-[20%] w-[40%] h-[40%] bg-cyan-300/20 dark:bg-cyan-900/10 rounded-full blur-[80px] animate-pulse delay-500 hidden md:block"></div>
+
+        {/* Grid Pattern overlay */}
+        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-40 dark:opacity-10"></div>
       </div>
 
-      {/* Stats Overview */}
-      <div className="max-w-7xl mx-auto px-4 -mt-4">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
-          <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 transition-colors">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">Total Submissions</p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{combinedStats.total}</p>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Futuristic Header */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-12 gap-6">
+          <div className="relative">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="p-3 bg-white/80 dark:bg-blue-500/10 rounded-2xl border border-indigo-100 dark:border-blue-500/20 shadow-lg shadow-indigo-500/10 backdrop-blur-md">
+                <Briefcase className="w-7 h-7 text-indigo-600 dark:text-blue-400" />
               </div>
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
-                <FileText className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-              </div>
+              <h1 className="text-5xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-white dark:via-blue-100 dark:to-blue-200 py-2">
+                My Work
+              </h1>
             </div>
+            <p className="text-slate-600 dark:text-slate-400 text-lg max-w-xl font-medium leading-relaxed">
+              Your centralized hub for <span className="text-indigo-600 dark:text-indigo-400 font-bold">Innovation</span> & <span className="text-purple-600 dark:text-purple-400 font-bold">Research</span> impact.
+            </p>
           </div>
           
-          <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 transition-colors">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">Pending Review</p>
-                <p className="text-2xl font-bold text-yellow-600 dark:text-yellow-400 mt-1">{combinedStats.pending}</p>
-              </div>
-              <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg flex items-center justify-center">
-                <Clock className="w-6 h-6 text-yellow-600 dark:text-yellow-400" />
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 transition-colors">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">Approved</p>
-                <p className="text-2xl font-bold text-green-600 dark:text-green-400 mt-1">{combinedStats.approved}</p>
-              </div>
-              <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 transition-colors">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">Total Incentives</p>
-                <p className="text-2xl font-bold text-green-600 dark:text-green-400 mt-1">₹{combinedStats.totalIncentives.toLocaleString()}</p>
-              </div>
-              <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-green-600 dark:text-green-400" />
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 transition-colors">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">Total Points</p>
-                <p className="text-2xl font-bold text-purple-600 dark:text-purple-400 mt-1">{combinedStats.totalPoints}</p>
-              </div>
-              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
-                <Award className="w-6 h-6 text-purple-600 dark:text-purple-400" />
-              </div>
-            </div>
+          <div className="flex gap-4">
+            {user?.userType === 'faculty' && pendingMentorCount > 0 && (
+              <Link 
+                href="/mentor-approvals"
+                className="group relative px-6 py-3 bg-white dark:bg-red-500/10 border border-red-100 dark:border-red-500/30 rounded-2xl transition-all duration-300 flex items-center gap-3 shadow-lg shadow-red-500/5 hover:shadow-red-500/20 hover:-translate-y-0.5"
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-red-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  <UserCheck className="w-5 h-5 text-red-500 dark:text-red-400 relative z-10" />
+                  <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-ping z-20"></span>
+                </div>
+                <div className="flex flex-col relative z-10">
+                  <span className="text-[10px] text-red-600 dark:text-red-300 font-bold uppercase tracking-wider">Action Required</span>
+                  <span className="text-sm font-bold text-slate-800 dark:text-red-100 group-hover:text-red-600 dark:group-hover:text-red-50">{pendingMentorCount} Pending approvals</span>
+                </div>
+              </Link>
+            )}
           </div>
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 pb-8">
-        {/* Tabs */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 mb-6 transition-colors">
-          <div className="border-b border-gray-200 dark:border-gray-700">
-            <div className="flex">
+        {/* Vibrant Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
+          {[
+            { label: 'Submissions', value: combinedStats.total, icon: FileText, color: 'text-blue-600 dark:text-blue-400', bg: 'bg-blue-50/60 dark:bg-white/5', border: 'border-blue-100 dark:border-blue-500/20', shadow: 'shadow-blue-500/10' },
+            { label: 'Pending', value: combinedStats.pending, icon: Clock, color: 'text-amber-600 dark:text-amber-400', bg: 'bg-amber-50/60 dark:bg-white/5', border: 'border-amber-100 dark:border-amber-500/20', shadow: 'shadow-amber-500/10' },
+            { label: 'Approved', value: combinedStats.approved, icon: CheckCircle, color: 'text-emerald-600 dark:text-emerald-400', bg: 'bg-emerald-50/60 dark:bg-white/5', border: 'border-emerald-100 dark:border-emerald-500/20', shadow: 'shadow-emerald-500/10' },
+            { label: 'Incentives', value: `₹${combinedStats.totalIncentives.toLocaleString()}`, icon: Coins, color: 'text-cyan-600 dark:text-cyan-400', bg: 'bg-cyan-50/60 dark:bg-white/5', border: 'border-cyan-100 dark:border-cyan-500/20', shadow: 'shadow-cyan-500/10' },
+            { label: 'Points', value: combinedStats.totalPoints, icon: Award, color: 'text-fuchsia-600 dark:text-violet-400', bg: 'bg-fuchsia-50/60 dark:bg-white/5', border: 'border-fuchsia-100 dark:border-violet-500/20', shadow: 'shadow-fuchsia-500/10' },
+          ].map((stat, dx) => (
+            <div key={dx} className={`relative overflow-hidden ${stat.bg} backdrop-blur-xl border ${stat.border} rounded-2xl p-5 hover:bg-white dark:hover:bg-white/10 transition-all duration-300 group shadow-lg ${stat.shadow} hover:-translate-y-1`}>
+              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity transform group-hover:scale-110 duration-500">
+                <stat.icon className={`w-16 h-16 ${stat.color}`} />
+              </div>
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">{stat.label}</span>
+                  <div className={`p-1.5 rounded-lg bg-white dark:bg-white/10 shadow-sm ${stat.color.replace('text-', 'bg-').replace('-600', '-50').replace('dark:text-', 'dark:bg-').replace('-400', '-500/20')}`}>
+                    <stat.icon className={`w-4 h-4 ${stat.color}`} />
+                  </div>
+                </div>
+                <div className="text-3xl font-black text-slate-800 dark:text-white tracking-tight">{stat.value}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Main Interface Content */}
+        <div className="flex flex-col lg:flex-row gap-8">
+          
+          {/* Sidebar / Tabs */}
+          <div className="w-full lg:w-64 flex-shrink-0 space-y-6">
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-md rounded-2xl p-2 border border-slate-200 dark:border-white/10 shadow-lg shadow-slate-200/50 dark:shadow-none">
               <button
                 onClick={() => setActiveTab('ipr')}
-                className={`px-8 py-4 font-semibold transition-colors relative ${
-                  activeTab === 'ipr'
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 group ${
+                  activeTab === 'ipr' 
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/30' 
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
-                <div className="flex items-center gap-2">
-                  <Lightbulb className="w-5 h-5" />
-                  IPR Applications
-                  <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
-                    activeTab === 'ipr' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
-                  }`}>
-                    {iprStats.total}
-                  </span>
+                <div className={`p-1.5 rounded-lg ${activeTab === 'ipr' ? 'bg-white/20' : 'bg-slate-100 dark:bg-white/10 group-hover:bg-white group-hover:shadow-sm'}`}>
+                  <Lightbulb className={`w-5 h-5 ${activeTab === 'ipr' ? 'text-white' : 'text-slate-500 dark:text-slate-400 group-hover:text-blue-600'}`} />
                 </div>
-                {activeTab === 'ipr' && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
-                )}
+                <div className="flex-1 text-left font-bold">IPR</div>
+                <span className={`text-xs px-2 py-0.5 rounded-lg font-bold ${activeTab === 'ipr' ? 'bg-white/20 text-white' : 'bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-slate-400'}`}>{iprStats.total}</span>
               </button>
               
               <button
                 onClick={() => setActiveTab('research')}
-                className={`px-8 py-4 font-semibold transition-colors relative ${
-                  activeTab === 'research'
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-200 mt-2 group ${
+                  activeTab === 'research' 
+                    ? 'bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white shadow-lg shadow-purple-500/30' 
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
-                <div className="flex items-center gap-2">
-                  <FileText className="w-5 h-5" />
-                  Research Contributions
-                  <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
-                    activeTab === 'research' ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
-                  }`}>
-                    {researchStats.total}
-                  </span>
+                <div className={`p-1.5 rounded-lg ${activeTab === 'research' ? 'bg-white/20' : 'bg-slate-100 dark:bg-white/10 group-hover:bg-white group-hover:shadow-sm'}`}>
+                  <FileText className={`w-5 h-5 ${activeTab === 'research' ? 'text-white' : 'text-slate-500 dark:text-slate-400 group-hover:text-purple-600'}`} />
                 </div>
-                {activeTab === 'research' && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"></div>
-                )}
+                <div className="flex-1 text-left font-bold">Research</div>
+                <span className={`text-xs px-2 py-0.5 rounded-lg font-bold ${activeTab === 'research' ? 'bg-white/20 text-white' : 'bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-slate-400'}`}>{researchStats.total}</span>
               </button>
             </div>
-          </div>
 
-          {/* Search Bar */}
-          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" />
-              <input
-                type="text"
-                placeholder={activeTab === 'ipr' ? 'Search IPR applications...' : 'Search research contributions...'}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-colors"
-              />
+            {/* Quick Actions Panel */}
+            <div className="bg-white/80 dark:bg-white/5 backdrop-blur-md rounded-2xl p-5 border border-slate-200 dark:border-white/10 shadow-lg shadow-slate-200/50 dark:shadow-none">
+              <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <Plus className="w-3 h-3" /> Quick Create
+              </h3>
+              <div className="grid grid-cols-2 gap-3">
+                {(activeTab === 'ipr' ? IPR_TYPES : RESEARCH_TYPES).slice(0, 4).map((type) => (
+                  <Link
+                    key={type.type}
+                    href={type.href}
+                    className="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 hover:bg-white dark:hover:bg-white/10 hover:border-indigo-200 dark:hover:border-white/20 hover:shadow-md transition-all text-center group relative overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-br from-white to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <div className={`relative p-2.5 rounded-xl ${type.color.replace('bg-', 'bg-opacity-10 text-').replace('text-', 'text-opacity-100')} mb-2 group-hover:scale-110 transition-transform shadow-sm`}>
+                      <type.icon className="w-5 h-5" />
+                    </div>
+                    <span className="relative text-[10px] font-bold text-slate-600 dark:text-gray-300 group-hover:text-indigo-600 dark:group-hover:text-white line-clamp-1">{type.label}</span>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Tab Content */}
-          <div className="p-6">
-            {activeTab === 'ipr' && (
-              <div>
-                {/* Quick Create Cards */}
-                <div className="mb-8">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Create New IPR Application</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {IPR_TYPES.map((iprType) => {
-                      const Icon = iprType.icon;
-                      return (
-                        <Link
-                          key={iprType.type}
-                          href={iprType.href}
-                          className="group bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 p-4 rounded-xl border border-gray-200 dark:border-gray-600 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md transition-all duration-200"
-                        >
-                          <div className={`w-10 h-10 ${iprType.color} rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
-                            <Icon className="w-5 h-5 text-white" />
-                          </div>
-                          <h4 className="font-semibold text-gray-900 dark:text-white mb-1">{iprType.label}</h4>
-                          <p className="text-gray-600 dark:text-gray-400 text-xs">{iprType.description}</p>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
+          {/* Main List Area */}
+          <div className="flex-1">
+             {/* Toolbar */}
+            <div className="flex flex-col sm:flex-row gap-4 mb-6">
+              <div className="flex-1 relative group">
+                <div className="absolute inset-0 bg-indigo-500/5 rounded-2xl blur-xl group-hover:bg-indigo-500/10 transition-colors"></div>
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors relative z-10" />
+                <input
+                  type="text"
+                  placeholder="Search by title, keywords..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="relative z-10 w-full pl-12 pr-4 py-3.5 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-transparent transition-all shadow-sm group-hover:shadow-md"
+                />
+              </div>
+              <Link
+                href={activeTab === 'ipr' ? '/ipr/apply' : '/research/apply'}
+                className="relative overflow-hidden px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl font-bold shadow-xl shadow-blue-600/20 hover:shadow-blue-600/40 transition-all flex items-center justify-center gap-2 transform hover:-translate-y-1 hover:shadow-2xl group"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <span className="relative z-10 flex items-center gap-2 group-hover:text-white">
+                  <Plus className="w-5 h-5" />
+                  New Filing
+                </span>
+              </Link>
+            </div>
 
-                {/* Applications List */}
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">My IPR Applications</h3>
-                    <Link href="/ipr/my-applications" className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium">
-                      View All →
-                    </Link>
+            {/* Scrollable list content */}
+            <div className="space-y-4">
+              {loading ? (
+                <div className="py-20 flex flex-col items-center text-slate-400 dark:text-gray-400">
+                  <div className="relative w-16 h-16">
+                    <div className="absolute inset-0 border-4 border-slate-100 dark:border-white/10 rounded-full"></div>
+                    <div className="absolute inset-0 border-4 border-indigo-500 rounded-full border-t-transparent animate-spin"></div>
                   </div>
+                  <p className="mt-4 font-medium animate-pulse">Loading your portfolio...</p>
+                </div>
+              ) : (activeTab === 'ipr' ? filteredIprApplications : filteredResearchContributions).length === 0 ? (
+                <div className="py-24 flex flex-col items-center justify-center bg-white/60 dark:bg-white/5 border-2 border-dashed border-slate-200 dark:border-white/10 rounded-3xl group hover:border-indigo-300 dark:hover:border-indigo-500/30 transition-colors">
+                  <div className="w-24 h-24 bg-indigo-50 dark:bg-white/5 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                    <div className="w-12 h-12 border-2 border-indigo-200 dark:border-gray-600 rounded-xl transform rotate-12 group-hover:rotate-0 transition-transform duration-300"></div>
+                  </div>
+                  <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-2">It's quiet here</h3>
+                  <p className="text-slate-500 dark:text-gray-400 max-w-sm text-center leading-relaxed">
+                    Ready to make an impact? Start your journey by creating your first <span className="text-indigo-600 dark:text-indigo-400 font-medium">{activeTab === 'ipr' ? 'IPR application' : 'research contribution'}</span>.
+                  </p>
+                </div>
+              ) : (
+                (activeTab === 'ipr' ? filteredIprApplications : filteredResearchContributions).map((item: any) => {
+                  const isIPR = activeTab === 'ipr';
+                  const types = isIPR ? IPR_TYPES : RESEARCH_TYPES;
+                  const statusConfig = isIPR ? getIprStatusInfo(item.status) : getResearchStatusInfo(item.status);
+                  const typeInfo = types.find(t => t.type === (item.iprType || item.publicationType));
+                  const Icon = typeInfo?.icon || (isIPR ? Lightbulb : FileText);
                   
-                  {loading ? (
-                    <div className="text-center py-12">
-                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-                      <p className="text-gray-500 mt-4">Loading applications...</p>
-                    </div>
-                  ) : filteredIprApplications.length === 0 ? (
-                    <div className="text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300">
-                      <Lightbulb className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">No IPR Applications Yet</h3>
-                      <p className="text-gray-500 mb-6">Start protecting your intellectual property</p>
-                      <Link
-                        href="/ipr/apply"
-                        className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
-                      >
-                        <Plus className="w-5 h-5 mr-2" />
-                        Create Your First IPR Application
-                      </Link>
-                    </div>
-                  ) : (
-                    <div className="space-y-3">
-                      {filteredIprApplications.slice(0, 5).map((app: any) => {
-                        const statusInfo = getIprStatusInfo(app.status);
-                        const StatusIcon = statusInfo.icon;
-                        const typeInfo = IPR_TYPES.find(t => t.type === app.iprType);
-                        const TypeIcon = typeInfo?.icon || Lightbulb;
+                  return (
+                    <Link
+                      key={item.id}
+                      href={isIPR ? `/ipr/applications/${item.id}` : `/research/contribution/${item.id}`}
+                      className="group relative block bg-white dark:bg-white/5 hover:bg-white dark:hover:bg-white/10 border border-slate-100 dark:border-white/5 hover:border-indigo-100 dark:hover:border-blue-500/30 rounded-2xl p-6 transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-indigo-500/5 hover:-translate-y-0.5"
+                    >
+                      <div className="flex items-start gap-6">
+                        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center flex-shrink-0 bg-gradient-to-br ${typeInfo?.color.replace('bg-', 'from-').replace('-500', isIPR ? '-50' : '-50').replace('text-', '')} to-white dark:to-white/5 border border-slate-100 dark:border-white/10 shadow-inner group-hover:scale-105 transition-transform`}>
+                          <Icon className={`w-8 h-8 ${typeInfo?.color.replace('bg-', 'text-').replace('-500', '-600')}`} />
+                        </div>
                         
-                        return (
-                          <Link
-                            key={app.id}
-                            href={`/ipr/applications/${app.id}`}
-                            className="block p-4 bg-white border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-sm transition-all duration-200"
-                          >
-                            <div className="flex items-start gap-4">
-                              <div className={`w-12 h-12 ${typeInfo?.color || 'bg-gray-500'} rounded-lg flex items-center justify-center flex-shrink-0`}>
-                                <TypeIcon className="w-6 h-6 text-white" />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between gap-4">
+                            <div>
+                              <h4 className="text-xl font-bold text-slate-800 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-blue-300 transition-colors line-clamp-1">{item.title}</h4>
+                              <p className="text-sm font-medium text-slate-500 dark:text-gray-400 mt-1 line-clamp-1 flex items-center gap-2">
+                                <span className={`px-2 py-0.5 rounded-md ${typeInfo?.color.replace('bg-', 'bg-').replace('-500', '-50')} text-slate-700 dark:bg-white/10 dark:text-gray-300 text-xs uppercase tracking-wide`}>{typeInfo?.label}</span>
+                                <span className="text-slate-300 dark:text-gray-600">•</span>
+                                {item.applicationNumber && <span className="font-mono text-slate-500 dark:text-gray-500">#{item.applicationNumber}</span>}
+                                {item.applicationNumber && <span className="text-slate-300 dark:text-gray-600">•</span>}
+                                <span>{new Date(item.createdAt).toLocaleDateString()}</span>
+                              </p>
+                            </div>
+
+                            <div className={`px-3 py-1.5 rounded-xl text-xs font-bold border flex items-center gap-2 backdrop-blur-md shadow-sm ${statusConfig.color.replace('bg-', 'bg-opacity-10 dark:bg-opacity-10 border-').replace('text-', 'text-opacity-100 dark:text-opacity-90 border-opacity-20 text-')}`}>
+                              <statusConfig.icon className="w-3.5 h-3.5" />
+                              {statusConfig.label}
+                            </div>
+                          </div>
+                          
+                          <p className="text-base text-slate-600 dark:text-gray-500 mt-3 line-clamp-2 font-normal leading-relaxed">{item.description || item.abstract || 'No description provided.'}</p>
+                          
+                          {(item.status === 'completed' || item.status === 'published' || item.status === 'approved') && (
+                            <div className="mt-5 flex items-center gap-4">
+                              <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 dark:bg-green-500/10 border border-emerald-100 dark:border-green-500/20 text-xs font-bold text-emerald-700 dark:text-green-400 shadow-sm">
+                                <Coins className="w-3.5 h-3.5" />
+                                ₹ {Number(item.incentiveAmount || 0).toLocaleString()}
                               </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-start justify-between gap-4">
-                                  <div className="flex-1 min-w-0">
-                                    <h4 className="font-semibold text-gray-900 truncate">{app.title}</h4>
-                                    <p className="text-sm text-gray-500 truncate mt-1">{app.description}</p>
-                                  </div>
-                                  <span className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${statusInfo.color} flex items-center gap-1`}>
-                                    <StatusIcon className="w-3.5 h-3.5" />
-                                    {statusInfo.label}
-                                  </span>
-                                </div>
-                                <div className="flex items-center gap-4 mt-3 text-xs text-gray-500">
-                                  <span className="flex items-center gap-1">
-                                    <Calendar className="w-3.5 h-3.5" />
-                                    {new Date(app.createdAt).toLocaleDateString()}
-                                  </span>
-                                  {app.applicationNumber && (
-                                    <span className="font-mono">{app.applicationNumber}</span>
-                                  )}
-                                </div>
+                              <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-fuchsia-50 dark:bg-purple-500/10 border border-fuchsia-100 dark:border-purple-500/20 text-xs font-bold text-fuchsia-700 dark:text-purple-400 shadow-sm">
+                                <Award className="w-3.5 h-3.5" />
+                                {item.pointsAwarded || 0} Points
                               </div>
                             </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'research' && (
-              <div>
-                {/* Quick Create Cards */}
-                <div className="mb-8">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Create New Research Contribution</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {RESEARCH_TYPES.map((researchType) => {
-                      const Icon = researchType.icon;
-                      return (
-                        <Link
-                          key={researchType.type}
-                          href={researchType.href}
-                          className="group bg-gradient-to-br from-gray-50 to-white p-4 rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all duration-200"
-                        >
-                          <div className={`w-10 h-10 ${researchType.color} rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
-                            <Icon className="w-5 h-5 text-white" />
-                          </div>
-                          <h4 className="font-semibold text-gray-900 mb-1">{researchType.label}</h4>
-                          <p className="text-gray-600 text-xs">{researchType.description}</p>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Research List */}
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold text-gray-900">My Research Contributions</h3>
-                    <Link href="/research/my-contributions" className="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                      View All →
+                          )}
+                        </div>
+                      </div>
                     </Link>
-                  </div>
-                  
-                  {loading ? (
-                    <div className="text-center py-12">
-                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-                      <p className="text-gray-500 mt-4">Loading contributions...</p>
-                    </div>
-                  ) : filteredResearchContributions.length === 0 ? (
-                    <div className="text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300">
-                      <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">No Research Contributions Yet</h3>
-                      <p className="text-gray-500 mb-6">Start documenting your research publications</p>
-                      <Link
-                        href="/research/apply"
-                        className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
-                      >
-                        <Plus className="w-5 h-5 mr-2" />
-                        Add Your First Research Contribution
-                      </Link>
-                    </div>
-                  ) : (
-                    <div className="space-y-3">
-                      {filteredResearchContributions.slice(0, 5).map((contrib: ResearchContribution) => {
-                        const statusInfo = getResearchStatusInfo(contrib.status);
-                        const StatusIcon = statusInfo.icon;
-                        const typeInfo = RESEARCH_TYPES.find(t => t.type === contrib.publicationType);
-                        const TypeIcon = typeInfo?.icon || FileText;
-                        
-                        return (
-                          <Link
-                            key={contrib.id}
-                            href={`/research/contribution/${contrib.id}`}
-                            className="block p-4 bg-white border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-sm transition-all duration-200"
-                          >
-                            <div className="flex items-start gap-4">
-                              <div className={`w-12 h-12 ${typeInfo?.color || 'bg-gray-500'} rounded-lg flex items-center justify-center flex-shrink-0`}>
-                                <TypeIcon className="w-6 h-6 text-white" />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-start justify-between gap-4">
-                                  <div className="flex-1 min-w-0">
-                                    <h4 className="font-semibold text-gray-900 truncate">{contrib.title}</h4>
-                                    <p className="text-sm text-gray-500 truncate mt-1">{contrib.journalName || contrib.conferenceName || 'Research Contribution'}</p>
-                                  </div>
-                                  <span className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ${statusInfo.color} flex items-center gap-1`}>
-                                    <StatusIcon className="w-3.5 h-3.5" />
-                                    {statusInfo.label}
-                                  </span>
-                                </div>
-                                <div className="flex items-center gap-4 mt-3 text-xs text-gray-500">
-                                  <span className="flex items-center gap-1">
-                                    <Calendar className="w-3.5 h-3.5" />
-                                    {new Date(contrib.createdAt).toLocaleDateString()}
-                                  </span>
-                                  {contrib.applicationNumber && (
-                                    <span className="font-mono">{contrib.applicationNumber}</span>
-                                  )}
-                                  {contrib.status === 'completed' && (
-                                    <span className="flex items-center gap-1 text-green-600">
-                                      <Coins className="w-3.5 h-3.5" />
-                                      ₹{Number(contrib.incentiveAmount || 0).toLocaleString()}
-                                    </span>
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
+                  );
+                })
+              )}
+            </div>
           </div>
         </div>
       </div>

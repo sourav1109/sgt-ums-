@@ -304,28 +304,60 @@ export default function NavigationHeader() {
   // ============================================
   const rndSubItems: SubMenuItem[] = [];
   
-  if (canFileIpr || canFileResearch) {
-    rndSubItems.push({
-      name: 'Submit & Track',
-      description: 'File new work & view submissions',
-      children: submitTrackChildren,
-    });
-  }
-  
-  // Add Monthly Progress Tracker as a separate option
+  // 1. Important Links
   rndSubItems.push({
-    name: 'Monthly Progress Tracker',
+    name: 'Important Links',
+    href: '#',
+    description: 'Quick access to resources (Coming Soon)',
+  });
+
+  // a. Monthly Progress
+  rndSubItems.push({
+    name: 'Monthly Progress',
     href: '/research/progress-tracker',
     description: 'Track monthly research milestones',
   });
-  
-  if (hasReviewAccess && reviewApprovalChildren.length > 0) {
-    rndSubItems.push({
-      name: 'Review & Approve',
-      description: 'Pending items for review',
-      children: reviewApprovalChildren,
-    });
+
+  // b. IPR
+  const iprChildren: SubMenuItem[] = [];
+  iprChildren.push({ name: 'IPR Log Request', href: '/ipr/apply', description: 'File new IPR' });
+  if (canReviewIpr || canApproveIpr || isAdmin) {
+    iprChildren.push({ name: 'IPR Approval', href: '/drd/review', description: 'Review pending IPR' });
   }
+  
+  rndSubItems.push({
+    name: 'IPR',
+    description: 'IPR Management',
+    children: iprChildren.length > 0 ? iprChildren : undefined,
+    // Add href if no children to avoid empty state, or ensure children logic covers all cases
+  });
+
+  // c. Research Grant Proposal
+  rndSubItems.push({
+    name: 'Research Grant Proposal',
+    href: '/research/apply-grant',
+    description: 'Apply for research grant',
+  });
+
+  // d. Research
+  const researchChildren: SubMenuItem[] = [];
+  researchChildren.push({ name: 'Research Log Request', href: '/research/apply', description: 'Submit research paper' });
+  if (canReviewResearch || canApproveResearch || isAdmin) {
+    researchChildren.push({ name: 'Research Log Approval', href: '/drd/research?type=research', description: 'Review research papers' });
+  }
+
+  rndSubItems.push({
+    name: 'Research',
+    description: 'Research Management',
+    children: researchChildren.length > 0 ? researchChildren : undefined,
+  });
+
+  // e. My Research
+  rndSubItems.push({
+    name: 'My Research',
+    href: '/my-work',
+    description: 'Contribution work',
+  });
 
   // Admin Only - R&D Configuration and Incentive Policies
   if (isAdmin) {
@@ -360,17 +392,15 @@ export default function NavigationHeader() {
   // Level 1: Academics, Research and Development
   // Level 2 (under R&D): Submit & Track, Review & Approve
   // ============================================
-  const navigationSubItems: SubMenuItem[] = [
+  let navigationSubItems: SubMenuItem[] = [
     // Academics
     {
       name: '📚 Academics',
       description: 'Academic resources and tools',
       children: [
         { name: '🎓 LMS', href: 'http://13.235.188.79', description: 'Learning Management System' },
-        { name: '� Event Management', href: 'https://sgt-event.vercel.app/student', description: 'Campus event management' },
-        { name: '�📖 Courses', href: '#', description: 'Course management (Coming Soon)' },
+        { name: '📖 Courses', href: '#', description: 'Course management (Coming Soon)' },
         { name: '📅 Timetable', href: '#', description: 'Class schedules (Coming Soon)' },
-        { name: '📝 Examinations', href: '#', description: 'Exam management (Coming Soon)' },
         { name: '🏆 Results', href: '#', description: 'Academic results (Coming Soon)' },
         { name: '✅ Attendance', href: '#', description: 'Attendance tracking (Coming Soon)' },
       ],
@@ -386,28 +416,151 @@ export default function NavigationHeader() {
     });
   }
 
-  // Add Admissions
+  // Security
   navigationSubItems.push({
-    name: '📝 Admissions',
-    href: 'http://localhost:3000/',
-    description: 'Student admissions portal',
+    name: '🔒 Security',
+    href: '#',
+    description: 'Campus security management (Coming Soon)',
   });
 
-  // Add Noting approval with Event Management
+  // Administrative Task / Noting
   navigationSubItems.push({
-    name: '📝 Noting approval',
-    description: 'Event management and approvals',
+    name: '📝 Administrative Task & Noting',
+    description: 'Administrative workflows and approvals',
     children: [
       { name: '📅 Event Management', href: 'https://sgt-event.vercel.app/student', description: 'Campus event management' },
+      { name: '📋 File Noting', href: '#', description: 'Document noting system (Coming Soon)' },
+      { name: '✅ Approvals', href: '#', description: 'Approval workflows (Coming Soon)' },
     ],
   });
 
-  // Add RFID
+  // DSW - Department of Student Welfare
   navigationSubItems.push({
-    name: '🔐 RFID',
-    href: 'https://192.168.7.20:3000',
-    description: 'RFID access system',
+    name: '🎓 DSW (Student Welfare)',
+    href: '#',
+    description: 'Student welfare services (Coming Soon)',
   });
+
+  // Examination
+  navigationSubItems.push({
+    name: '📝 Examination',
+    href: '#',
+    description: 'Examination management system (Coming Soon)',
+  });
+
+  // Human Resource
+  navigationSubItems.push({
+    name: '👥 Human Resource',
+    href: '#',
+    description: 'HR management and employee services (Coming Soon)',
+  });
+
+  // Division of Student Relations
+  navigationSubItems.push({
+    name: '🤝 Div. of Student Relations',
+    href: '#',
+    description: 'Student relations and engagement (Coming Soon)',
+  });
+
+  // Hostel & Accommodation
+  navigationSubItems.push({
+    name: '🏠 Hostel & Accommodation',
+    href: '#',
+    description: 'Hostel management and room allocation (Coming Soon)',
+  });
+
+  // Transport
+  navigationSubItems.push({
+    name: '🚌 Transport',
+    href: '#',
+    description: 'Campus transportation services (Coming Soon)',
+  });
+
+  // Hospitality & Mess
+  navigationSubItems.push({
+    name: '🍽️ Hospitality & Mess',
+    href: '#',
+    description: 'Mess and food services management (Coming Soon)',
+  });
+
+  // Accounts
+  navigationSubItems.push({
+    name: '💰 Accounts',
+    href: '#',
+    description: 'Financial accounts and transactions (Coming Soon)',
+  });
+
+  // Purchase
+  navigationSubItems.push({
+    name: '🛒 Purchase',
+    href: '#',
+    description: 'Procurement and purchase management (Coming Soon)',
+  });
+
+  // Admissions
+  navigationSubItems.push({
+    name: '📝 Admissions',
+    href: '#',
+    description: 'Student admissions portal (Coming Soon)',
+  });
+
+  // Placement Cell
+  navigationSubItems.push({
+    name: '💼 Placement Cell',
+    href: '#',
+    description: 'Campus placements and career services (Coming Soon)',
+  });
+
+  // ACIC & IIC
+  navigationSubItems.push({
+    name: '🚀 ACIC & IIC',
+    href: '#',
+    description: 'Innovation and incubation center (Coming Soon)',
+  });
+
+  // Planning
+  navigationSubItems.push({
+    name: '📊 Planning',
+    href: '#',
+    description: 'Strategic planning and development (Coming Soon)',
+  });
+
+  // IQAC
+  navigationSubItems.push({
+    name: '⭐ IQAC',
+    href: '#',
+    description: 'Internal Quality Assurance Cell (Coming Soon)',
+  });
+
+  // Training and Skill Development
+  navigationSubItems.push({
+    name: '🎯 Training & Skill Development',
+    href: '#',
+    description: 'Professional training programs (Coming Soon)',
+  });
+
+  // RFID
+    navigationSubItems.push({
+      name: '🔐 RFID',
+      href: 'https://192.168.7.20:3000',
+      description: 'RFID access system',
+    });
+
+  // Hide certain options for students
+  if (isStudent) {
+    const hiddenForStudents = [
+      '📊 Planning',
+      '⭐ IQAC',
+      '🎯 Training & Skill Development',
+      '🛒 Purchase',
+      '📝 Admissions',
+      '🍽️ Hospitality & Mess',
+      '💰 Accounts',
+      '📝 Administrative Task & Noting',
+      '👥 Human Resource',
+    ];
+    navigationSubItems = navigationSubItems.filter(item => !hiddenForStudents.includes(item.name));
+  }
 
   // Add Navigation menu
   menuItems.push({
@@ -558,8 +711,33 @@ export default function NavigationHeader() {
                     <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 transition-all duration-300 ${
                       activeSubmenu ? 'hidden' : 'block'
                     }`}>
-                      {item.subItems.map((subItem) => (
-                        subItem.href ? (
+                      {item.subItems.map((subItem) => {
+                         const isComingSoon = subItem.href === '#' || subItem.description?.includes('Coming Soon');
+                         
+                         if (isComingSoon && !subItem.children) {
+                           return (
+                            <div
+                              key={subItem.name}
+                              className="group flex items-center justify-between py-2.5 px-3 rounded-lg bg-gray-50 cursor-not-allowed opacity-60"
+                            >
+                              <div className="flex-1 min-w-0">
+                                <div className="text-sm font-semibold text-gray-400 truncate flex items-center gap-2">
+                                  {subItem.name}
+                                  <span className="text-[10px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full font-medium">
+                                    Coming Soon
+                                  </span>
+                                </div>
+                                {subItem.description && (
+                                  <div className="text-xs text-gray-400 mt-0.5 truncate">
+                                    {subItem.description.replace('(Coming Soon)', '').trim()}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                           );
+                         }
+
+                         return subItem.href ? (
                           <Link
                             key={subItem.href}
                             href={subItem.href}
@@ -613,8 +791,8 @@ export default function NavigationHeader() {
                               </svg>
                             </div>
                           </button>
-                        ) : null
-                      ))}
+                        ) : null;
+                      })}
                     </div>
                     
                     {/* Nested Submenu Slide - Level 2 */}
