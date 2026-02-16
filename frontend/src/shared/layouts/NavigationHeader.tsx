@@ -388,7 +388,7 @@ export default function NavigationHeader() {
   }
 
   // ============================================
-  // NAVIGATION - Main navigation menu
+  // NAVIGATION - Main navigation menu (Alphabetically Ordered)
   // Level 1: Academics, Research and Development
   // Level 2 (under R&D): Submit & Track, Review & Approve
   // ============================================
@@ -405,9 +405,111 @@ export default function NavigationHeader() {
         { name: '✅ Attendance', href: '#', description: 'Attendance tracking (Coming Soon)' },
       ],
     },
+
+    // Accounts
+    {
+      name: '💰 Accounts',
+      href: '#',
+      description: 'Financial accounts and transactions (Coming Soon)',
+    },
+
+    // ACIC & IIC
+    {
+      name: '🚀 ACIC & IIC',
+      href: '#',
+      description: 'Innovation and incubation center (Coming Soon)',
+    },
+
+    // Administrative Task / Noting
+    {
+      name: '📝 Administrative Task & Noting',
+      description: 'Administrative workflows and approvals',
+      children: [
+        { name: '📅 Event Management', href: 'https://sgt-event.vercel.app/student', description: 'Campus event management' },
+        { name: '📋 File Noting', href: '#', description: 'Document noting system (Coming Soon)' },
+        { name: '✅ Approvals', href: '#', description: 'Approval workflows (Coming Soon)' },
+      ],
+    },
+
+    // Admissions
+    {
+      name: '📝 Admissions',
+      href: '#',
+      description: 'Student admissions portal (Coming Soon)',
+    },
+
+    // Division of Student Relations
+    {
+      name: '🤝 Div. of Student Relations',
+      href: '#',
+      description: 'Student relations and engagement (Coming Soon)',
+    },
+
+    // DSW - Department of Student Welfare
+    {
+      name: '🎓 DSW (Student Welfare)',
+      href: '#',
+      description: 'Student welfare services (Coming Soon)',
+    },
+
+    // Examination
+    {
+      name: '📝 Examination',
+      href: '#',
+      description: 'Examination management system (Coming Soon)',
+    },
+
+    // Hostel & Accommodation
+    {
+      name: '🏠 Hostel & Accommodation',
+      href: '#',
+      description: 'Hostel management and room allocation (Coming Soon)',
+    },
+
+    // Hospitality & Mess
+    {
+      name: '🍽️ Hospitality & Mess',
+      href: '#',
+      description: 'Mess and food services management (Coming Soon)',
+    },
+
+    // Human Resource
+    {
+      name: '👥 Human Resource',
+      href: '#',
+      description: 'HR management and employee services (Coming Soon)',
+    },
+
+    // IQAC
+    {
+      name: '⭐ IQAC',
+      href: '#',
+      description: 'Internal Quality Assurance Cell (Coming Soon)',
+    },
+
+    // Placement Cell
+    {
+      name: '💼 Placement Cell',
+      href: '#',
+      description: 'Campus placements and career services (Coming Soon)',
+    },
+
+    // Planning
+    {
+      name: '📊 Planning',
+      href: '#',
+      description: 'Strategic planning and development (Coming Soon)',
+    },
+
+    // Purchase
+    {
+      name: '🛒 Purchase',
+      href: '#',
+      description: 'Procurement and purchase management (Coming Soon)',
+    },
   ];
 
-  // Add Research and Development if there are sub-items
+  // Add Research and Development if there are sub-items (alphabetically positioned)
   if (rndSubItems.length > 0) {
     navigationSubItems.push({
       name: '🔬 Research & Development',
@@ -416,120 +518,20 @@ export default function NavigationHeader() {
     });
   }
 
+  // Continue with remaining items in alphabetical order
+  
+  // RFID
+  navigationSubItems.push({
+    name: '🔐 RFID',
+    href: 'https://192.168.7.20:3000',
+    description: 'RFID access system',
+  });
+
   // Security
   navigationSubItems.push({
     name: '🔒 Security',
     href: '#',
     description: 'Campus security management (Coming Soon)',
-  });
-
-  // Administrative Task / Noting
-  navigationSubItems.push({
-    name: '📝 Administrative Task & Noting',
-    description: 'Administrative workflows and approvals',
-    children: [
-      { name: '📅 Event Management', href: 'https://sgt-event.vercel.app/student', description: 'Campus event management' },
-      { name: '📋 File Noting', href: '#', description: 'Document noting system (Coming Soon)' },
-      { name: '✅ Approvals', href: '#', description: 'Approval workflows (Coming Soon)' },
-    ],
-  });
-
-  // DSW - Department of Student Welfare
-  navigationSubItems.push({
-    name: '🎓 DSW (Student Welfare)',
-    href: '#',
-    description: 'Student welfare services (Coming Soon)',
-  });
-
-  // Examination
-  navigationSubItems.push({
-    name: '📝 Examination',
-    href: '#',
-    description: 'Examination management system (Coming Soon)',
-  });
-
-  // Human Resource
-  navigationSubItems.push({
-    name: '👥 Human Resource',
-    href: '#',
-    description: 'HR management and employee services (Coming Soon)',
-  });
-
-  // Division of Student Relations
-  navigationSubItems.push({
-    name: '🤝 Div. of Student Relations',
-    href: '#',
-    description: 'Student relations and engagement (Coming Soon)',
-  });
-
-  // Hostel & Accommodation
-  navigationSubItems.push({
-    name: '🏠 Hostel & Accommodation',
-    href: '#',
-    description: 'Hostel management and room allocation (Coming Soon)',
-  });
-
-  // Transport
-  navigationSubItems.push({
-    name: '🚌 Transport',
-    href: '#',
-    description: 'Campus transportation services (Coming Soon)',
-  });
-
-  // Hospitality & Mess
-  navigationSubItems.push({
-    name: '🍽️ Hospitality & Mess',
-    href: '#',
-    description: 'Mess and food services management (Coming Soon)',
-  });
-
-  // Accounts
-  navigationSubItems.push({
-    name: '💰 Accounts',
-    href: '#',
-    description: 'Financial accounts and transactions (Coming Soon)',
-  });
-
-  // Purchase
-  navigationSubItems.push({
-    name: '🛒 Purchase',
-    href: '#',
-    description: 'Procurement and purchase management (Coming Soon)',
-  });
-
-  // Admissions
-  navigationSubItems.push({
-    name: '📝 Admissions',
-    href: '#',
-    description: 'Student admissions portal (Coming Soon)',
-  });
-
-  // Placement Cell
-  navigationSubItems.push({
-    name: '💼 Placement Cell',
-    href: '#',
-    description: 'Campus placements and career services (Coming Soon)',
-  });
-
-  // ACIC & IIC
-  navigationSubItems.push({
-    name: '🚀 ACIC & IIC',
-    href: '#',
-    description: 'Innovation and incubation center (Coming Soon)',
-  });
-
-  // Planning
-  navigationSubItems.push({
-    name: '📊 Planning',
-    href: '#',
-    description: 'Strategic planning and development (Coming Soon)',
-  });
-
-  // IQAC
-  navigationSubItems.push({
-    name: '⭐ IQAC',
-    href: '#',
-    description: 'Internal Quality Assurance Cell (Coming Soon)',
   });
 
   // Training and Skill Development
@@ -539,12 +541,12 @@ export default function NavigationHeader() {
     description: 'Professional training programs (Coming Soon)',
   });
 
-  // RFID
-    navigationSubItems.push({
-      name: '🔐 RFID',
-      href: 'https://192.168.7.20:3000',
-      description: 'RFID access system',
-    });
+  // Transport
+  navigationSubItems.push({
+    name: '🚌 Transport',
+    href: '#',
+    description: 'Campus transportation services (Coming Soon)',
+  });
 
   // Hide certain options for students
   if (isStudent) {
