@@ -29,7 +29,7 @@ const samplePosts: SocialPost[] = [
     caption: '#PlacementDay2026 at SGT was a moment of destiny in motion! Across our campus, cheers, hugs and happy tears marked the journey from classrooms to careers.',
     likes: 443,
     comments: 2,
-    postUrl: EXTERNAL_URLS.INSTAGRAM,
+    postUrl: 'https://www.instagram.com/p/DUwb7McDwbP/?igsh=a3lxYXlpd2FzMm5v',
   },
   {
     id: '2',
@@ -40,7 +40,7 @@ const samplePosts: SocialPost[] = [
     caption: 'Our #SGTCampus came alive with the warmth of celebrations as our #SGTFamily came together to celebrate the spirit of unity and togetherness!',
     likes: 2500,
     comments: 5,
-    postUrl: EXTERNAL_URLS.INSTAGRAM,
+    postUrl: 'https://www.instagram.com/p/DUsUw07k1kp/?igsh=MTd6NHA3bnZzZXBx',
   },
   {
     id: '3',
@@ -51,7 +51,7 @@ const samplePosts: SocialPost[] = [
     caption: 'Crackling bonfires, flying revris, beats of dhol and smiles that refuse to fade — celebrations at the #SGTCampus was pure magic this year!',
     likes: 4200,
     comments: 49,
-    postUrl: EXTERNAL_URLS.INSTAGRAM,
+    postUrl: 'https://www.instagram.com/p/DUp5BvRFDNb/?igsh=MXJmbTd2dTRyaDFqNA==',
   },
   {
     id: '4',
@@ -62,7 +62,7 @@ const samplePosts: SocialPost[] = [
     caption: 'Degrees in hand. Parents in the front row. Friends on speed dial for photos! At #SGT12thConvocation, pride spoke louder than words as our graduates stepped into the future.',
     likes: 2000,
     comments: 17,
-    postUrl: EXTERNAL_URLS.INSTAGRAM,
+    postUrl: 'https://www.instagram.com/p/DUmo6bwkY_P/?igsh=MmVtNHcwbXdmM2Ey',
   },
   {
     id: '5',
@@ -73,7 +73,7 @@ const samplePosts: SocialPost[] = [
     caption: '#MustWatch: In a powerful address at #SGT12thConvocation, Hon\'ble Vice President of India, Shri C. P. Radhakrishnan congratulated the graduating students.',
     likes: 1700,
     comments: 12,
-    postUrl: EXTERNAL_URLS.INSTAGRAM,
+    postUrl: 'https://www.instagram.com/p/DUkDrpWkcl-/?igsh=MWhkeDR0YWJjd29rZg==',
   },
   {
     id: '6',
@@ -84,7 +84,7 @@ const samplePosts: SocialPost[] = [
     caption: 'Innovation meets excellence! Our students showcasing groundbreaking projects at the Annual Tech Fest. The future is here! 🚀',
     likes: 3200,
     comments: 28,
-    postUrl: EXTERNAL_URLS.INSTAGRAM,
+    postUrl: 'https://www.instagram.com/p/DUpNNfzkW3t/?igsh=MTlldmxyOWNnMWdo',
   },
   {
     id: '7',
@@ -95,7 +95,7 @@ const samplePosts: SocialPost[] = [
     caption: 'Sports Day 2026! Our champions showing incredible team spirit and determination. Pride in every stride! 🏆',
     likes: 1800,
     comments: 15,
-    postUrl: EXTERNAL_URLS.INSTAGRAM,
+    postUrl: 'https://www.instagram.com/reel/DUcZ2Y2jJZy/?igsh=MTJzMWZxYTFldmF2dA==',
   },
   {
     id: '8',
@@ -106,7 +106,7 @@ const samplePosts: SocialPost[] = [
     caption: 'Guest lecture by industry leaders sharing insights on the future of technology and innovation. Learning never stops! 📚',
     likes: 2800,
     comments: 22,
-    postUrl: EXTERNAL_URLS.INSTAGRAM,
+    postUrl: 'https://www.instagram.com/p/DUZtznXGeK5/?igsh=NXZtaXlzYXZpZnky',
   },
   {
     id: '9',
